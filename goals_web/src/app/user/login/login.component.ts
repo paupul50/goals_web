@@ -27,22 +27,15 @@ export class LoginComponent {
     this.formSubmited = true;
 
     if (this.form.valid) {
-      // this.submitLoading = true;
-      // this.userService.login(this.form.value.email, this.form.value.password).subscribe((result: any) => {
-      //   if (result === true) {
-      //     this.router.navigate(['/home']);
-      //   } else {
-      //     this.loginSuccess = result;
-      //   }
-      //   this.submitLoading = false;
-      // });
-      if (this.form.value.email === 'kazkas@gmail.com' &&  this.form.value.password === 'kazkas') {
-        this.router.navigate(['/home']);
-        localStorage.setItem('access_token', 'Bearer ');
-      } else {
-        this.loginSuccess = false;
-      }
-      this.submitLoading = false;
+      this.submitLoading = true;
+      this.userService.login(this.form.value.email, this.form.value.password).subscribe((result: any) => {
+        if (result === true) {
+          this.router.navigate(['/home']);
+        } else {
+          this.loginSuccess = result;
+        }
+        this.submitLoading = false;
+      });
     }
   }
 
