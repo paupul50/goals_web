@@ -1,0 +1,20 @@
+.navbar-color {
+  background-color: #9461eb;
+  box-shadow: 0 2px 0 #854de6;
+}
+.navbar-nav .nav-link{
+  color: white;
+}
+
+.container{
+  margin-top: 20px;
+}
+
+.nav-item .nav-link :hover{
+  cursor: pointer;
+  box-shadow: 0 5px 0 #854de6;
+}
+
+.nav-item:hover{
+  box-shadow: 0 5px 0 #854de6;
+}
