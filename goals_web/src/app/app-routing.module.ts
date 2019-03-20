@@ -1,16 +1,18 @@
+import { HomeComponent } from './shared/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CreateComponent } from './user/create/create.component';
 import { LoggedOutGuard } from './Services/logged-out.guard';
-import { LoginComponent } from './user/login/login.component';
+import { CreateComponent } from './shared/user/create/create.component';
+import { LoginComponent } from './shared/user/login/login.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', loadChildren: './modules/dashboard/dashboard.module#DashboardModule'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'register', component: CreateComponent, canActivate: [LoggedOutGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuard] },
   { path: 'workout', loadChildren: './modules/workout/workout.module#WorkoutModule'},
   { path: 'goals', loadChildren: './modules/goals/goals.module#GoalsModule'},
-  { path: 'register', component: CreateComponent, canActivate: [LoggedOutGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuard] }
+  { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule'}
 ];
 
 

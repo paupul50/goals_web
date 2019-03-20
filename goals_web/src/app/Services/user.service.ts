@@ -18,13 +18,14 @@ export class UserService {
 
   }
 
-  createUser(name: string, email: string, password: string): Observable<any> {
+  createUser(email: string, password: string, firstname: string, surname: string): Observable<any> {
     const body = JSON.stringify({
-      name: name,
-      email: email,
-      password: password
+      Username: email,
+      Password: password,
+      FirstName: firstname,
+      LastName: surname
     });
-    return this.http.post(this.BACKURL + 'api/register', body, this.httpOptions);
+    return this.http.post(this.BACKURL + 'api/users/create', body, this.httpOptions);
   }
 
   login(email: string, password: string): Subject<boolean> {
@@ -51,9 +52,14 @@ export class UserService {
     return this.getToken() !== null;
   }
   logout() {
-    // const HEADERS = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.getToken() });
-    // this.http.delete(this.BACKURL + 'api/logout', { headers: HEADERS }).subscribe((response: any) => {
-    // });
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': this.getToken()
+      })
+    };
+    this.http.delete(this.BACKURL + 'api/users/logout',  httpOptions).subscribe((response: any) => {
+    });
     localStorage.removeItem('access_token');
   }
 }

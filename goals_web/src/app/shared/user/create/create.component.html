@@ -1,8 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
   <div class="row">
     <mat-form-field>
-      <input matInput type="text" placeholder="Vardas" [formControl]="form.controls['name']" required>
-      <mat-error *ngIf="!form.controls['name'].valid && formSubmited&&!changeReceived">Neteisingi duomenys.</mat-error>
+      <input matInput type="text" placeholder="Vardas" [formControl]="form.controls['firstname']" required>
+      <mat-error *ngIf="!form.controls['firstname'].valid && formSubmited&&!changeReceived">Neteisingi duomenys.</mat-error>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Pavardė" [formControl]="form.controls['surname']" required>
+      <mat-error *ngIf="!form.controls['surname'].valid && formSubmited&&!changeReceived">Neteisingi duomenys.</mat-error>
     </mat-form-field>
   </div>
   <div class="row">

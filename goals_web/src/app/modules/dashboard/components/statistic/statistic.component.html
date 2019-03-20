@@ -1,0 +1,37 @@
+<div class="container">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Short tab">
+      <div class="example-small-box mat-elevation-z4">
+        <div>
+          <div>
+            <div style="display: block">
+              <canvas baseChart
+                [data]="polarAreaChartData"
+                [labels]="polarAreaChartLabels"
+                [legend]="polarAreaLegend"
+                [chartType]="polarAreaChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Long tab">
+      <div class="example-large-box mat-elevation-z4">
+        <div>
+          <div>
+            <div style="display: block">
+              <canvas baseChart
+                [datasets]="scatterChartData"
+                [options]="scatterChartOptions"
+                [labels]="scatterChartLabels"
+                [chartType]="scatterChartType">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
