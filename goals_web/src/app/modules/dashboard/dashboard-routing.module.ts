@@ -4,7 +4,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
-import { LoggedInGuard } from 'src/app/Services/logged-in.guard';
+import { LoggedInGuard } from 'src/app/shared/guards/logged-in.guard';
 
 
 const routes: Routes = [

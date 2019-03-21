@@ -14,7 +14,7 @@ export class UserService {
     })
   };
   private BACKURL = 'http://localhost:52503/';
-  constructor(private http: HttpClient) {
+  constructor(private _http: HttpClient) {
 
   }
 
@@ -25,7 +25,7 @@ export class UserService {
       FirstName: firstname,
       LastName: surname
     });
-    return this.http.post(this.BACKURL + 'api/users/create', body, this.httpOptions);
+    return this._http.post(this.BACKURL + 'api/users/create', body, this.httpOptions);
   }
 
   login(email: string, password: string): Subject<boolean> {
@@ -34,7 +34,7 @@ export class UserService {
       password: password
     });
     const result: Subject<boolean> = new Subject<boolean>();
-    this.http.post(this.BACKURL + 'api/users/authenticate', body, this.httpOptions).subscribe((response: any) => {
+    this._http.post(this.BACKURL + 'api/users/authenticate', body, this.httpOptions).subscribe((response: any) => {
       localStorage.setItem('access_token', 'Bearer ' + response.token);
       result.next(true);
     }, (
@@ -58,7 +58,7 @@ export class UserService {
         'Authorization': this.getToken()
       })
     };
-    this.http.delete(this.BACKURL + 'api/users/logout',  httpOptions).subscribe((response: any) => {
+    this._http.delete(this.BACKURL + 'api/users/logout',  httpOptions).subscribe((response: any) => {
     });
     localStorage.removeItem('access_token');
   }

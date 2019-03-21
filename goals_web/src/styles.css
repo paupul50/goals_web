@@ -22,3 +22,7 @@ body {
 button {
   border-color: white;
 }
+
+.container {
+  padding-top:20px;
+}

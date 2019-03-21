@@ -1,10 +1,10 @@
-import { HomeComponent } from './shared/home/home.component';
+import { HomeComponent } from './shared/components/home/home.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoggedOutGuard } from './Services/logged-out.guard';
-import { CreateComponent } from './shared/user/create/create.component';
-import { LoginComponent } from './shared/user/login/login.component';
-import { LoggedInGuard } from './Services/logged-in.guard';
+import { LoggedOutGuard } from './shared/guards/logged-out.guard';
+import { CreateComponent } from './shared/components/user/create/create.component';
+import { LoginComponent } from './shared/components/user/login/login.component';
+import { LoggedInGuard } from './shared/guards/logged-in.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

@@ -1,88 +1,38 @@
 <div class="container">
-  <button mat-raised-button [routerLink]="['/goals/create']" color="primary">create</button>
+  <div class="row">
+    <div class="col-11"></div>
+    <div class="col-1">
+      <button mat-raised-button [routerLink]="['/goals/create']" color="primary">create</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="isLoaded" class="container">
 
-  <mat-card>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-  </mat-card>
-  <mat-card>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-  </mat-card>
-  <mat-card>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-  </mat-card>
-  <mat-card>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-  </mat-card>
-  <mat-card>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-  </mat-card>
-  <mat-card>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-    <mat-checkbox>Checked</mat-checkbox>
-    <button mat-mini-fab [routerLink]="['/goals/id']" color="primary">details</button>
-  </mat-card>
+
+  <div class="row">
+    <div class="col-2">Data</div>
+    <ng-container *ngFor="let goal of goals">
+      <div class="col-2 text-center">
+        {{goal.goal.name}}
+      </div>
+    </ng-container>
+  </div>
+  <mat-divider></mat-divider>
+
+  <ng-container *ngFor="let item of [].constructor(limit); let i = index">
+    <div class="row">
+      <ng-container *ngFor="let goal of goals; let k = index">
+        <div class="col-2" *ngIf="k===0">
+          {{goal.goalProgressCollection[i].createdAt | date: 'yyyy-MM-dd'}}
+        </div>
+        <div class="col-2 text-center" *ngIf="!goal.goalProgressCollection[i].isDummy">
+          <mat-checkbox [disabled]=true></mat-checkbox>
+        </div>
+        <div class="col-2 text-center" *ngIf="goal.goalProgressCollection[i].isDummy">
+            Nėra duomenų
+          </div>
+      </ng-container>
+    </div>
+    <mat-divider></mat-divider>
+  </ng-container>
 </div>

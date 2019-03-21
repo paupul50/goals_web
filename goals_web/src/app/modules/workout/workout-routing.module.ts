@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { WorkoutsComponent } from './components/workouts/workouts.component';
 import { CreateWorkoutComponent } from './components/create-workout/create-workout.component';
 import { StartWorkoutComponent } from './components/start-workout/start-workout.component';
-import { LoggedInGuard } from 'src/app/Services/logged-in.guard';
+import { LoggedInGuard } from 'src/app/shared/guards/logged-in.guard';
 
 const childRoutes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },

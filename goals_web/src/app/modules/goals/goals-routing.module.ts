@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { GoalsComponent } from './components/goals/goals.component';
 import { TodayGoalsComponent } from './components/today-goals/today-goals.component';
 import { GoalDetailsComponent } from './components/goal-details/goal-details.component';
-import { LoggedInGuard } from 'src/app/Services/logged-in.guard';
+import { LoggedInGuard } from 'src/app/shared/guards/logged-in.guard';
 import { GroupUsersComponent } from './components/group-users/group-users.component';
 
 
