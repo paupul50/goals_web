@@ -1,3 +1,5 @@
+import { CreateWorkoutComponent } from './components/create-workout/create-workout.component';
+import { StartWorkoutComponent } from './components/start-workout/start-workout.component';
 import { WorkoutsComponent } from './components/workouts/workouts.component';
 import { WorkoutMapComponent } from './components/workout-map/workout-map.component';
 import { NgModule } from '@angular/core';
@@ -18,7 +20,9 @@ import { MaterialModule } from '../../shared/angular-material/angular-material.m
   declarations: [
     WorkoutComponent,
     WorkoutMapComponent,
-    WorkoutsComponent
+    WorkoutsComponent,
+    StartWorkoutComponent,
+    CreateWorkoutComponent
   ]
 })
 export class WorkoutModule { }

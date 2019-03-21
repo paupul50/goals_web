@@ -13,6 +13,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './shared/user/login/login.component';
 import { CreateComponent } from './shared/user/create/create.component';
 import { MaterialModule } from './shared/angular-material/angular-material.module';
+import {SlideshowModule} from 'ng-simple-slideshow';
+import { LoggedOutGuard } from './Services/logged-out.guard';
+import { LoggedInGuard } from './Services/logged-in.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +31,12 @@ import { MaterialModule } from './shared/angular-material/angular-material.modul
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    SlideshowModule
   ],
   providers: [
+    LoggedOutGuard,
+    LoggedInGuard
   ],
   bootstrap: [AppComponent]
 })

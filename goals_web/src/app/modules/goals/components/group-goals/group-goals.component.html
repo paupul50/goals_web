@@ -1,3 +1,50 @@
-<p>
-  group-goals works!
-</p>
+<div class="container">
+  <button mat-raised-button [routerLink]="['/goals/create']" color="primary">create</button>
+  <button mat-raised-button [routerLink]="['/goals/groupleaderboard']" color="primary">Leaderboard</button>
+  <button mat-raised-button [routerLink]="['/goals/groupusers']" color="primary">users</button>
+
+  <mat-card *ngFor="let item of [1,2,3,4,5]">
+    <div class="row">
+      <div class="col-2">
+        Goal name <button mat-raised-button [routerLink]="['/goals/id']" color="primary">details</button>
+      </div>
+      <div class="col-10">
+        Martynas <mat-checkbox></mat-checkbox>
+        <mat-checkbox></mat-checkbox>
+        Jurgis <mat-checkbox></mat-checkbox>
+        <mat-checkbox></mat-checkbox>
+        Tomas <mat-checkbox></mat-checkbox>
+        <mat-checkbox></mat-checkbox>
+        <br>
+        Batonas <mat-checkbox></mat-checkbox>
+        <mat-checkbox></mat-checkbox>
+        Baronas <mat-checkbox></mat-checkbox>
+        <mat-checkbox></mat-checkbox>
+      </div>
+    </div>
+
+  </mat-card>
+
+</div>
+
+
+<mat-checkbox [(ngModel)]="showHistory">history</mat-checkbox>
+
+<div *ngIf="showHistory" class="container">
+  <mat-card *ngFor="let item of [1,2,3,4,5]">
+    <div class="row">
+      <div class="col-2">
+        Goal name <button mat-raised-button color="primary">switch</button>
+      </div>
+      <div class="col-10">
+        <button mat-raised-button color="accent">Goal</button>
+        <button mat-raised-button color="accent">Goal</button>
+        <button mat-raised-button color="accent">Goal</button>
+        <button mat-raised-button color="accent">Goal</button>
+
+
+      </div>
+    </div>
+
+  </mat-card>
+</div>

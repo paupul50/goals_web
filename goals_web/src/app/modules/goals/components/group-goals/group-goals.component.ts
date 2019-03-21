@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./group-goals.component.css']
 })
 export class GroupGoalsComponent implements OnInit {
-
+  showHistory = false;
   constructor() { }
 
   ngOnInit() {
