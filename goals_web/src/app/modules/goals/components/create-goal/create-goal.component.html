@@ -1,40 +1,28 @@
 <div class="container">
-  <button mat-raised-button [routerLink]="['/goals']" color="primary">abort mission to goals</button>
-  <button mat-raised-button [routerLink]="['/goals/group']" color="primary">abort mission to group goals</button>
 
+  <button mat-raised-button color="primary" [routerLink]="['/goals']">Siekiai</button>
+  <button mat-raised-button color="primary" [routerLink]="['/goals/group']">Grupės siekiai</button>
   <br>
-  <mat-horizontal-stepper [linear]="true" #stepper>
-    <mat-step>
-      <form>
-        <ng-template matStepLabel>Fill out your name</ng-template>
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="goalNameForm">
+      <form [formGroup]="goalNameForm">
+        <ng-template matStepLabel>Siekio pavadinimas</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Last name, First name" required>
+          <input matInput placeholder="Siekio pavadinimas" formControlName="goalNameControl" required>
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-raised-button color="primary" matStepperNext>sekantis žingsnis</button>
         </div>
       </form>
     </mat-step>
     <mat-step>
-      <form>
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Address" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+      <ng-template matStepLabel>Siekio pasikartojimas</ng-template>
+
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-raised-button color="primary" matStepperPrevious >Praeitas žingsnis</button>
+        <button mat-raised-button color="primary" (click)="submit()">Kurti</button>
       </div>
     </mat-step>
-  </mat-horizontal-stepper>
+  </mat-vertical-stepper>
 
 </div>

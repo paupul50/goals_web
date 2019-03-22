@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'groupusers', component: GroupUsersComponent, canActivate: [LoggedInGuard]},
   { path: 'groupleaderboard', component: LeaderboardComponent, canActivate: [LoggedInGuard]},
   { path: 'today', component: TodayGoalsComponent, canActivate: [LoggedInGuard]},
-  { path: 'id', component: GoalDetailsComponent, canActivate: [LoggedInGuard]}
+  { path: ':id', component: GoalDetailsComponent, canActivate: [LoggedInGuard]}
 ];
 
 @NgModule({
