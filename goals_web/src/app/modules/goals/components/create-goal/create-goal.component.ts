@@ -1,6 +1,7 @@
 import { GoalsService } from './../../services/goals/goals.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-goal',
@@ -10,7 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class CreateGoalComponent implements OnInit {
   goalNameForm: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, private _goalsService: GoalsService) { }
+  constructor(private _formBuilder: FormBuilder, private _goalsService: GoalsService, private _router: Router) { }
 
   ngOnInit() {
     this.goalNameForm = this._formBuilder.group({
@@ -19,6 +20,7 @@ export class CreateGoalComponent implements OnInit {
   }
 
   submit(): void {
-    this._goalsService.createUserGoal(this.goalNameForm.value.goalNameControl).subscribe(anything => console.log(anything));
+    this._goalsService.createUserGoal(this.goalNameForm.value.goalNameControl)
+      .subscribe(anything => this._router.navigate(['/goals']));
   }
 }

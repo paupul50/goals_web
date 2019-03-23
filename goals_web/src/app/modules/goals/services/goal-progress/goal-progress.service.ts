@@ -19,17 +19,11 @@ export class GoalProgressService {
       id: goalProgress.id,
       isDone: !goalProgress.isDone
     });
-    return this._http.patch<GoalProgress>(this.BACKURL + 'api/goalProgress', body, {headers: this.getHeaders()}).pipe(
-      map(progress => {
-        return progress.isDone;
-      })
-    );
-  }
-
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this._userService.getToken()
-    });
+    return this._http.patch<GoalProgress>(this.BACKURL + 'api/goalProgress', body,
+      { headers: this._userService.getHeaders() }).pipe(
+        map(progress => {
+          return progress.isDone;
+        })
+      );
   }
 }

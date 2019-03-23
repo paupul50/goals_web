@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { LoadingBarService } from '../../services/loading-bar/loading-bar.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,15 +9,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor(public userService: UserService, private router: Router) { }
+  isLoading = false;
+  constructor(public userService: UserService,
+     private _router: Router,
+     private _loadingBarService: LoadingBarService) { }
 
   ngOnInit() {
+    this._loadingBarService.getIsLoadingObservable().subscribe( isLoading => this.isLoading = isLoading);
   }
 
   logout() {
     this.userService.logout();
-    this.router.navigate(['login']);
+    this._router.navigate(['login']);
   }
 
 }

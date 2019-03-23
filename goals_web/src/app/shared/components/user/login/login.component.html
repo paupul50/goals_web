@@ -3,25 +3,15 @@
     <div class="row">
       <mat-form-field>
         <input matInput type="email" placeholder="El. paštas" [formControl]="form.controls['email']" required>
-        <mat-error *ngIf="form.controls['email']">Neteisingas el. paštas</mat-error>
       </mat-form-field>
     </div>
     <div class="row">
       <mat-form-field>
         <input matInput type="password" placeholder="Slaptažodis" [formControl]="form.controls['password']" required>
-        <mat-error *ngIf="form.controls['password']">Neteisingas slaptažodis</mat-error>
       </mat-form-field>
     </div>
     <div class="row">
       <button mat-raised-button color="primary" type="submit">Saugoti</button>
     </div>
-    <div *ngIf="formSubmited">
-      <div *ngIf="!form.valid || !loginSuccess" class="invalid-form">
-        Neteisingi duomenys.
-      </div>
-    </div>
   </form>
-</div>
-<div *ngIf="submitLoading" class="loader">
-  <mat-spinner diameter='50'></mat-spinner>
 </div>

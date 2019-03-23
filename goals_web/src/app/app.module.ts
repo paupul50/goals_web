@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './shared/components/user/login/login.component';
 import { CreateComponent } from './shared/components/user/create/create.component';
 import { MaterialModule } from './shared/angular-material/angular-material.module';
@@ -17,6 +17,7 @@ import {SlideshowModule} from 'ng-simple-slideshow';
 import { LoggedOutGuard } from './shared/guards/logged-out.guard';
 import { LoggedInGuard } from './shared/guards/logged-in.guard';
 import { MomentModule } from 'ngx-moment';
+import { HttpConfigInterceptor } from './shared/services/interceptor/interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { MomentModule } from 'ngx-moment';
   ],
   providers: [
     LoggedOutGuard,
-    LoggedInGuard
+    LoggedInGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

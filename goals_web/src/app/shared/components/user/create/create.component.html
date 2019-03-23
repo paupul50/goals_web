@@ -2,38 +2,26 @@
   <div class="row">
     <mat-form-field>
       <input matInput type="text" placeholder="Vardas" [formControl]="form.controls['firstname']" required>
-      <mat-error *ngIf="!form.controls['firstname'].valid && formSubmited&&!changeReceived">Neteisingi duomenys.</mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <input matInput type="text" placeholder="Pavardė" [formControl]="form.controls['surname']" required>
-      <mat-error *ngIf="!form.controls['surname'].valid && formSubmited&&!changeReceived">Neteisingi duomenys.</mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <input matInput type="email" placeholder="El. paštas" [formControl]="form.controls['email']" required>
-      <mat-error *ngIf="!form.controls['email'].valid && formSubmited&&!changeReceived">Neteisingi duomenys.</mat-error>
+      <mat-error *ngIf="!form.controls['email'].valid && formSubmited&&!changeReceived">Laukas nėra l. prašto formato.</mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <mat-form-field>
       <input matInput type="password" placeholder="Slaptažodis" [formControl]="form.controls['password']" required>
-      <mat-error *ngIf="!form.controls['password'].valid && formSubmited&&!changeReceived">Neteisingi duomenys.</mat-error>
     </mat-form-field>
   </div>
   <div class="row">
     <button mat-raised-button color="primary" type="submit">Saugoti</button>
   </div>
-  <div *ngIf="changeReceived && noError" class="row valid-from">
-    Vartotojas išsaugotas.
-  </div>
-  <div *ngIf="changeReceived && !noError" class="row invalid-form">
-    Toks vartotojas jau yra.
-  </div>
 </form>
-<div *ngIf="submitLoading" class="loader">
-  <mat-spinner diameter='50'></mat-spinner>
-</div>
 <br>

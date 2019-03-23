@@ -10,9 +10,6 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   form: FormGroup;
-  formSubmited = false;
-  loginSuccess = true;
-  submitLoading = false;
   constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
     this.addControls();
   }
@@ -24,17 +21,11 @@ export class LoginComponent {
     });
   }
   onSubmit() {
-    this.formSubmited = true;
-
     if (this.form.valid) {
-      this.submitLoading = true;
       this.userService.login(this.form.value.email, this.form.value.password).subscribe((result: any) => {
         if (result === true) {
           this.router.navigate(['/home']);
-        } else {
-          this.loginSuccess = result;
         }
-        this.submitLoading = false;
       });
     }
   }

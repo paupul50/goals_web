@@ -16,22 +16,23 @@ export class GoalsService {
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
   deleteUserGoal(id: string): Observable<any> {
-    return this._http.delete(this.BACKURL + 'api/goals/' + id, { headers: this.getHeaders() });
+    return this._http.delete(this.BACKURL + 'api/goals/' + id, { headers: this._userService.getHeaders() });
   }
 
-  createUserGoal(name: string): Observable<Goal> {
+  createUserGoal(name: string): Observable<Object> {
     const body = JSON.stringify({
       goalname: name,
     });
-    return this._http.post<GoalWithProgressModel[]>(this.BACKURL + 'api/goals/create', body, { headers: this.getHeaders() })
-      .pipe(
-        map((userGoal: any) => {
-          return this.mapGoal(userGoal);
-        }));
+    return this._http.post(this.BACKURL + 'api/goals/create', body,
+      { headers: this._userService.getHeaders() });
+      // .pipe(
+      //   map((userGoal: any) => {
+      //     return this.mapGoal(userGoal);
+      //   }));
   }
 
   getUserGoal(id: string): Observable<Goal> {
-    return this._http.get<Goal[]>(this.BACKURL + 'api/goals/' + id, { headers: this.getHeaders() }).pipe(
+    return this._http.get<Goal[]>(this.BACKURL + 'api/goals/' + id, { headers: this._userService.getHeaders() }).pipe(
       map(goal => {
         return this.mapGoal(goal);
       })
@@ -39,7 +40,8 @@ export class GoalsService {
   }
 
   getUserTodayGoalWithProgress(): Observable<GoalWithProgressModel[]> {
-    return this._http.get<GoalWithProgressModel[]>(this.BACKURL + 'api/goals/todayProgress', { headers: this.getHeaders() })
+    return this._http.get<GoalWithProgressModel[]>(this.BACKURL + 'api/goals/todayProgress',
+      { headers: this._userService.getHeaders() })
       .pipe(
         map((goalWithProgress: any) => {
           return this.mapGoalsWithProgress(goalWithProgress);
@@ -51,18 +53,12 @@ export class GoalsService {
       DateTimeOffset: date.toJSON(),
       DayLimit: limit
     });
-    return this._http.post<GoalWithProgressModel[]>(this.BACKURL + 'api/goals/progressHistory', body, { headers: this.getHeaders() })
+    return this._http.post<GoalWithProgressModel[]>(this.BACKURL + 'api/goals/progressHistory',
+      body, { headers: this._userService.getHeaders() })
       .pipe(
         map((goalsWithProgress: any) => {
           return this.mapGoalsWithProgress(goalsWithProgress);
         }));
-  }
-
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': this._userService.getToken()
-    });
   }
 
   private mapGoal(goal: any): Goal {

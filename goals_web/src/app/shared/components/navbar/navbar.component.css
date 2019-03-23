@@ -18,3 +18,12 @@
 .nav-item:hover{
   box-shadow: 0 5px 0 #854de6;
 }
+
+mat-progress-bar {
+  z-index: 100;
+  position: absolute;
+}
+
+.temp {
+  text-decoration: line-through;
+}

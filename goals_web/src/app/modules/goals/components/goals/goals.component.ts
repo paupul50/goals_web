@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GoalsService } from '../../services/goals/goals.service';
 import { GoalWithProgressModel } from '../../models/goal-with-progress.model';
 import { Goal } from '../../models/goal.model';
+import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
 
 @Component({
   selector: 'app-goals',
@@ -15,11 +16,15 @@ export class GoalsComponent implements OnInit {
   isLoaded = false;
   limit = 10;
 
-  constructor(private _goalService: GoalsService) {
+  constructor(private _goalService: GoalsService, private _snackbarService: SnackbarService) {
     const currentDate = new Date();
     this._goalService.GetUserGoalsWithProgress(currentDate, 10).subscribe((goals: GoalWithProgressModel[]) => {
-      this.mapGoalsToTableDataSource(goals);
-      this.isLoaded = true;
+      if (goals.length > 0) {
+        this.mapGoalsToTableDataSource(goals);
+        this.isLoaded = true;
+      } else {
+        this._snackbarService.openSnackBar('Nėra siekių.');
+      }
     });
   }
 
