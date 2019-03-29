@@ -1,4 +1,23 @@
-<div class="container">
-  <mat-card>Redaguojamas profilis</mat-card>
-  <button mat-raised-button color="primary" [routerLink]="['/dashboard/profile']">Atšaukti</button>
+<div class="container" *ngIf="userData">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Redaguojamas profilis // TODO: PROFILE PICTURE, DESCRIPTION
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{userData.username}}
+        <br>
+        {{userData.firstName}} {{userData.lastName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="userData.description">
+        {{userData.description}}
+      </p>
+      <p *ngIf="!userData.description">
+        Aprašymo nėra
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [routerLink]="['/dashboard/profile']">Atšaukti</button>
+    </mat-card-actions>
+  </mat-card>
 </div>

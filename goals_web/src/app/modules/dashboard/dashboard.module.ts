@@ -7,6 +7,10 @@ import { EditProfileComponent } from './components/edit-profile/edit-profile.com
 import { CommentsComponent } from 'src/app/shared/components/comments/comments.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { ChartsModule } from 'ng2-charts';
+import { ProfileOutletComponent } from './components/profile-outlet/profile-outlet.component';
+import { CommonModule } from '@angular/common';
+import { CreateCommentComponent } from 'src/app/shared/components/comments/create-comment/create-comment.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,12 +18,17 @@ import { ChartsModule } from 'ng2-charts';
     StatisticsComponent,
     EditProfileComponent,
     CommentsComponent,
-    StatisticComponent
+    CreateCommentComponent,
+    StatisticComponent,
+    ProfileOutletComponent
   ],
   imports: [
     DashboardRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
     MaterialModule,
-    ChartsModule
+    ChartsModule,
+    CommonModule
   ],
   providers: []
 })

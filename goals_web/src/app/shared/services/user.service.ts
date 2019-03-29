@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
 import { Subject, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class UserService {
 
   private BACKURL = 'http://localhost:52503/';
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private _router: Router) {
 
   }
 
@@ -50,6 +50,7 @@ export class UserService {
     this._http.delete(this.BACKURL + 'api/users/logout',  {headers: this.getHeaders()}).subscribe((response: any) => {
     });
     localStorage.removeItem('access_token');
+    this._router.navigate(['login']);
   }
 
   private getLoginHeader(): HttpHeaders {

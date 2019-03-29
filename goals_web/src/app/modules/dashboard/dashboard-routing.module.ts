@@ -5,15 +5,26 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
 import { StatisticComponent } from './components/statistic/statistic.component';
 import { LoggedInGuard } from 'src/app/shared/guards/logged-in.guard';
+import { ProfileOutletComponent } from './components/profile-outlet/profile-outlet.component';
 
+
+const childRoutes: Routes = [
+  { path: '', redirectTo: 'current', pathMatch: 'full', canActivate: [LoggedInGuard] },
+  { path: 'current', component: ProfileComponent, canActivate: [LoggedInGuard] },
+  { path: 'others/:id', component: ProfileComponent, canActivate: [LoggedInGuard] },
+  { path: 'edit', component: EditProfileComponent, canActivate: [LoggedInGuard] },
+];
 
 const routes: Routes = [
-  { path: '', redirectTo: 'profile', canActivate: [LoggedInGuard]},
-  { path: 'profile', component: ProfileComponent, canActivate: [LoggedInGuard] },
-  { path: 'statistics', component: StatisticsComponent, canActivate: [LoggedInGuard]},
-  { path: 'profile/edit', component: EditProfileComponent, canActivate: [LoggedInGuard]},
-  { path: 'statistics/id', component: StatisticComponent, canActivate: [LoggedInGuard]}
+  { path: '', redirectTo: 'profile', pathMatch: 'full', canActivate: [LoggedInGuard] },
+  { path: 'profile', component: ProfileOutletComponent, children: childRoutes, canActivate: [LoggedInGuard] },
+  { path: 'statistics', component: StatisticsComponent, canActivate: [LoggedInGuard] },
+  { path: 'statistics/id', component: StatisticComponent, canActivate: [LoggedInGuard] }
 ];
+
+
+
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

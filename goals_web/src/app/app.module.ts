@@ -1,3 +1,4 @@
+import { CommentsComponent } from './shared/components/comments/comments.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -18,6 +19,7 @@ import { LoggedOutGuard } from './shared/guards/logged-out.guard';
 import { LoggedInGuard } from './shared/guards/logged-in.guard';
 import { MomentModule } from 'ngx-moment';
 import { HttpConfigInterceptor } from './shared/services/interceptor/interceptor';
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,11 +29,12 @@ import { HttpConfigInterceptor } from './shared/services/interceptor/interceptor
     CreateComponent
   ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
     SlideshowModule,

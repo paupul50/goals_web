@@ -1,5 +1,27 @@
-<div class="container">
-  <mat-card>Profilis</mat-card>
-  <button mat-raised-button color="primary" [routerLink]="['/dashboard/profile/edit']" >Redaguoti</button>
-  <app-comments></app-comments>
+<div class="container" *ngIf="userData">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title> Profilis
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{userData.username}}
+        <br>
+        {{userData.firstName}} {{userData.lastName}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="userData.description">
+        {{userData.description}}
+      </p>
+      <p *ngIf="!userData.description">
+        Aprašymo nėra
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button *ngIf="id==undefined || id==userData.id" mat-raised-button color="primary"
+        [routerLink]="['/dashboard/profile/edit']">Redaguoti</button>
+    </mat-card-actions>
+  </mat-card>
+  <app-comments [comments]="userData.comments"></app-comments>
+  <app-create-comment (commentCreated)="pushCommentToComments($event)"
+  [commentTargetId]="userData.id" [commentTarget]="commentTarget"></app-create-comment>
 </div>

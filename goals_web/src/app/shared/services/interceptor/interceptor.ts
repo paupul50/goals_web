@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { LoadingBarService } from './../loading-bar/loading-bar.service';
 import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
 import { Injectable } from '@angular/core';
@@ -17,7 +18,8 @@ import { map, catchError } from 'rxjs/operators';
 export class HttpConfigInterceptor implements HttpInterceptor {
 
   constructor(private _snackboxService: SnackbarService,
-    private _loadingBarService: LoadingBarService) { }
+    private _loadingBarService: LoadingBarService,
+    private _userService: UserService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this._loadingBarService.changeLoadingState(true);
@@ -34,8 +36,12 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         this._loadingBarService.changeLoadingState(false);
-        const message = 'Klaidos kodas: ' + error.status;
-        this._snackboxService.openSnackBar(message);
+        if (error.status === 401) {
+          this._userService.logout();
+        } else {
+          const message = 'Klaidos kodas: ' + error.status;
+          this._snackboxService.openSnackBar(message);
+        }
         return throwError(error);
       }));
   }
