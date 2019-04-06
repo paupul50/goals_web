@@ -1,0 +1,26 @@
+<div class="container">
+  <button mat-raised-button color="primary" [routerLink]="['/goals/group']">Grupės siekiai</button>
+  <br>
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="groupNameForm">
+      <form [formGroup]="groupNameForm">
+        <ng-template matStepLabel>Grupės pavadinimas</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="grupės pavadinimas" formControlName="groupNameControl" required>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" matStepperNext>sekantis žingsnis</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Kitas žingsnis</ng-template>
+
+      <div>
+        <button mat-raised-button color="primary" matStepperPrevious >Praeitas žingsnis</button>
+        <button mat-raised-button color="primary" (click)="submit()">Kurti</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>
+
+</div>

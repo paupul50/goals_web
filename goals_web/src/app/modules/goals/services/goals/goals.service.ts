@@ -25,10 +25,10 @@ export class GoalsService {
     });
     return this._http.post(this.BACKURL + 'api/goals/create', body,
       { headers: this._userService.getHeaders() });
-      // .pipe(
-      //   map((userGoal: any) => {
-      //     return this.mapGoal(userGoal);
-      //   }));
+    // .pipe(
+    //   map((userGoal: any) => {
+    //     return this.mapGoal(userGoal);
+    //   }));
   }
 
   getUserGoal(id: string): Observable<Goal> {
@@ -62,11 +62,13 @@ export class GoalsService {
   }
 
   private mapGoal(goal: any): Goal {
-    return new Goal({
-      id: goal.id,
-      createdAt: new Date(goal.createdAt),
-      name: goal.name
-    });
+    if (goal) {
+      return new Goal({
+        id: goal.id,
+        createdAt: new Date(goal.createdAt),
+        name: goal.name
+      });
+    }
   }
 
   private mapGoalsWithProgress(goalsWithProgress: any): GoalWithProgressModel[] {

@@ -1,7 +1,7 @@
-import { GoalsService } from './../../services/goals/goals.service';
+import { GoalsService } from '../../../services/goals/goals.service';
 import { Component, OnInit } from '@angular/core';
 import { Params, ActivatedRoute, Router } from '@angular/router';
-import { Goal } from '../../models/goal.model';
+import { Goal } from '../../../models/goal.model';
 
 @Component({
   selector: 'app-goal-details',
@@ -11,11 +11,13 @@ import { Goal } from '../../models/goal.model';
 export class GoalDetailsComponent implements OnInit {
   id: string;
   userGoal = new Goal({});
+  isGoalLoaded = false;
   constructor(private _activatedRoute: ActivatedRoute, private _goalsService: GoalsService, private _router: Router) {
     this._activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
       this._goalsService.getUserGoal(this.id).subscribe((userGoal: Goal) => {
         this.userGoal = userGoal;
+        this.isGoalLoaded = true;
       });
     });
   }

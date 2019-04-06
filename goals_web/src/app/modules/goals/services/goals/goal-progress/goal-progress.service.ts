@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Observable } from 'rxjs';
-import { GoalProgress } from '../../models/goal-progress.model';
+import { GoalProgress } from '../../../models/goal-progress.model';
 import { map } from 'rxjs/operators';
 
 @Injectable({

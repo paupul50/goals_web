@@ -1,50 +1,59 @@
-<div class="container">
-  <button mat-raised-button [routerLink]="['/goals/create']" color="primary">create</button>
-  <button mat-raised-button [routerLink]="['/goals/groupleaderboard']" color="primary">Leaderboard</button>
-  <button mat-raised-button [routerLink]="['/goals/groupusers']" color="primary">users</button>
+<div *ngIf="isGroupLoaded" class="container">
+  <div *ngIf="groupObject.group">
+    <div *ngIf="groupObject.isLeader">
+      <div class="row">
+        <div class="col-11">
+          <button mat-raised-button color="warn" (click)="deleteGroup()">Pašalinti grupę</button>
+          <button mat-raised-button color="primary" [routerLink]="['/goals/groupusers']">grupės nariai</button>
+        </div>
+        <div class="col-1">
+          <button mat-raised-button color="primary" [routerLink]="['/goals/creategroupgoal']">Sukurti siekį</button>
+        </div>
+      </div>
 
-  <mat-card *ngFor="let item of [1,2,3,4,5]">
-    <div class="row">
-      <div class="col-2">
-        Goal name <button mat-raised-button [routerLink]="['/goals/id']" color="primary">details</button>
-      </div>
-      <div class="col-10">
-        Martynas <mat-checkbox></mat-checkbox>
-        <mat-checkbox></mat-checkbox>
-        Jurgis <mat-checkbox></mat-checkbox>
-        <mat-checkbox></mat-checkbox>
-        Tomas <mat-checkbox></mat-checkbox>
-        <mat-checkbox></mat-checkbox>
-        <br>
-        Batonas <mat-checkbox></mat-checkbox>
-        <mat-checkbox></mat-checkbox>
-        Baronas <mat-checkbox></mat-checkbox>
-        <mat-checkbox></mat-checkbox>
-      </div>
     </div>
-
-  </mat-card>
-
-</div>
-
-
-<mat-checkbox [(ngModel)]="showHistory">history</mat-checkbox>
-
-<div *ngIf="showHistory" class="container">
-  <mat-card *ngFor="let item of [1,2,3,4,5]">
-    <div class="row">
-      <div class="col-2">
-        Goal name <button mat-raised-button color="primary">switch</button>
-      </div>
-      <div class="col-10">
-        <button mat-raised-button color="accent">Goal</button>
-        <button mat-raised-button color="accent">Goal</button>
-        <button mat-raised-button color="accent">Goal</button>
-        <button mat-raised-button color="accent">Goal</button>
-
-
-      </div>
+    <div *ngIf="!groupObject.isLeader">
+      <button mat-raised-button color="warn" (click)="leaveGroup()">Palikti grupę</button>
     </div>
+  </div>
 
-  </mat-card>
+  <!-- ----------------------------------------------------------------- -->
+  <ng-container *ngIf="groupObject.group">
+    <table mat-table [dataSource]="groupProgressObject" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="goalDetails">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-raised-button color="primary" [routerLink]="['/goals/group', element.goal.id]">
+            Siekio aprašymas</button>
+        </td>
+      </ng-container>
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="goal">
+        <th mat-header-cell *matHeaderCellDef> Siekis </th>
+        <td mat-cell *matCellDef="let element"> {{element.goal.name}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="userGoalProgresses">
+        <th mat-header-cell *matHeaderCellDef> Narių progresas </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngFor="let progress of element.userGoalProgresses">
+            {{progress.user.username}} <mat-checkbox [(ngModel)]="progress.isDone" [disabled]=true></mat-checkbox>
+          </ng-container>
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </ng-container>
+
+  <!-- ----------------------------------------------------------------- -->
+  <div *ngIf="!groupObject.group">
+    <button mat-raised-button color="primary" [routerLink]="['/goals/creategroup']">Grupės sukūrimas</button>
+    <app-group-invitation></app-group-invitation>
+  </div>
 </div>

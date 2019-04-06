@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
-  private BACKURL = 'http://localhost:52503/';
+  public BACKURL = 'http://localhost:52503/';
   constructor(private _http: HttpClient, private _router: Router) {
 
   }
@@ -31,6 +31,8 @@ export class UserService {
     const result: Subject<boolean> = new Subject<boolean>();
     this._http.post(this.BACKURL + 'api/users/authenticate', body, {headers: this.getLoginHeader()}).subscribe((response: any) => {
       localStorage.setItem('access_token', 'Bearer ' + response.token);
+      localStorage.setItem('current_user', response.username);
+
       result.next(true);
     }, (
         (err: Error) => {
@@ -43,6 +45,11 @@ export class UserService {
   getToken(): any {
     return localStorage.getItem('access_token');
   }
+
+  getCurrentUsername(): any {
+    return localStorage.getItem('current_user');
+  }
+
   isLoggedIn(): boolean {
     return this.getToken() !== null;
   }

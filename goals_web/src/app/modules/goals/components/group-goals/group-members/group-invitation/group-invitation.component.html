@@ -1,0 +1,9 @@
+<div *ngIf="isInvitationsLoaded">
+  <mat-list role="list">
+    <mat-list-item *ngFor="let invitation of invitationsObject" role="listitem">
+      {{invitation.leaderUsername}} kviečia į grupę.
+      <button mat-button (click)="acceptInvitation(invitation.leaderUsername)">Priimti</button>
+      <button mat-button (click)="cancelInvitation(invitation)">Atšaukti</button>
+    </mat-list-item>
+  </mat-list>
+</div>
