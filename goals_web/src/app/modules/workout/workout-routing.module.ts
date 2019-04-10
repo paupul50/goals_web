@@ -10,7 +10,7 @@ const childRoutes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full' },
   { path: 'list', component: WorkoutsComponent },
   { path: 'create', component: CreateWorkoutComponent },
-  { path: 'session', component: StartWorkoutComponent}
+  { path: 'session/:id', component: StartWorkoutComponent}
 ];
 const routes: Routes = [
   { path: '', component: WorkoutComponent, children: childRoutes, canActivate: [LoggedInGuard]}

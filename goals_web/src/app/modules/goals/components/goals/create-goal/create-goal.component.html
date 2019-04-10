@@ -3,7 +3,7 @@
   <button mat-raised-button color="primary" [routerLink]="['/goals']">Siekiai</button>
   <button mat-raised-button color="primary" [routerLink]="['/goals/group']">Grupės siekiai</button>
   <br>
-  <mat-vertical-stepper [linear]="true" #stepper>
+  <mat-vertical-stepper *ngIf="isWorkoutsLoaded" [linear]="true" #stepper>
     <mat-step [stepControl]="goalNameForm">
       <form [formGroup]="goalNameForm">
         <ng-template matStepLabel>Siekio pavadinimas</ng-template>
@@ -15,11 +15,39 @@
         </div>
       </form>
     </mat-step>
+
+
     <mat-step>
-      <ng-template matStepLabel>Siekio pasikartojimas</ng-template>
+      <ng-template matStepLabel>Siekio tipas</ng-template>
+      <mat-radio-group aria-label="Pasirinkite tipą" [(ngModel)]="goalType">
+        <mat-radio-button value="1">Standartinis</mat-radio-button>
+        <mat-radio-button [disabled]="workouts.length==0" value="2">Treniruotės</mat-radio-button>
+      </mat-radio-group>
+      <ng-container *ngIf="goalType=='2'">
+        <mat-radio-group aria-label="Pasirinkite treniruotę" [(ngModel)]="workoutId">
+          <ng-container *ngFor="let workoutObject of workouts; let i=index">
+            <mat-card>
+              Treniruotė {{i+1}} -
+              <mat-radio-button value="{{workoutObject.id}}">{{workoutObject.name}} -
+                {{workoutObject.id}}
+              </mat-radio-button>
+            </mat-card>
+          </ng-container>
+        </mat-radio-group>
+      </ng-container>
 
       <div>
-        <button mat-raised-button color="primary" matStepperPrevious >Praeitas žingsnis</button>
+        <button mat-raised-button [disabled]="isTypeDisabled()" color="primary" matStepperNext>sekantis
+          žingsnis</button>
+      </div>
+    </mat-step>
+
+
+    <mat-step>
+      <ng-template matStepLabel>Siekio sukūrimas</ng-template>
+
+      <div>
+        <button mat-raised-button color="primary" matStepperPrevious>Praeitas žingsnis</button>
         <button mat-raised-button color="primary" (click)="submit()">Kurti</button>
       </div>
     </mat-step>

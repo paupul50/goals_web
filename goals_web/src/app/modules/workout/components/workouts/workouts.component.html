@@ -1,20 +1,29 @@
-<button mat-raised-button [routerLink]="['/workout/create']" color="primary">Create new</button>
-<br>
-<mat-card>Workout 1
-  <button mat-raised-button [routerLink]="['/workout/session']" color="primary">start workout</button>
-</mat-card>
-<mat-card>Workout 1
-  <button mat-raised-button [routerLink]="['/workout/session']" color="primary">start workout</button>
-</mat-card>
-<mat-card>Workout 1
-  <button mat-raised-button [routerLink]="['/workout/session']" color="primary">start workout</button>
-</mat-card>
-<mat-card>Workout 1
-  <button mat-raised-button [routerLink]="['/workout/session']" color="primary">start workout</button>
-</mat-card>
-<mat-card>Workout 1
-  <button mat-raised-button [routerLink]="['/workout/session']" color="primary">start workout</button>
-</mat-card>
-<mat-card>Workout 1
-  <button mat-raised-button [routerLink]="['/workout/session']" color="primary">start workout</button>
-</mat-card>
+<ng-container *ngIf="isWorkoutsLoaded">
+  <button mat-raised-button [routerLink]="['/workout/create']" color="primary">Kurti treniruotę</button>
+  <br>
+  <br>
+  <h4>MANO TRENIRUOTĖS</h4>
+  <br>
+  <ng-container *ngFor="let workoutObject of workouts; let i=index">
+    <mat-card>
+      Treniruotė {{i+1}} - {{workoutObject.name}}
+      <br>
+      <button mat-raised-button [routerLink]="['/workout/session', workoutObject.id]" color="primary">Pradėti
+        treniruotę</button>
+      <button mat-raised-button color="warn" (click)="removeWorkout(workoutObject.id)">Pašalinti</button>
+    </mat-card>
+  </ng-container>
+
+  <br>
+
+  <h4>GRUPĖS TRENIRUOTĖS</h4>
+  <br>
+  <ng-container *ngFor="let workoutObject of groupWorkouts; let i=index">
+    <mat-card>
+      Treniruotė {{i+1}} - {{workoutObject.name}}
+      <br>
+      <button mat-raised-button [routerLink]="['/workout/session', workoutObject.id]" color="primary">Pradėti
+        treniruotę</button>
+    </mat-card>
+  </ng-container>
+</ng-container>

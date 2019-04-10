@@ -19,9 +19,11 @@ export class GoalsService {
     return this._http.delete(this.BACKURL + 'api/goals/' + id, { headers: this._userService.getHeaders() });
   }
 
-  createUserGoal(name: string): Observable<Object> {
+  createUserGoal(goalType: any, name: string, workout: string = '-1'): Observable<Object> {
     const body = JSON.stringify({
-      goalname: name,
+      Goalname: name,
+      GoalType: goalType,
+      WorkoutId: workout
     });
     return this._http.post(this.BACKURL + 'api/goals/create', body,
       { headers: this._userService.getHeaders() });
@@ -41,11 +43,11 @@ export class GoalsService {
 
   getUserTodayGoalWithProgress(): Observable<GoalWithProgressModel[]> {
     return this._http.get<GoalWithProgressModel[]>(this.BACKURL + 'api/goals/todayProgress',
-      { headers: this._userService.getHeaders() })
-      .pipe(
-        map((goalWithProgress: any) => {
-          return this.mapGoalsWithProgress(goalWithProgress);
-        }));
+      { headers: this._userService.getHeaders() });
+    // .pipe(
+    //   map((goalWithProgress: any) => {
+    //     return this.mapGoalsWithProgress(goalWithProgress);
+    //   }));
   }
 
   GetUserGoalsWithProgress(date: Date, limit: number = 20): Observable<GoalWithProgressModel[]> {

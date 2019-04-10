@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workout',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorkoutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _workoutCreateService: WorkoutCreateService, private _router: Router) { }
 
   ngOnInit() {
+    if (this._workoutCreateService.routePoints.length > 0) {
+      this._router.navigate(['workout/create']);
+    }
   }
 
 }

@@ -1,16 +1,16 @@
 <div class="isMembersLoaded">
-  <button mat-raised-button [routerLink]="['/goals/group']" color="primary">group goals</button><br>
+  <button mat-raised-button [routerLink]="['/goals/group']" color="primary">grupės siekiai</button><br><br>
 
 
   <form [formGroup]="newMemberForm">
-      <ng-template >Naudotojo paštas</ng-template>
-      <mat-form-field>
-        <input matInput formControlName="memberUsernameControl" required>
-      </mat-form-field>
-      <div>
-        <button mat-raised-button color="primary" (click)="submit()">Siųsti pakveitimą</button>
-      </div>
-    </form>
+    <ng-template>Naudotojo paštas</ng-template>
+    <mat-form-field>
+      <input matInput formControlName="memberUsernameControl" required>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button color="primary" (click)="submit()">Siųsti pakveitimą</button>
+    </div>
+  </form>
 
   <mat-list role="list">
     <mat-list-item *ngFor="let member of membersObject" role="listitem">

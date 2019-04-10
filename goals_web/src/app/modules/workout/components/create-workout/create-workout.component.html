@@ -1,9 +1,30 @@
-<button mat-raised-button [routerLink]="['/workout/list']" color="primary">back to list</button>
 <br>
-<button mat-fab color="primary">do this</button>
+<button mat-raised-button [routerLink]="['/workout/list']" (click)="workoutCreateService.clearRoutePoints()"
+  color="primary">Atšaukti</button>
+<form [formGroup]="newWorkoutForm">
+  <ng-template>Naudotojo paštas</ng-template>
+  <mat-form-field>
+    <input matInput formControlName="workoutNameControl" required>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button [disabled]="workoutCreateService.routePoints.length<2" (click)="saveWorkout()"
+      color="primary">Išsaugoti</button>
+  </div>
+</form>
+
 <br>
-<button mat-fab color="primary">do that</button>
 <br>
-<button mat-fab color="primary">something else</button>
 <br>
-<button mat-fab color="primary">and</button>
+<button mat-raised-button color="primary" [disabled]="workoutCreateService.newRoutePoint"
+  (click)="addRoutePoint()">Pridėti tašką</button><br><br>
+<button mat-raised-button color="primary" [disabled]="!workoutCreateService.newRoutePoint"
+  (click)="saveRoutePoint()">Saugoti tašką</button>
+<button mat-raised-button color="primary" [disabled]="workoutCreateService.routePoints.length==0"
+  (click)="removeRoutePoint()">Pašalinti tašką</button>
+
+<mat-list role="list">
+  <mat-list-item *ngFor="let routePoint of workoutCreateService.routePoints; let routeIndex = index" role="listitem">
+    <button mat-raised-button (click)="setInfoWindow(routePoint)">{{routeIndex+1}}. Koordinatė</button>
+  </mat-list-item>
+</mat-list>
+<br>

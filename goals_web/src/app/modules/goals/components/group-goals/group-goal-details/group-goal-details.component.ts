@@ -31,7 +31,7 @@ export class GroupGoalDetailsComponent implements OnInit {
 
   removeGoal(): void {
     this._groupGoalService.deleteGroupGaol(this.id).subscribe(() => {
-      this._router.navigate(['/goals']);
+      this._router.navigate(['/goals/group']);
     });
   }
 

@@ -1,3 +1,12 @@
-<button mat-raised-button [routerLink]="['/workout/list']" color="primary">back to list</button>
-<button mat-fab color="primary">start</button>
-<button mat-fab color="primary">end</button>
+<ng-container *ngIf="isWorkoutLoaded">
+  <button mat-raised-button (click)="this.workoutCreateService.clearRoutePoints()" [routerLink]="['/workout/list']"
+    color="primary">back to list</button>
+  <button mat-fab color="primary">start</button>
+  <button mat-fab color="primary">end</button>
+
+  <mat-list role="list">
+      <mat-list-item *ngFor="let routePoint of workoutCreateService.routePoints; let routeIndex = index" role="listitem">
+        <button mat-raised-button (click)="setInfoWindow(routePoint)">{{routeIndex+1}}. Koordinatė</button>
+      </mat-list-item>
+    </mat-list>
+</ng-container>

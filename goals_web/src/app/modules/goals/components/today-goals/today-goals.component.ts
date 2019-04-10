@@ -13,7 +13,7 @@ import { GoalProgress } from '../../models/goal-progress.model';
 export class TodayGoalsComponent implements OnInit {
   isGroupGoalsLoaded = false;
   isGoalsLoaded = false;
-  displayedColumns: string[] = ['goal', 'goalProgressCollection'];
+  displayedColumns: string[] = ['goal', 'goalProgress'];
   goalsObject: GoalWithProgressModel[] = [];
   groupGoalsObject: any;
   constructor(private _goalsService: GoalsService,
@@ -28,7 +28,7 @@ export class TodayGoalsComponent implements OnInit {
   }
 
   private setGoalsProgress(): void {
-    this._goalsService.getUserTodayGoalWithProgress().subscribe((goalWithProgress: GoalWithProgressModel[]) => {
+    this._goalsService.getUserTodayGoalWithProgress().subscribe((goalWithProgress: any[]) => {
       this.goalsObject = goalWithProgress;
       console.log('mygoal progress', this.goalsObject);
       this.isGoalsLoaded = true;
@@ -46,7 +46,7 @@ export class TodayGoalsComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeGoalProgressState(goalProgress: GoalProgress): void {
+  changeGoalProgressState(goalProgress: any): void {
     this._goalProgressService.updateProgressState(goalProgress).subscribe((isDone: boolean) => {
       goalProgress.isDone = isDone;
     });

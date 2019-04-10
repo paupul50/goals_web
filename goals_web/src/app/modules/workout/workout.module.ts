@@ -8,11 +8,14 @@ import { WorkoutComponent } from './components/workout/workout.component';
 import { DashboardRoutingModule } from './workout-routing.module';
 import { AgmCoreModule } from '@agm/core';
 import { MaterialModule } from '../../shared/angular-material/angular-material.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
     DashboardRoutingModule,
     MaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDrdlUYQrwcssbaEQEWgt2-TvyGhRNHh7E'
     })

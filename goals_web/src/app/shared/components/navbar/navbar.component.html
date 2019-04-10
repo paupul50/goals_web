@@ -11,7 +11,7 @@
       <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/goals/today']">Šiandienos siekiai</a>
       <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/goals/group']">
         Grupės siekiai</a>
-      <a *ngIf="userService.getToken()" class="nav-item nav-link temp" [routerLink]="['/workout']">Treniruotės</a>
+      <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/workout']">Treniruotės</a>
       <a *ngIf="userService.getToken()" class="nav-item nav-link temp"
         [routerLink]="['/dashboard/statistics']">Statistikos</a>
     </div>
