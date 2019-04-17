@@ -26,3 +26,94 @@ button {
 .container {
   padding-top:20px;
 }
+
+
+
+
+
+/* -------------------- */
+/* LAYOUT */
+body {
+  color: rgba(0,0,0,.9);
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+    height: 100%;
+}
+html {
+    margin: 0;
+    height: 100%;
+}
+#myBody {
+		padding-bottom:77px;
+	}
+	#myFooter {
+		position:absolute;
+		bottom:0;
+    width:100%;
+    margin-top: 20px;
+  }
+  #myContainer {
+		min-height:100%;
+		position:relative;
+  }
+
+/* HELPER CLASSES FOR RESPONSIVE PAGE*/
+@media screen and (max-width: 767px) {
+    .small-item {
+        display:none;
+    }
+}
+@media screen and (min-width: 766px) {
+    .big-item {
+        display:none;
+    }
+}
+
+@media (min-width: 40em) {
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
+  }
+}
+
+  .featurette-heading {
+    font-size: 50px;
+  }
+}
+
+
+
+/* HOME PAGE COLUMNS */
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+.marketing h2 {
+  font-weight: 400;
+}
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+
+/* OTHER */
+.featurette-divider {
+  margin: 2rem 0;
+
+}
+.featurette-heading {
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.05rem;
+}
+
+.coney-bg{
+  background-color: #6f42c1;
+  color:white;
+}

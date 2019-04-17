@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkoutService } from '../../../../shared/services/workout/workout.service';
+import { WorkoutService } from '../../services/workout/workout.service';
+import { WorkoutSessionService } from '../../services/workout-session/workout-session.service';
+import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-workouts',
@@ -11,15 +14,33 @@ export class WorkoutsComponent implements OnInit {
   groupWorkouts: any[];
   isGroupWorkoutsLoaded = false;
   isWorkoutsLoaded = false;
-  constructor(private _workoutService: WorkoutService) {
+  constructor(
+    private _workoutCreateService: WorkoutCreateService,
+    private _workoutService: WorkoutService,
+    private _workoutSessionService: WorkoutSessionService,
+    private _router: Router) {
+    // load user workouts
     this._workoutService.getUserWorkouts().subscribe((workouts: any[]) => {
       this.workouts = workouts;
       this.isWorkoutsLoaded = true;
     });
+    // load group workouts
     this._workoutService.getGroupWorkouts().subscribe((workouts: any[]) => {
       this.groupWorkouts = workouts;
       this.isGroupWorkoutsLoaded = true;
     });
+    this._workoutSessionService.GetCurrentWorkoutSession().subscribe((result: any) => {
+      if (result == null) { // if no active workout session
+        this._workoutCreateService.isCheckedIfLastWorkoutIsDone = true;
+      } else { // if workout session is active
+        this._workoutCreateService.isCheckedIfLastWorkoutIsDone = true;
+        this._workoutCreateService.isWorkoutSession = true;
+        this._workoutCreateService.currentSessionPoint = result.progressIndex;
+        this._workoutCreateService.startCheckingCurrentCoords();
+        this._router.navigate(['/workout/session', result.workoutId]);
+      }
+    });
+    // check if are any workouts are in progress GetCurrentWorkoutSession
   }
 
   removeWorkout(id: string) {

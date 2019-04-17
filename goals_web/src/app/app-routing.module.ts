@@ -11,16 +11,16 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: CreateComponent, canActivate: [LoggedOutGuard] },
   { path: 'login', component: LoginComponent, canActivate: [LoggedOutGuard] },
-  { path: 'workout', loadChildren: './modules/workout/workout.module#WorkoutModule', canActivate: [LoggedInGuard]},
-  { path: 'goals', loadChildren: './modules/goals/goals.module#GoalsModule', canActivate: [LoggedInGuard]},
-  { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule', canActivate: [LoggedInGuard]}
+  { path: 'workout', loadChildren: './modules/workout/workout.module#WorkoutModule', canActivate: [LoggedInGuard] },
+  { path: 'goals', loadChildren: './modules/goals/goals.module#GoalsModule', canActivate: [LoggedInGuard] },
+  { path: 'dashboard', loadChildren: './modules/dashboard/dashboard.module#DashboardModule', canActivate: [LoggedInGuard] }
 ];
 
 
 // AIzaSyDrdlUYQrwcssbaEQEWgt2-TvyGhRNHh7E - google map
 // 4/DAFG4thDDgfHgs2iIl8PGHMIG1ZVwiq2J7PaYRtkSnuD4Y-AkzoL2feta-zwPUphfs14yj-IkYaJar3nvWfpO9w - fitness oauth
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

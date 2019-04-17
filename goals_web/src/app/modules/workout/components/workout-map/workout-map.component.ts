@@ -1,6 +1,7 @@
 import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
 import { Component, OnInit } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
+import { MouseEvent } from '@agm/core/services/google-maps-types';
 
 @Component({
   selector: 'app-workout-map',
@@ -12,6 +13,10 @@ export class WorkoutMapComponent implements OnInit {
 
   }
 
+  onRadiusChange(radius: number) {
+    this.workoutCreateService.newRoutePoint.radius = radius;
+  }
+
   updatePointCoordinates(newCoordinates: any): void {
     this.workoutCreateService.updateLastCoordinates(newCoordinates);
   }
@@ -21,6 +26,12 @@ export class WorkoutMapComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  imitateLocation(event: any) {
+    if (this.workoutCreateService.isWorkoutSession && this.workoutCreateService.currentSessionPoint > 0) {
+      this.workoutCreateService.changeUserLocation(event.coords);
+    }
   }
 
 }

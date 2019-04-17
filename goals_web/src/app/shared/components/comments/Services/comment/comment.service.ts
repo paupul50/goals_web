@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
 })
 export class CommentService {
 
-  private BACKURL = 'http://localhost:52503/';
-
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
   addComment(body: string, commentTarget: string, commentTargetId: number): Observable<any> {
@@ -18,7 +16,7 @@ export class CommentService {
       commentTargetId: commentTargetId,
       body: body
     });
-    return this._http.post(this.BACKURL + 'api/comment', requestBody,
+    return this._http.post(this._userService.BACKURL + 'api/comment', requestBody,
       { headers: this._userService.getHeaders() });
   }
 

@@ -10,13 +10,14 @@ import { Goal } from '../../../models/goal.model';
 })
 export class GoalDetailsComponent implements OnInit {
   id: string;
-  userGoal = new Goal({});
+  userGoal: any;
   isGoalLoaded = false;
   constructor(private _activatedRoute: ActivatedRoute, private _goalsService: GoalsService, private _router: Router) {
     this._activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
       this._goalsService.getUserGoal(this.id).subscribe((userGoal: Goal) => {
         this.userGoal = userGoal;
+        console.log(userGoal);
         this.isGoalLoaded = true;
       });
     });

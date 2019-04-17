@@ -46,17 +46,20 @@ export class TodayGoalsComponent implements OnInit {
   ngOnInit() {
   }
 
-  changeGoalProgressState(goalProgress: any): void {
-    this._goalProgressService.updateProgressState(goalProgress).subscribe((isDone: boolean) => {
-      goalProgress.isDone = isDone;
-    });
-  }
-
-  changeGroupProgressState(GroupGoalProgress: any): void {
-    this._groupGoalProgressService.updateGroupGoalProgressState(GroupGoalProgress)
-      .subscribe((progress: any) => {
-        GroupGoalProgress.isDone = progress.isDone;
+  changeGoalProgressState(element: any): void {
+    if (element.goal.goalType === 1) {
+      this._goalProgressService.updateProgressState(element.goalProgress).subscribe((isDone: boolean) => {
+        element.goalProgress.isDone = isDone;
       });
+    }
   }
 
+  changeGroupProgressState(element: any): void {
+    if (element.goal.goalType === 1) {
+      this._groupGoalProgressService.updateGroupGoalProgressState(element.GroupGoalProgress)
+        .subscribe((progress: any) => {
+          element.GroupGoalProgress.isDone = progress.isDone;
+        });
+    }
+  }
 }

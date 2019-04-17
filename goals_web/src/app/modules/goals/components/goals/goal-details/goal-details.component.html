@@ -11,6 +11,13 @@
         <br>
         {{userGoal.createdAt | date: 'yyyy-MM-dd'}}
         <br>
+        <ng-container *ngIf="userGoal.workoutId">
+          <br>
+          {{userGoal.workoutId}}
+
+        </ng-container>
+
+
         <button mat-raised-button color="warn" (click)="removeGoal()">Pašalinti siekį</button>
       </p>
     </mat-card-content>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GroupGoalService } from '../../../services/group/group-goal/group-goal.service';
-import { WorkoutService } from 'src/app/shared/services/workout/workout.service';
+import { WorkoutService } from 'src/app/modules/workout/services/workout/workout.service';
 
 @Component({
   selector: 'app-create-group-goal',

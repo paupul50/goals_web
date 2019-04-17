@@ -14,7 +14,7 @@ export class LoadingBarService {
   }
 
   changeLoadingState(isLoading: boolean): void {
-    console.log(isLoading);
+    // console.log(isLoading);
     this._isLoadingSubject.next(isLoading);
   }
 }

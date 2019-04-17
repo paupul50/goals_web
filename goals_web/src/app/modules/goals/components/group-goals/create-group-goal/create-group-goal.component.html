@@ -20,7 +20,7 @@
       <ng-template matStepLabel>Siekio tipas</ng-template>
       <mat-radio-group aria-label="Pasirinkite tipą" [(ngModel)]="goalType">
         <mat-radio-button value="1">Standartinis</mat-radio-button>
-        <mat-radio-button [disabled]="workouts.length==0" value="2">Treniruotės</mat-radio-button>
+        <mat-radio-button *ngIf="workouts" [disabled]="workouts.length==0" value="2">Treniruotės</mat-radio-button>
       </mat-radio-group>
       <ng-container *ngIf="goalType=='2'">
         <mat-radio-group aria-label="Pasirinkite treniruotę" [(ngModel)]="workoutId">

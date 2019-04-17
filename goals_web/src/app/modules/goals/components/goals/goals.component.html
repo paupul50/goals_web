@@ -1,11 +1,15 @@
 <div class="container">
   <div class="row">
-    <div class="col-11"></div>
-    <div class="col-1">
+    <div class="col-sm-10">
+      <h5>Mano siekiai</h5>
+    </div>
+    <div class="col-sm-2">
       <button mat-raised-button color="primary" [routerLink]="['/goals/creategoal']">create</button>
     </div>
   </div>
+  <hr>
 </div>
+
 <div *ngIf="isLoaded" class="container">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 

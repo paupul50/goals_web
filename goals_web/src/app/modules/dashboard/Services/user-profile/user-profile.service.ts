@@ -10,12 +10,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserProfileService {
 
-  private BACKURL = 'http://localhost:52503/';
-
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
   getCurrentUserDescription(): Observable<any> {
-    return this._http.get(this.BACKURL + 'api/userDescription',
+    return this._http.get(this._userService.BACKURL + 'api/userDescription',
       { headers: this._userService.getHeaders() }).pipe(
         map(progress => {
           return progress;
@@ -23,7 +21,7 @@ export class UserProfileService {
       );
   }
   getUserDescription(id): Observable<any> {
-    return this._http.get(this.BACKURL + 'api/userDescription/' + id,
+    return this._http.get(this._userService.BACKURL + 'api/userDescription/' + id,
       { headers: this._userService.getHeaders() }).pipe(
         map(progress => {
           return progress;

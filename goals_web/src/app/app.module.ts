@@ -1,3 +1,4 @@
+import { FooterComponent } from './shared/components/footer/footer.component';
 import { CommentsComponent } from './shared/components/comments/comments.component';
 import { HomeComponent } from './shared/components/home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,7 +27,8 @@ import { CommonModule } from '@angular/common';
     NavbarComponent,
     HomeComponent,
     LoginComponent,
-    CreateComponent
+    CreateComponent,
+    FooterComponent
   ],
   imports: [
     ReactiveFormsModule,

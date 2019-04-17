@@ -1,4 +1,5 @@
 <div class="container" *ngIf="isGoalsLoaded">
+  <h5>Mano siekiai</h5>
   <table mat-table [dataSource]="goalsObject" class="mat-elevation-z8">
     <!-- Position Column -->
     <ng-container matColumnDef="goal">
@@ -8,9 +9,9 @@
     <ng-container matColumnDef="goalProgress">
       <th mat-header-cell *matHeaderCellDef> Progresas </th>
       <td mat-cell *matCellDef="let element">
-        <mat-checkbox (click)="changeGoalProgressState(element.goalProgress)" [checked]="element.goalProgress.isDone">
-        </mat-checkbox> ----
-        <button *ngIf="element.goal.workoutId > 0" mat-raised-button
+          <mat-checkbox [disabled]="element.goal.goalType != 1" (click)="changeGoalProgressState(element)" [checked]="element.goalProgress.isDone">
+          </mat-checkbox>
+        <button *ngIf="element.goal.workoutId > 0" mat-button
           [routerLink]="['/workout/session', element.goal.workoutId]" color="primary">pradėti
           treniruotę</button>
 
@@ -24,6 +25,7 @@
 
 <div class="container" *ngIf="isGroupGoalsLoaded">
   <ng-container *ngIf="groupGoalsObject">
+    <h5>Grupės siekiai</h5>
     <table mat-table [dataSource]="groupGoalsObject" class="mat-elevation-z8">
       <!-- Position Column -->
       <ng-container matColumnDef="goal">
@@ -33,9 +35,10 @@
       <ng-container matColumnDef="goalProgress">
         <th mat-header-cell *matHeaderCellDef> Progresas </th>
         <td mat-cell *matCellDef="let element">
-          <mat-checkbox (click)="changeGroupProgressState(element.goalProgress)"
-            [checked]="element.goalProgress.isDone"></mat-checkbox>
-          --- <button *ngIf="element.goal.workoutId > 0" mat-raised-button
+            <mat-checkbox [disabled]="element.goal.goalType != 1" (click)="changeGroupProgressState(element)"
+              [checked]="element.goalProgress.isDone"></mat-checkbox>
+
+          <button *ngIf="element.goal.workoutId > 0" mat-button
             [routerLink]="['/workout/session', element.goal.workoutId]" color="primary">pradėti
             treniruotę</button>
         </td>

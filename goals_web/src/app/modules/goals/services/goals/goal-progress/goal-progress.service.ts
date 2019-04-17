@@ -10,8 +10,6 @@ import { map } from 'rxjs/operators';
 })
 export class GoalProgressService {
 
-  private BACKURL = 'http://localhost:52503/';
-
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
   updateProgressState(goalProgress: GoalProgress): Observable<boolean> {
@@ -19,7 +17,7 @@ export class GoalProgressService {
       id: goalProgress.id,
       isDone: !goalProgress.isDone
     });
-    return this._http.patch<GoalProgress>(this.BACKURL + 'api/goalProgress', body,
+    return this._http.patch<GoalProgress>(this._userService.BACKURL + 'api/goalProgress', body,
       { headers: this._userService.getHeaders() }).pipe(
         map(progress => {
           return progress.isDone;

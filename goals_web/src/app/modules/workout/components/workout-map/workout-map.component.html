@@ -1,30 +1,41 @@
-<agm-map (centerChange)="setCenterCoordinates($event)" [latitude]="54.904053" [longitude]="23.949231" [zoom]="16">
-
-  <agm-circle *ngIf="workoutCreateService.newRoutePoint" (centerChange)="updatePointCoordinates($event)"
+<agm-map (mapClick)='imitateLocation($event)'
+(centerChange)="setCenterCoordinates($event)" [latitude]="54.904053" [longitude]="23.949231" [zoom]="16">
+<!-- new point -->
+  <agm-circle *ngIf="workoutCreateService.newRoutePoint" (radiusChange)="onRadiusChange($event)" (centerChange)="updatePointCoordinates($event)"
     [latitude]="workoutCreateService.newRoutePoint.lat" [longitude]="workoutCreateService.newRoutePoint.lng"
     [radius]="workoutCreateService.newRoutePoint.radius" [fillColor]="workoutCreateService.newRoutePoint.fillColour"
     [circleDraggable]="workoutCreateService.newRoutePoint.circleDraggable"
     [editable]="workoutCreateService.newRoutePoint.editable" [zIndex]="workoutCreateService.newRoutePoint.index">
   </agm-circle>
 
+  <!-- route points -->
   <ng-container *ngFor="let routePoint of workoutCreateService.routePoints">
-    <agm-circle (centerChange)="updatePointCoordinates($event)" [latitude]="routePoint.lat" [longitude]="routePoint.lng"
+    <agm-circle [latitude]="routePoint.lat" [longitude]="routePoint.lng"
       [radius]="routePoint.radius" [fillColor]="routePoint.fillColour" [circleDraggable]="routePoint.circleDraggable"
-      [editable]="routePoint.editable" [zIndex]="routePoint.index">
+      [editable]="routePoint.editable" [zIndex]="routePoint.index"
+      (circleClick)="imitateLocation($event)">
     </agm-circle>
   </ng-container>
 
-  <agm-polyline [polylineDraggable]='true'>
+  <!-- lines through points -->
+  <agm-polyline>
     <ng-container *ngFor="let routePoint of workoutCreateService.routePoints; let routeIndex = index">
       <agm-polyline-point [latitude]="routePoint.lat" [longitude]="routePoint.lng">
       </agm-polyline-point>
     </ng-container>
 
   </agm-polyline>
+
+  <!-- marker on point click -->
   <agm-marker *ngIf="workoutCreateService.infoWindow" [latitude]="workoutCreateService.infoWindow.lat"
     [longitude]="workoutCreateService.infoWindow.lng">
     <agm-info-window [isOpen]='true' (infoWindowClose)="workoutCreateService.clearInfoWindow()">
       eilės nr: {{workoutCreateService.infoWindow.index}}
     </agm-info-window>
+  </agm-marker>
+
+  <!-- current user position -->
+  <agm-marker *ngIf="workoutCreateService.userLocation" [latitude]="workoutCreateService.userLocation.lat"
+    [longitude]="workoutCreateService.userLocation.lng">
   </agm-marker>
 </agm-map>

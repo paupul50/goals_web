@@ -1,4 +1,4 @@
-import { WorkoutService } from '../../../../shared/services/workout/workout.service';
+import { WorkoutService } from '../../services/workout/workout.service';
 import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -13,7 +13,11 @@ export class CreateWorkoutComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder,
     private _workoutService: WorkoutService,
     public workoutCreateService: WorkoutCreateService,
-    private _router: Router) { }
+    private _router: Router) {
+    if (!this.workoutCreateService.isCheckedIfLastWorkoutIsDone) {
+      this._router.navigate(['workout']);
+    }
+  }
 
   ngOnInit() {
     this.newWorkoutForm = this._formBuilder.group({
