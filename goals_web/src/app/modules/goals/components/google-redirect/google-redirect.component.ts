@@ -22,7 +22,7 @@ export class GoogleRedirectComponent implements OnInit {
           firstParam = valueAndKey[1];
 
         }
-        if (valueAndKey[0] === 'state') {
+        if (valueAndKey[0] === 'state') { // nereikia!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           secondParam = valueAndKey[1];
         }
       });

@@ -3,8 +3,11 @@
         <div class="col-sm-10">
             <h5>Šiandienos siekiai</h5>
         </div>
-        <div class="col-sm-2">
-            <button *ngIf="!userService.getIsGoogleLogged()" mat-raised-button color="primary" (click)="loginWithGoogle()">Prisijungti</button>
+        <div *ngIf="!userService.getIsGoogleLogged()" class="col-sm-2">
+            <button mat-raised-button color="primary" (click)="loginWithGoogle()">Prisijungti</button>
+        </div>
+        <div *ngIf="userService.getIsGoogleLogged()" class="col-sm-2">
+            <button mat-raised-button color="primary" (click)="synchroniseGoogleData()">Sinchronizuoti</button>
         </div>
     </div>
     <hr>

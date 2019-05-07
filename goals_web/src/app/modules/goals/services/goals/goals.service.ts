@@ -31,6 +31,11 @@ export class GoalsService {
     //   }));
   }
 
+  synchroniseGoogleData(): Observable<any> {
+    return this._http.get(this._userService.BACKURL + 'api/googleFit',
+      { headers: this._userService.getHeaders() });
+  }
+
   getUserGoal(id: string): Observable<Goal> {
     return this._http.get<Goal[]>(this._userService.BACKURL + 'api/goals/' + id, { headers: this._userService.getHeaders() }).pipe(
       map(goal => {

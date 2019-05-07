@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { GoalWithProgressModel } from '../../models/goal-with-progress.model';
 import { OAuthService, JwksValidationHandler, AuthConfig } from 'angular-oauth2-oidc';
 import { UserService } from 'src/app/shared/services/user.service';
+import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-today-goals',
   templateUrl: './today-goals.component.html',
@@ -20,7 +22,9 @@ export class TodayGoalsComponent implements OnInit {
     private _goalProgressService: GoalProgressService,
     private _groupGoalProgressService: GroupGoalProgressService,
     private oauthService: OAuthService,
-    public userService: UserService) {
+    public userService: UserService,
+    private _snackbarService: SnackbarService,
+    private _router: Router) {
     const authConfig: AuthConfig = {
       issuer: 'https://accounts.google.com',
       // redirectUri: 'http://localhost:52503/api/googleFit',
@@ -73,6 +77,19 @@ export class TodayGoalsComponent implements OnInit {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  synchroniseGoogleData(): void {
+    this._goalsService.synchroniseGoogleData().subscribe((response: any) => {
+      console.log(response);
+      if (response.error) {
+        this._snackbarService.openSnackBar('Klaida:' + response.error);
+        this.userService.removeIsGoogleLogged();
+      } else {
+        this._snackbarService.openSnackBar('duomenys susinchronizuoti.');
+        location.reload();
+      }
+    });
   }
 
   private encode(valueToEncode: string): string {

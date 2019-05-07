@@ -72,6 +72,9 @@ export class UserService {
       return false;
     }
   }
+  removeIsGoogleLogged(): void {
+    localStorage.removeItem('google_logged');
+  }
 
   setIsGoogleLogged(): void {
     localStorage.setItem('google_logged', 'true');
