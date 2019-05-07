@@ -11,6 +11,7 @@ import { TodayGoalsComponent } from './components/today-goals/today-goals.compon
 import { GoalDetailsComponent } from './components/goals/goal-details/goal-details.component';
 import { LoggedInGuard } from 'src/app/shared/guards/logged-in.guard';
 import { GroupUsersComponent } from './components/group-goals/group-members/group-users/group-users.component';
+import { GoogleRedirectComponent } from './components/google-redirect/google-redirect.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'groupusers', component: GroupUsersComponent, canActivate: [LoggedInGuard]},
   { path: 'groupleaderboard', component: LeaderboardComponent, canActivate: [LoggedInGuard]},
   { path: 'today', component: TodayGoalsComponent, canActivate: [LoggedInGuard]},
+  { path: 'today/:redirect', component: GoogleRedirectComponent, canActivate: [LoggedInGuard]},
   { path: ':id', component: GoalDetailsComponent, canActivate: [LoggedInGuard]},
   { path: 'group/:id', component: GroupGoalDetailsComponent, canActivate: [LoggedInGuard]}
 ];

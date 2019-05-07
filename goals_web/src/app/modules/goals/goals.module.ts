@@ -14,6 +14,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { GroupUsersComponent } from './components/group-goals/group-members/group-users/group-users.component';
 import { GroupGoalDetailsComponent } from './components/group-goals/group-goal-details/group-goal-details.component';
+import { GoogleRedirectComponent } from './components/google-redirect/google-redirect.component';
 @NgModule({
   imports: [
     GoalsRoutingModule,
@@ -33,7 +34,8 @@ import { GroupGoalDetailsComponent } from './components/group-goals/group-goal-d
     CreateGroupComponent,
     GroupInvitationComponent,
     GroupGoalDetailsComponent,
-    CreateGroupGoalComponent
+    CreateGroupGoalComponent,
+    GoogleRedirectComponent
   ]
 })
 export class GoalsModule { }

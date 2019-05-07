@@ -20,6 +20,8 @@ import { LoggedOutGuard } from './shared/guards/logged-out.guard';
 import { LoggedInGuard } from './shared/guards/logged-in.guard';
 import { MomentModule } from 'ngx-moment';
 import { HttpConfigInterceptor } from './shared/services/interceptor/interceptor';
+
+import { OAuthModule } from 'angular-oauth2-oidc';
 import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import { CommonModule } from '@angular/common';
     BrowserAnimationsModule,
     MaterialModule,
     SlideshowModule,
-    MomentModule
+    MomentModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     LoggedOutGuard,

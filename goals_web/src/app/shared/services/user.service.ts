@@ -24,6 +24,14 @@ export class UserService {
     return this._http.post(this.BACKURL + 'api/users/create', body, { headers: this.getLoginHeader() });
   }
 
+  setGoogleAccess(paramObject: any): Observable<any> {
+    const body = JSON.stringify({
+      Token: paramObject.access_token,
+      State: paramObject.state
+    });
+    return this._http.post(this.BACKURL + 'api/googleFit', body, { headers: this.getHeaders() });
+  }
+
   login(email: string, password: string): Subject<boolean> {
     const body = JSON.stringify({
       username: email,
@@ -33,6 +41,12 @@ export class UserService {
     this._http.post(this.BACKURL + 'api/users/authenticate', body, { headers: this.getLoginHeader() }).subscribe((response: any) => {
       localStorage.setItem('access_token', 'Bearer ' + response.token);
       localStorage.setItem('current_user', response.username);
+      if (response.isGoogleLogged) {
+        localStorage.setItem('google_logged', 'true');
+      } else {
+        localStorage.setItem('google_logged', 'false');
+      }
+
 
       result.next(true);
     }, (
@@ -51,15 +65,28 @@ export class UserService {
     return localStorage.getItem('current_user');
   }
 
+  getIsGoogleLogged(): boolean {
+    if (localStorage.getItem('google_logged') === 'true') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  setIsGoogleLogged(): void {
+    localStorage.setItem('google_logged', 'true');
+  }
+
   isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
   logout() {
     this._http.delete(this.BACKURL + 'api/users/logout', { headers: this.getHeaders() }).subscribe((response: any) => {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('current_user');
+      localStorage.removeItem('google_logged');
+      this._router.navigate(['login']);
     });
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('current_user');
-    this._router.navigate(['login']);
   }
 
   private getLoginHeader(): HttpHeaders {

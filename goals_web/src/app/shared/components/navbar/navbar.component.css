@@ -1,29 +1,30 @@
 .navbar-color {
-  background-color: #9461eb;
-  box-shadow: 0 2px 0 #854de6;
-}
-.navbar-nav .nav-link{
-  color: white;
+    background-color: #9461eb;
+    /* box-shadow: 0 2px 0 #854de6; */
 }
 
-.container{
-  margin-top: 20px;
+.navbar-nav .nav-link {
+    color: white;
 }
 
-.nav-item .nav-link :hover{
-  cursor: pointer;
-  box-shadow: 0 5px 0 #854de6;
+.container {
+    margin-top: 20px;
 }
 
-.nav-item:hover{
-  box-shadow: 0 5px 0 #854de6;
+.nav-item .nav-link :hover {
+    cursor: pointer;
+    box-shadow: 0 5px 0 #854de6;
+}
+
+.nav-item:hover {
+    box-shadow: 0 5px 0 #854de6;
 }
 
 mat-progress-bar {
-  z-index: 100;
-  position: absolute;
+    z-index: 100;
+    position: absolute;
 }
 
 .temp {
-  text-decoration: line-through;
+    text-decoration: line-through;
 }

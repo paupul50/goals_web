@@ -1,7 +1,6 @@
 import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
 import { Component, OnInit } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
-import { MouseEvent } from '@agm/core/services/google-maps-types';
 
 @Component({
   selector: 'app-workout-map',

@@ -20,7 +20,7 @@ const routes: Routes = [
 // AIzaSyDrdlUYQrwcssbaEQEWgt2-TvyGhRNHh7E - google map
 // 4/DAFG4thDDgfHgs2iIl8PGHMIG1ZVwiq2J7PaYRtkSnuD4Y-AkzoL2feta-zwPUphfs14yj-IkYaJar3nvWfpO9w - fitness oauth
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes)], // , { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

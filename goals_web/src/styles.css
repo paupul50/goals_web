@@ -1,119 +1,126 @@
 @import "~bootstrap/dist/css/bootstrap.css";
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-
-
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 a {
-  color:#673ab7;
+    color: #673ab7;
 }
 
-
 body {
-  background: #fefeff;
-  height: 100%;
+    background: #fefeff;
+    height: 100%;
 }
 
 .loader {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 button {
-  border-color: white !important;
+    border-color: white !important;
 }
 
 .container {
-  padding-top:20px;
+    padding-top: 20px;
 }
-
-
-
 
 
 /* -------------------- */
+
+
 /* LAYOUT */
+
 body {
-  color: rgba(0,0,0,.9);
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+    color: rgba(0, 0, 0, .9);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
     height: 100%;
 }
+
 html {
     margin: 0;
     height: 100%;
 }
+
 #myBody {
-		padding-bottom:77px;
-	}
-	#myFooter {
-		position:absolute;
-		bottom:0;
-    width:100%;
+    padding-bottom: 77px;
+}
+
+#myFooter {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     margin-top: 20px;
-  }
-  #myContainer {
-		min-height:100%;
-		position:relative;
-  }
+}
+
+#myContainer {
+    min-height: 100%;
+    position: relative;
+}
+
 
 /* HELPER CLASSES FOR RESPONSIVE PAGE*/
+
 @media screen and (max-width: 767px) {
     .small-item {
-        display:none;
+        display: none;
     }
 }
+
 @media screen and (min-width: 766px) {
     .big-item {
-        display:none;
+        display: none;
     }
 }
 
 @media (min-width: 40em) {
-  .carousel-caption p {
-    margin-bottom: 1.25rem;
-    font-size: 1.25rem;
-    line-height: 1.4;
-  }
-@media (min-width: 62em) {
-  .featurette-heading {
-    margin-top: 7rem;
-  }
+    .carousel-caption p {
+        margin-bottom: 1.25rem;
+        font-size: 1.25rem;
+        line-height: 1.4;
+    }
+    @media (min-width: 62em) {
+        .featurette-heading {
+            margin-top: 7rem;
+        }
+    }
+    .featurette-heading {
+        font-size: 50px;
+    }
 }
-
-  .featurette-heading {
-    font-size: 50px;
-  }
-}
-
 
 
 /* HOME PAGE COLUMNS */
+
 .marketing .col-lg-4 {
-  margin-bottom: 1.5rem;
-  text-align: center;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
+
 .marketing h2 {
-  font-weight: 400;
+    font-weight: 400;
 }
+
 .marketing .col-lg-4 p {
-  margin-right: .75rem;
-  margin-left: .75rem;
+    margin-right: .75rem;
+    margin-left: .75rem;
 }
+
 
 /* OTHER */
+
 .featurette-divider {
-  margin: 2rem 0;
-
+    margin: 2rem 0;
 }
+
 .featurette-heading {
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -.05rem;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -.05rem;
 }
 
-.coney-bg{
-  background-color: #6f42c1;
-  color:white;
+.coney-bg {
+    background-color: #6f42c1;
+    color: white;
 }

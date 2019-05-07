@@ -3,8 +3,8 @@ import { GoalProgressService } from '../../services/goals/goal-progress/goal-pro
 import { GoalsService } from './../../services/goals/goals.service';
 import { Component, OnInit } from '@angular/core';
 import { GoalWithProgressModel } from '../../models/goal-with-progress.model';
-import { GoalProgress } from '../../models/goal-progress.model';
-
+import { OAuthService, JwksValidationHandler, AuthConfig } from 'angular-oauth2-oidc';
+import { UserService } from 'src/app/shared/services/user.service';
 @Component({
   selector: 'app-today-goals',
   templateUrl: './today-goals.component.html',
@@ -18,7 +18,27 @@ export class TodayGoalsComponent implements OnInit {
   groupGoalsObject: any;
   constructor(private _goalsService: GoalsService,
     private _goalProgressService: GoalProgressService,
-    private _groupGoalProgressService: GroupGoalProgressService) {
+    private _groupGoalProgressService: GroupGoalProgressService,
+    private oauthService: OAuthService,
+    public userService: UserService) {
+    const authConfig: AuthConfig = {
+      issuer: 'https://accounts.google.com',
+      // redirectUri: 'http://localhost:52503/api/googleFit',
+      redirectUri: 'http://localhost:4200/goals/today/success',
+
+      clientId: '688983539905-2gcgd6oodn76un7l6gp0okkfr7qip9pa.apps.googleusercontent.com',
+      scope: 'https://www.googleapis.com/auth/fitness.activity.read',
+      strictDiscoveryDocumentValidation: false,
+      responseType: 'code token',
+      // send_nonce: false
+    };
+    this.oauthService.configure(authConfig);
+    this.oauthService.setStorage(localStorage);
+    this.oauthService.oidc = true;
+    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+    console.log(this.encode(this.userService.getCurrentUsername()));
+
     this.setGoalsProgressData();
   }
 
@@ -44,6 +64,21 @@ export class TodayGoalsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  loginWithGoogle(): void {
+    try {
+      // this.oauthService.initImplicitFlow(this.encode(this.userService.getCurrentUsername()));
+      this.oauthService.initImplicitFlow();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  private encode(valueToEncode: string): string {
+    let encodedValue = btoa(valueToEncode);
+    encodedValue = encodedValue.replace('/', '_').replace('+', '-');
+    return encodedValue;
   }
 
   changeGoalProgressState(element: any): void {
