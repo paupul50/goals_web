@@ -17,18 +17,14 @@ export class GoalsService {
     return this._http.delete(this._userService.BACKURL + 'api/goals/' + id, { headers: this._userService.getHeaders() });
   }
 
-  createUserGoal(goalType: any, name: string, workout: string = '-1'): Observable<Object> {
+  createUserGoal(goalType: any, name: string, goalValues: any): Observable<any>{
     const body = JSON.stringify({
       Goalname: name,
       GoalType: goalType,
-      WorkoutId: workout
+      GoalValues: goalValues
     });
     return this._http.post(this._userService.BACKURL + 'api/goals/create', body,
       { headers: this._userService.getHeaders() });
-    // .pipe(
-    //   map((userGoal: any) => {
-    //     return this.mapGoal(userGoal);
-    //   }));
   }
 
   synchroniseGoogleData(): Observable<any> {

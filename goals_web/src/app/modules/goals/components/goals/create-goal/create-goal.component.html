@@ -1,56 +1,96 @@
 <div class="container">
 
-  <button mat-raised-button color="primary" [routerLink]="['/goals']">Siekiai</button>
-  <button mat-raised-button color="primary" [routerLink]="['/goals/group']">Grupės siekiai</button>
-  <br>
-  <mat-vertical-stepper *ngIf="isWorkoutsLoaded" [linear]="true" #stepper>
-    <mat-step [stepControl]="goalNameForm">
-      <form [formGroup]="goalNameForm">
-        <ng-template matStepLabel>Siekio pavadinimas</ng-template>
-        <mat-form-field>
-          <input matInput placeholder="Siekio pavadinimas" formControlName="goalNameControl" required>
-        </mat-form-field>
-        <div>
-          <button mat-raised-button color="primary" matStepperNext>sekantis žingsnis</button>
-        </div>
-      </form>
-    </mat-step>
+    <button mat-raised-button color="primary" [routerLink]="['/goals']">Siekiai</button>
+    <button mat-raised-button color="primary" [routerLink]="['/goals/group']">Grupės siekiai</button>
+    <br>
+    <mat-vertical-stepper *ngIf="isWorkoutsLoaded" [linear]="true" #stepper>
+        <mat-step [stepControl]="goalNameForm">
+            <form [formGroup]="goalNameForm">
+                <ng-template matStepLabel>Siekio pavadinimas</ng-template>
+                <mat-form-field>
+                    <input matInput placeholder="Siekio pavadinimas" formControlName="goalNameControl" required>
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button color="primary" matStepperNext>sekantis žingsnis</button>
+                </div>
+            </form>
+        </mat-step>
 
 
-    <mat-step>
-      <ng-template matStepLabel>Siekio tipas</ng-template>
-      <mat-radio-group aria-label="Pasirinkite tipą" [(ngModel)]="goalType">
-        <mat-radio-button value="1">Standartinis</mat-radio-button>
-        <mat-radio-button *ngIf="workouts" [disabled]="workouts.length==0" value="2">Treniruotės</mat-radio-button>
-      </mat-radio-group>
-      <ng-container *ngIf="goalType=='2'">
-        <mat-radio-group aria-label="Pasirinkite treniruotę" [(ngModel)]="workoutId">
-          <ng-container *ngFor="let workoutObject of workouts; let i=index">
-            <mat-card>
-              Treniruotė {{i+1}} -
-              <mat-radio-button value="{{workoutObject.id}}">{{workoutObject.name}} -
-                {{workoutObject.id}}
-              </mat-radio-button>
-            </mat-card>
-          </ng-container>
-        </mat-radio-group>
-      </ng-container>
-
-      <div>
-        <button mat-raised-button [disabled]="isTypeDisabled()" color="primary" matStepperNext>sekantis
+        <mat-step>
+            <div class="row">
+                <div class="col-md-6">
+                    <ng-template matStepLabel>Siekio tipas</ng-template>
+                    <mat-radio-group (change)="onCategoryChange()" aria-label="Pasirinkite tipą" [(ngModel)]="goalCategory">
+                        <mat-radio-button value="1">Sistemos sekamas</mat-radio-button>
+                        <mat-radio-button value="2">Naujas</mat-radio-button>
+                        <mat-radio-button value="3" (click)="setRandomGoalType()">Atsitiktinis</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="col-md-6">
+                    <div *ngIf="goalCategory==='1'">
+                        <mat-form-field>
+                            <mat-label>Sistemos sekamų tikslų tipai</mat-label>
+                            <mat-select (selectionChange)="onGoalTypeChange()" [(value)]="goalType">
+                                <mat-option [disabled]="workouts.length==0" value="1">Treniruotė</mat-option>
+                                <mat-option value="2">Kalorijos</mat-option>
+                                <mat-option value="3">Žingsniai</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="goalType==='1'">
+                            <mat-radio-group aria-label="Pasirinkite treniruotę" [(ngModel)]="workoutId">
+                                <ng-container *ngFor="let workoutObject of workouts; let i=index">
+                                    <mat-card>
+                                        Treniruotė {{i+1}} -
+                                        <mat-radio-button value="{{workoutObject.id}}">{{workoutObject.name}} - {{workoutObject.id}}
+                                        </mat-radio-button>
+                                    </mat-card>
+                                </ng-container>
+                            </mat-radio-group>
+                        </div>
+                        <div *ngIf="goalType==='2'|| goalType==='3'">
+                            <form [formGroup]="numberForm">
+                                <ng-template matStepLabel>Tikslo skaičius</ng-template>
+                                <mat-form-field>
+                                    <input matInput type="number" placeholder="Tikslo skaičius" formControlName="numberControl" required>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+                    <div *ngIf="goalCategory==='2'">
+                        <mat-form-field>
+                            <mat-label>Naujo tikslo vertė</mat-label>
+                            <mat-select [(value)]="goalType">
+                                <mat-option value="101">Standartinis</mat-option>
+                                <mat-option value="102">Skaičius</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <div *ngIf="goalType==='102'">
+                            <form [formGroup]="numberForm">
+                                <ng-template matStepLabel>Tikslo skaičius</ng-template>
+                                <mat-form-field>
+                                    <input matInput type="number" placeholder="Tikslo skaičius" formControlName="numberControl" required>
+                                </mat-form-field>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button mat-raised-button [disabled]="isCreateStepDisabled()" color="primary" matStepperNext>sekantis
           žingsnis</button>
-      </div>
-    </mat-step>
+            </div>
+        </mat-step>
 
 
-    <mat-step>
-      <ng-template matStepLabel>Siekio sukūrimas</ng-template>
+        <mat-step>
+            <ng-template matStepLabel>Siekio sukūrimas</ng-template>
 
-      <div>
-        <button mat-raised-button color="primary" matStepperPrevious>Praeitas žingsnis</button>
-        <button mat-raised-button color="primary" (click)="submit()">Kurti</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
+            <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Praeitas žingsnis</button>
+                <button mat-raised-button color="primary" (click)="submit()">Kurti</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
 
 </div>

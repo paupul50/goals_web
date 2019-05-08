@@ -10,13 +10,15 @@ import { WorkoutService } from 'src/app/modules/workout/services/workout/workout
   styleUrls: ['./create-goal.component.css']
 })
 export class CreateGoalComponent implements OnInit {
-  goalType = '0';
+  goalCategory = '0';
   workoutId: any;
   isWorkoutsLoaded = false;
   // goalTypeForm: FormGroup;
-  workouts: any[];
+  workouts = [];
+  goalType = '0';
 
   goalNameForm: FormGroup;
+  numberForm: FormGroup;
 
   typeNotValid = true;
   constructor(private _formBuilder: FormBuilder, private _goalsService: GoalsService,
@@ -32,6 +34,10 @@ export class CreateGoalComponent implements OnInit {
       goalNameControl: ['', Validators.required]
     });
 
+    this.numberForm = this._formBuilder.group({
+      numberControl: ['', [Validators.required]]
+    });
+
     // this.goalTypeForm = this._formBuilder.group({
     //   goalTypeControl: [this.goalType, Validators.required]
     // });
@@ -40,26 +46,48 @@ export class CreateGoalComponent implements OnInit {
   // temp(stuff) {
   //   console.log('stuff', stuff);
   // }
+  setRandomGoalType(): void {
+    this.goalType = '201';
+  }
+  onCategoryChange(): void {
+    console.log('pasikeite');
+    if (this.goalCategory !== '3') {
+      this.goalType = '0';
+    }
+    this.workoutId = null;
+  }
 
-  isTypeDisabled() {
-    if (this.goalType === '1') {
-      this.workoutId = null;
-      return false;
+  onGoalTypeChange(): void {
+    this.workoutId = null;
+  }
+
+  isCreateStepDisabled() {
+    if (this.goalCategory !== '0' && this.goalType !== '0') {
+      // jeigu treniruote
+      if (this.goalType === '1' && this.workoutId) {
+        return false;
+      }
+      // jeigu tikslas su skaiciumi
+      if ((this.goalType === '2' || this.goalType === '3' || this.goalType === '102') && this.numberForm.valid === true) {
+        return false;
+      }
+      // jeigu nieko nereikia tikslui kurti
+      if ((this.goalType === '201' && this.goalCategory === '3') || this.goalType === '101') {
+        return false;
+      }
+      return true;
+    } else {
+      return true;
     }
-    if (this.goalType === '2' && this.workoutId) {
-      return false;
-    }
-    return true;
   }
 
   submit(): void {
-    if (this.goalType === '1') {
-      this._goalsService.createUserGoal('1', this.goalNameForm.value.goalNameControl)
-        .subscribe(anything => this._router.navigate(['/goals']));
-    }
-    if (this.goalType === '2') {
-      this._goalsService.createUserGoal('2', this.goalNameForm.value.goalNameControl, this.workoutId)
-        .subscribe(anything => this._router.navigate(['/goals']));
+    if (!this.isCreateStepDisabled()) {
+      this._goalsService.createUserGoal(this.goalType, this.goalNameForm.value.goalNameControl, {
+        WorkoutId: this.workoutId,
+        GoalNumberValue: this.numberForm.value.numberControl,
+        GoalStringValue: ''
+      }).subscribe(anything => this._router.navigate(['/goals']));
     }
   }
 }

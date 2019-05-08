@@ -23,11 +23,9 @@ export class TodayGoalsComponent implements OnInit {
     private _groupGoalProgressService: GroupGoalProgressService,
     private oauthService: OAuthService,
     public userService: UserService,
-    private _snackbarService: SnackbarService,
-    private _router: Router) {
+    private _snackbarService: SnackbarService) {
     const authConfig: AuthConfig = {
       issuer: 'https://accounts.google.com',
-      // redirectUri: 'http://localhost:52503/api/googleFit',
       redirectUri: 'http://localhost:4200/goals/today/success',
 
       clientId: '688983539905-2gcgd6oodn76un7l6gp0okkfr7qip9pa.apps.googleusercontent.com',
