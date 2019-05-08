@@ -21,11 +21,10 @@ export class UserProfileService {
       );
   }
   getUserDescription(id): Observable<any> {
-    return this._http.get(this._userService.BACKURL + 'api/userDescription/' + id,
-      { headers: this._userService.getHeaders() }).pipe(
-        map(progress => {
-          return progress;
-        })
-      );
+    const body = JSON.stringify({
+      Username: id,
+    });
+    return this._http.post(this._userService.BACKURL + 'api/userDescription', body,
+      { headers: this._userService.getHeaders() });
   }
 }

@@ -14,13 +14,8 @@ export class UserService {
 
   }
 
-  createUser(email: string, password: string, firstname: string, surname: string): Observable<any> {
-    const body = JSON.stringify({
-      Username: email,
-      Password: password,
-      FirstName: firstname,
-      LastName: surname
-    });
+  createUser(userCreateObject: any): Observable<any> {
+    const body = JSON.stringify(userCreateObject);
     return this._http.post(this.BACKURL + 'api/users/create', body, { headers: this.getLoginHeader() });
   }
 
@@ -32,16 +27,13 @@ export class UserService {
     return this._http.post(this.BACKURL + 'api/googleFit', body, { headers: this.getHeaders() });
   }
 
-  login(email: string, password: string): Subject<boolean> {
-    const body = JSON.stringify({
-      username: email,
-      password: password
-    });
+  login(loginObject): Subject<boolean> {
+    const body = JSON.stringify(loginObject);
     const result: Subject<boolean> = new Subject<boolean>();
     this._http.post(this.BACKURL + 'api/users/authenticate', body, { headers: this.getLoginHeader() }).subscribe((response: any) => {
       localStorage.setItem('access_token', 'Bearer ' + response.token);
       localStorage.setItem('current_user', response.username);
-      if (response.isGoogleLogged) {
+      if (response.isGoogleLogged === true) {
         localStorage.setItem('google_logged', 'true');
       } else {
         localStorage.setItem('google_logged', 'false');

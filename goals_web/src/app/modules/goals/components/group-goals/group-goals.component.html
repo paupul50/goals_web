@@ -1,63 +1,63 @@
 <div *ngIf="isGroupLoaded" class="container">
-  <div *ngIf="groupObject.group">
-    <h5>Grupės siekiai</h5>
-    <div *ngIf="groupObject.isLeader">
-      <div class="row">
-        <div class="col-sm-10">
+    <div *ngIf="groupObject.group">
+        <h5>Grupės siekiai</h5>
+        <div *ngIf="groupObject.isLeader">
+            <div class="row">
+                <div class="col-sm-10">
 
-          <button mat-raised-button color="warn" (click)="deleteGroup()">Pašalinti grupę</button>
-          <button mat-raised-button color="primary" [routerLink]="['/goals/groupusers']">grupės nariai</button>
+                    <button mat-raised-button color="warn" (click)="deleteGroup()">Pašalinti grupę</button>
+                    <button mat-raised-button color="primary" [routerLink]="['/goals/groupusers']">grupės nariai</button>
+                </div>
+                <div class="col-sm-2">
+                    <button mat-raised-button color="primary" [routerLink]="['/goals/creategroupgoal']">Sukurti siekį</button>
+                </div>
+            </div>
+
         </div>
-        <div class="col-sm-2">
-          <button mat-raised-button color="primary" [routerLink]="['/goals/creategroupgoal']">Sukurti siekį</button>
+        <div *ngIf="!groupObject.isLeader">
+            <button mat-raised-button color="warn" (click)="leaveGroup()">Palikti grupę</button>
         </div>
-      </div>
-
     </div>
-    <div *ngIf="!groupObject.isLeader">
-      <button mat-raised-button color="warn" (click)="leaveGroup()">Palikti grupę</button>
-    </div>
-  </div>
-  <hr>
-  <!-- ----------------------------------------------------------------- -->
-  <ng-container *ngIf="groupObject.group">
-    <table mat-table [dataSource]="groupProgressObject" class="mat-elevation-z8">
+    <hr>
+    <!-- ----------------------------------------------------------------- -->
+    <ng-container *ngIf="groupObject.group">
+        <table mat-table [dataSource]="groupProgressObject" class="mat-elevation-z8">
 
-      <ng-container matColumnDef="goalDetails">
-        <th mat-header-cell *matHeaderCellDef> </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-raised-button color="primary" [routerLink]="['/goals/group', element.goal.id]">
+            <ng-container matColumnDef="goalDetails">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="primary" [routerLink]="['/goals/group', element.goal.id]">
             Siekio aprašymas</button>
-        </td>
-      </ng-container>
+                </td>
+            </ng-container>
 
-      <!-- Position Column -->
-      <ng-container matColumnDef="goal">
-        <th mat-header-cell *matHeaderCellDef> Siekis </th>
-        <td mat-cell *matCellDef="let element"> {{element.goal.name}} </td>
-      </ng-container>
+            <!-- Position Column -->
+            <ng-container matColumnDef="goal">
+                <th mat-header-cell *matHeaderCellDef> Siekis </th>
+                <td mat-cell *matCellDef="let element"> {{element.goal.name}} </td>
+            </ng-container>
 
-      <!-- Name Column -->
-      <ng-container matColumnDef="userGoalProgresses">
-        <th mat-header-cell *matHeaderCellDef> Narių progresas </th>
-        <td mat-cell *matCellDef="let element">
-          <ng-container *ngFor="let progress of element.userGoalProgresses">
-            <a [routerLink]="['/dashboard/profile/others', progress.userDescription.id]">{{progress.user.username}} </a>
+            <!-- Name Column -->
+            <ng-container matColumnDef="userGoalProgresses">
+                <th mat-header-cell *matHeaderCellDef> Narių progresas </th>
+                <td mat-cell *matCellDef="let element">
+                    <ng-container *ngFor="let progress of element.userGoalProgresses">
+                        <a [routerLink]="['/dashboard/profile/others', progress.user.username]">{{progress.user.username}} </a>
 
-            <mat-checkbox [(ngModel)]="progress.isDone" [disabled]=true></mat-checkbox>
-          </ng-container>
+                        <mat-checkbox [(ngModel)]="progress.isDone" [disabled]=true></mat-checkbox>
+                    </ng-container>
 
-        </td>
-      </ng-container>
+                </td>
+            </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+    </ng-container>
 
-  <!-- ----------------------------------------------------------------- -->
-  <div *ngIf="!groupObject.group">
-    <button mat-raised-button color="primary" [routerLink]="['/goals/creategroup']">Grupės sukūrimas</button>
-    <app-group-invitation></app-group-invitation>
-  </div>
+    <!-- ----------------------------------------------------------------- -->
+    <div *ngIf="!groupObject.group">
+        <button mat-raised-button color="primary" [routerLink]="['/goals/creategroup']">Grupės sukūrimas</button>
+        <app-group-invitation></app-group-invitation>
+    </div>
 </div>

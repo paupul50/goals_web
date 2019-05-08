@@ -16,13 +16,17 @@ export class LoginComponent {
 
   addControls() {
     this.form = this.fb.group({
-      'email': ['kazkas@gmail.com', Validators.compose([Validators.required, Validators.email])],
+      'username': ['kazkas', Validators.compose([Validators.required])],
       'password': ['kazkas', Validators.required]
     });
   }
   onSubmit() {
     if (this.form.valid) {
-      this.userService.login(this.form.value.email, this.form.value.password).subscribe((result: any) => {
+      this.userService.login(
+        {
+          Username: this.form.value.username,
+          Password: this.form.value.password
+        }).subscribe((result: any) => {
         if (result === true) {
           this.router.navigate(['/home']);
         }

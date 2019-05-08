@@ -21,7 +21,10 @@ export class GoalsService {
     const body = JSON.stringify({
       Goalname: name,
       GoalType: goalType,
-      GoalValues: goalValues
+      IsGroupGoal: goalValues.IsGroupGoal,
+      WorkoutId: goalValues.WorkoutId,
+      GoalNumberValue: goalValues.GoalNumberValue,
+      GoalStringValue: goalValues.GoalStringValue
     });
     return this._http.post(this._userService.BACKURL + 'api/goals/create', body,
       { headers: this._userService.getHeaders() });

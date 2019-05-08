@@ -9,7 +9,7 @@ import { CommentService } from '../Services/comment/comment.service';
 })
 export class CreateCommentComponent {
 
-  @Input() commentTargetId: number;
+  @Input() commentedUser: string;
   @Input() commentTarget: string;
   @Output() commentCreated: EventEmitter<any>;
   form: FormGroup;
@@ -34,7 +34,7 @@ export class CreateCommentComponent {
 
     if (this.form.valid) {
       this._commentService.addComment(this.form.value.body,
-         this.commentTarget, this.commentTargetId).subscribe((comment: any) => {
+         this.commentTarget, this.commentedUser).subscribe((comment: any) => {
         this.commentCreated.emit(comment);
         this.form.reset();
       });

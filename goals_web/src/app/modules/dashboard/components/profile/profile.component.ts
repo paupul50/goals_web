@@ -18,17 +18,20 @@ export class ProfileComponent implements OnInit {
       if (!this.id) {
         this._userProfileService.getCurrentUserDescription().subscribe((userData: any) => {
           this.userData = userData;
+          console.log(this.userData);
         });
       } else {
         this._userProfileService.getUserDescription(this.id).subscribe((userData: any) => {
           this.userData = userData;
+          console.log(this.userData);
         });
       }
+
     });
   }
 
   pushCommentToComments(comment: any) {
-    this.userData.comments.push(comment);
+    this.userData.userComments.push(comment);
   }
 
   ngOnInit() {

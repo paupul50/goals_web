@@ -3,7 +3,7 @@
     <button mat-raised-button color="primary" [routerLink]="['/goals']">Siekiai</button>
     <button mat-raised-button color="primary" [routerLink]="['/goals/group']">Grupės siekiai</button>
     <br>
-    <mat-vertical-stepper *ngIf="isWorkoutsLoaded" [linear]="true" #stepper>
+    <mat-vertical-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="goalNameForm">
             <form [formGroup]="goalNameForm">
                 <ng-template matStepLabel>Siekio pavadinimas</ng-template>

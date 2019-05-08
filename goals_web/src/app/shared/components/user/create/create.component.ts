@@ -25,16 +25,22 @@ export class CreateComponent {
       'firstname': ['kazkas', Validators.required],
       'surname': ['kazkas', Validators.required],
       'email': ['kazkas@gmail.com', Validators.compose([Validators.required, Validators.email])],
+      'username': ['kazkas', Validators.required],
       'password': ['kazkas', Validators.required]
     });
   }
   onSubmit() {
     // jeigu error nera
     if (this.form.valid) {
-      this.userService.createUser(this.form.value.email,
-        this.form.value.password, this.form.value.firstname, this.form.value.surname).subscribe((response: any) => {
-          this.router.navigate(['/login']);
-        });
+      this.userService.createUser({
+        Email: this.form.value.email,
+        Username: this.form.value.username,
+        Password: this.form.value.password,
+        Firstname: this.form.value.firstname,
+        Lastname: this.form.value.surname
+      }).subscribe((response: any) => {
+        this.router.navigate(['/login']);
+      });
     }
   }
 

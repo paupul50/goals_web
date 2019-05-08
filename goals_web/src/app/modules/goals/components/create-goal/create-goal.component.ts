@@ -1,5 +1,5 @@
-import { GoalsService } from '../../../services/goals/goals.service';
-import { Component, OnInit } from '@angular/core';
+import { GoalsService } from '../../services/goals/goals.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WorkoutService } from 'src/app/modules/workout/services/workout/workout.service';
@@ -10,11 +10,12 @@ import { WorkoutService } from 'src/app/modules/workout/services/workout/workout
   styleUrls: ['./create-goal.component.css']
 })
 export class CreateGoalComponent implements OnInit {
+  @Input() isGroupGoal: boolean;
+  @Input() workouts: any[];
   goalCategory = '0';
   workoutId: any;
-  isWorkoutsLoaded = false;
   // goalTypeForm: FormGroup;
-  workouts = [];
+
   goalType = '0';
 
   goalNameForm: FormGroup;
@@ -22,11 +23,7 @@ export class CreateGoalComponent implements OnInit {
 
   typeNotValid = true;
   constructor(private _formBuilder: FormBuilder, private _goalsService: GoalsService,
-    private _router: Router, private _workoutService: WorkoutService) {
-    this._workoutService.getUserUnusedWorkouts().subscribe((workouts: any[]) => {
-      this.workouts = workouts;
-      this.isWorkoutsLoaded = true;
-    });
+    private _router: Router) {
   }
 
   ngOnInit() {
@@ -84,10 +81,13 @@ export class CreateGoalComponent implements OnInit {
   submit(): void {
     if (!this.isCreateStepDisabled()) {
       this._goalsService.createUserGoal(this.goalType, this.goalNameForm.value.goalNameControl, {
-        WorkoutId: this.workoutId,
-        GoalNumberValue: this.numberForm.value.numberControl,
-        GoalStringValue: ''
-      }).subscribe(anything => this._router.navigate(['/goals']));
+        WorkoutId: Number(this.workoutId),
+        GoalNumberValue: Number(this.numberForm.value.numberControl),
+        GoalStringValue: '',
+        IsGroupGoal: this.isGroupGoal
+      }).subscribe(() => {
+        this.isGroupGoal ? this._router.navigate(['/goals/group']) : this._router.navigate(['/goals']);
+      })
     }
   }
 }

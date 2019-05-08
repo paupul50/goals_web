@@ -36,7 +36,7 @@ export class GroupGoalDetailsComponent implements OnInit {
   }
 
   isCurrentUserGroupLeader(): boolean {
-    if (this._userService.getCurrentUsername() === this.groupGoal.group.leaderUsername) {
+    if (this._userService.getCurrentUsername() === this.groupGoal.goalMedium.group.leaderUsername) {
       return true;
     } else {
       return false;

@@ -74,8 +74,9 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
   }
 
   // to update workout progress
-  updateWorkoutSession(routePoint: any = null) {
-    this._workoutSessionService.updateWorkoutSession(this.currentSessionPoint, this.workoutId).subscribe((result: any) => {
+  updateWorkoutSession(routePoint: any = {}) {
+    console.log(routePoint);
+    this._workoutSessionService.updateWorkoutSession(this.currentSessionPoint, routePoint.id, this.workoutId).subscribe((result: any) => {
       if (result.status === 0 || result.status === 2) {
         this.destroyInterval();
         this.clearRoutePoints();
