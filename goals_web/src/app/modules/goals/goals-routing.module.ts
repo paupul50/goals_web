@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'creategroupgoal', component: CreateGroupGoalComponent, canActivate: [LoggedInGuard]},
   { path: 'creategroup', component: CreateGroupComponent, canActivate: [LoggedInGuard]},
   { path: 'group', component: GroupGoalsComponent, canActivate: [LoggedInGuard]},
+  { path: 'leaderboard', component: LeaderboardComponent, canActivate: [LoggedInGuard]},
   { path: 'groupusers', component: GroupUsersComponent, canActivate: [LoggedInGuard]},
   { path: 'groupleaderboard', component: LeaderboardComponent, canActivate: [LoggedInGuard]},
   { path: 'today', component: TodayGoalsComponent, canActivate: [LoggedInGuard]},

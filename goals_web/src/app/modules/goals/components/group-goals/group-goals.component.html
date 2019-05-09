@@ -15,6 +15,7 @@
 
         </div>
         <div *ngIf="!groupObject.isLeader">
+            <button mat-raised-button color="primary" [routerLink]="['/goals/leaderboard']">Lyderių lentelė</button>
             <button mat-raised-button color="warn" (click)="leaveGroup()">Palikti grupę</button>
         </div>
     </div>

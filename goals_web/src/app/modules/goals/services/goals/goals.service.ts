@@ -17,7 +17,7 @@ export class GoalsService {
     return this._http.delete(this._userService.BACKURL + 'api/goals/' + id, { headers: this._userService.getHeaders() });
   }
 
-  createUserGoal(goalType: any, name: string, goalValues: any): Observable<any>{
+  createUserGoal(goalType: any, name: string, goalValues: any): Observable<any> {
     const body = JSON.stringify({
       Goalname: name,
       GoalType: goalType,

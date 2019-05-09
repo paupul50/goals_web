@@ -1,11 +1,11 @@
-<div class="container">
-    <button mat-raised-button [routerLink]="['/goals/group']" color="primary">group goals</button>
-    <mat-card>vardas | taskai</mat-card>
-    <mat-card>vardas | taskai</mat-card>
-    <mat-card>vardas | taskai</mat-card>
-    <mat-card>vardas | taskai</mat-card>
-    <mat-card>vardas | taskai</mat-card>
-    <mat-card>vardas | taskai</mat-card>
-    <mat-card>vardas | taskai</mat-card>
-    <mat-card>vardas | taskai</mat-card>
-</div>
+<ng-container *ngIf="leaderboard">
+    <div class="container">
+        <div class="row">
+            <button mat-raised-button [routerLink]="['/goals/group']" color="primary">group goals</button>
+        </div>
+
+        <div *ngFor="let member of leaderboard">
+            <mat-card>{{member.username}} | {{member.points}}</mat-card>
+        </div>
+    </div>
+</ng-container>

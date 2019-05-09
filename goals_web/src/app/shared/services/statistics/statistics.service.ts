@@ -10,6 +10,9 @@ export class StatisticsService {
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
   getCurrentUserDescription(): Observable<any> {
-    return this._http.get(this._userService.BACKURL + 'api/statistics', { headers: this._userService.getHeaders() });
+    return this._http.get(this._userService.BACKURL + 'api/statistics/chart', { headers: this._userService.getHeaders() });
+  }
+  getGroupLeaderBoard(): Observable<any> {
+    return this._http.get(this._userService.BACKURL + 'api/statistics/leaderboard', { headers: this._userService.getHeaders() });
   }
 }
