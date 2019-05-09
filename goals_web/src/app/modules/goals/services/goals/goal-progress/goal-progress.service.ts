@@ -12,10 +12,13 @@ export class GoalProgressService {
 
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
-  updateProgressState(goalProgress: GoalProgress): Observable<boolean> {
+  updateProgressState(goalProgress: any, isGroup: boolean): Observable<boolean> {
     const body = JSON.stringify({
       id: goalProgress.id,
-      isDone: !goalProgress.isDone
+      IsGroup: isGroup,
+      IsDone: !goalProgress.isDone,
+      GoalNumberValue: goalProgress.goalNumberValue,
+      GoalStringValue: goalProgress.goalStringValue
     });
     return this._http.patch<GoalProgress>(this._userService.BACKURL + 'api/goalProgress', body,
       { headers: this._userService.getHeaders() }).pipe(

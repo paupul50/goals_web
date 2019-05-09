@@ -15,9 +15,9 @@ import { Router } from '@angular/router';
 export class TodayGoalsComponent implements OnInit {
   isGroupGoalsLoaded = false;
   isGoalsLoaded = false;
-  displayedColumns: string[] = ['goal', 'goalProgress'];
+
   goalsObject: GoalWithProgressModel[] = [];
-  groupGoalsObject: any;
+  groupGoalsObject: any[];
   constructor(private _goalsService: GoalsService,
     private _goalProgressService: GoalProgressService,
     private _groupGoalProgressService: GroupGoalProgressService,
@@ -84,7 +84,7 @@ export class TodayGoalsComponent implements OnInit {
         this._snackbarService.openSnackBar('Klaida:' + response.error);
         this.userService.removeIsGoogleLogged();
       } else {
-        this._snackbarService.openSnackBar('duomenys susinchronizuoti.');
+        this._snackbarService.openSnackBar('Duomenys susinchronizuoti.');
         location.reload();
       }
     });
@@ -94,22 +94,5 @@ export class TodayGoalsComponent implements OnInit {
     let encodedValue = btoa(valueToEncode);
     encodedValue = encodedValue.replace('/', '_').replace('+', '-');
     return encodedValue;
-  }
-
-  changeGoalProgressState(element: any): void {
-    if (element.goal.goalType === 1) {
-      this._goalProgressService.updateProgressState(element.goalProgress).subscribe((isDone: boolean) => {
-        element.goalProgress.isDone = isDone;
-      });
-    }
-  }
-
-  changeGroupProgressState(element: any): void {
-    if (element.goal.goalType === 1) {
-      this._groupGoalProgressService.updateGroupGoalProgressState(element.GroupGoalProgress)
-        .subscribe((progress: any) => {
-          element.GroupGoalProgress.isDone = progress.isDone;
-        });
-    }
   }
 }

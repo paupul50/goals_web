@@ -1,4 +1,4 @@
-import { GoalsService } from '../../services/goals/goals.service';
+import { GoalsService } from '../../../services/goals/goals.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -87,7 +87,7 @@ export class CreateGoalComponent implements OnInit {
         IsGroupGoal: this.isGroupGoal
       }).subscribe(() => {
         this.isGroupGoal ? this._router.navigate(['/goals/group']) : this._router.navigate(['/goals']);
-      })
+      });
     }
   }
 }

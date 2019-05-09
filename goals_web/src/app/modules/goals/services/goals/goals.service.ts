@@ -84,14 +84,17 @@ export class GoalsService {
           createdAt: new Date(goalProgress.createdAt),
           id: goalProgress.id,
           isDone: goalProgress.isDone,
-          isDummy: goalProgress.isDummy
+          isDummy: goalProgress.isDummy,
+          numberValue: goalProgress.goalNumberValue
         }));
       });
       goalsProgress.push(new GoalWithProgressModel({
         goal: new Goal({
           id: goal.id,
           createdAt: new Date(goal.createdAt),
-          name: goal.name
+          name: goal.name,
+          type: goal.goalType,
+          numberValue: goal.goalNumberValue
         }),
         goalProgressCollection: progressCollection
       })

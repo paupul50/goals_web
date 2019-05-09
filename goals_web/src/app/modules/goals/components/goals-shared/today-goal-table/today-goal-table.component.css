@@ -1,5 +1,10 @@
 table {
     width: 100%;
+    margin-bottom: 15px;
+}
+
+button {
+    margin-left: 10px;
 }
 
 .number-input-size {

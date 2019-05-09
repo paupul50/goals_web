@@ -19,6 +19,7 @@ export class GoalsComponent implements OnInit {
   constructor(private _goalService: GoalsService, private _snackbarService: SnackbarService) {
     const currentDate = new Date();
     this._goalService.GetUserGoalsWithProgress(currentDate, 10).subscribe((goals: GoalWithProgressModel[]) => {
+
       if (goals.length > 0) {
         this.mapGoalsToTableDataSource(goals);
         this.isLoaded = true;
@@ -26,6 +27,14 @@ export class GoalsComponent implements OnInit {
         this._snackbarService.openSnackBar('Nėra siekių.');
       }
     });
+  }
+
+  isNumberGoal(goalType: number): boolean {
+    if (goalType === 2 || goalType === 3 || goalType === 102) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   private mapGoalsToTableDataSource(goals: GoalWithProgressModel[]): void {

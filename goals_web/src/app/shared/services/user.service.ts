@@ -19,10 +19,9 @@ export class UserService {
     return this._http.post(this.BACKURL + 'api/users/create', body, { headers: this.getLoginHeader() });
   }
 
-  setGoogleAccess(paramObject: any): Observable<any> {
+  setGoogleAccess(token: any): Observable<any> {
     const body = JSON.stringify({
-      Token: paramObject.access_token,
-      State: paramObject.state
+      Token: token
     });
     return this._http.post(this.BACKURL + 'api/googleFit', body, { headers: this.getHeaders() });
   }

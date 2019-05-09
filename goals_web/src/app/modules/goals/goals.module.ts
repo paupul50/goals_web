@@ -8,7 +8,7 @@ import { GroupGoalsComponent } from './components/group-goals/group-goals.compon
 import { NgModule } from '@angular/core';
 import { GoalsRoutingModule } from './goals-routing.module';
 import { GoalsComponent } from './components/goals/goals.component';
-import { CreateGoalComponent } from './components/create-goal/create-goal.component';
+import { CreateGoalComponent } from './components/goals-shared/create-goal/create-goal.component';
 import { MaterialModule } from '../../shared/angular-material/angular-material.module';
 import { TodayGoalsComponent } from './components/today-goals/today-goals.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { GroupUsersComponent } from './components/group-goals/group-members/group-users/group-users.component';
 import { GroupGoalDetailsComponent } from './components/group-goals/group-goal-details/group-goal-details.component';
 import { GoogleRedirectComponent } from './components/google-redirect/google-redirect.component';
+import { TodayGoalTableComponent } from './components/goals-shared/today-goal-table/today-goal-table.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { GoogleRedirectComponent } from './components/google-redirect/google-red
     GroupGoalDetailsComponent,
     CreateGroupGoalComponent,
     GoogleRedirectComponent,
-    CreateUserGoalComponent
+    CreateUserGoalComponent,
+    TodayGoalTableComponent
   ]
 })
 export class GoalsModule { }
