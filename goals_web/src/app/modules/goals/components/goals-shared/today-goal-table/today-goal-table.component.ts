@@ -34,7 +34,7 @@ export class TodayGoalTableComponent implements OnInit {
     return goalType === 102 ? true : false;
   }
   isStandartEdit(goalType: number) {
-    return goalType === 101 ? true : false;
+    return goalType === 101 || goalType === 201 ? true : false;
   }
   isNumberUneditable(goalType: number) {
     return goalType === 2 || goalType === 3 ? true : false;
@@ -58,4 +58,3 @@ export class TodayGoalTableComponent implements OnInit {
   //   }
   // }
 }
-;

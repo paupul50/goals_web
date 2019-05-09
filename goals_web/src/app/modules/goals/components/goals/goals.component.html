@@ -33,6 +33,9 @@
                         <mat-form-field *ngIf=" isNumberGoal(goalElement.goal.type) " class="number-input-size ">
                             <input matInput type="number " placeholder="{{goalElement.goal.numberValue}} " value="{{element[goalElement.goal.name].numberValue}} " [disabled]="true ">
                         </mat-form-field>
+                        <ng-container *ngIf="isRandomGoal(goalElement.goal.type)">
+                            {{element[goalElement.goal.name].stringValue}}
+                        </ng-container>
                     </ng-container>
                     <!-- DUMMY DATA -->
                     <ng-container *ngIf="element[goalElement.goal.name].isDummy ">

@@ -36,6 +36,13 @@ export class GoalsComponent implements OnInit {
       return false;
     }
   }
+  isRandomGoal(goalType: number): boolean {
+    if (goalType === 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   private mapGoalsToTableDataSource(goals: GoalWithProgressModel[]): void {
     this.goals = goals;

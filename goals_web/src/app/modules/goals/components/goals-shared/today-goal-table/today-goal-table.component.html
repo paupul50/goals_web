@@ -32,8 +32,8 @@
             </ng-container>
             <ng-container *ngIf="isStandartEdit(element.goal.goalType)">
                 <mat-slide-toggle (click)="changeGoalProgressState(element)" [checked]="element.goalProgress.isDone">
+                    {{element.goalProgress.goalStringValue}}
                 </mat-slide-toggle>
-
             </ng-container>
         </td>
     </ng-container>
