@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label, SingleDataSet } from 'ng2-charts';
 @Component({
@@ -7,47 +7,33 @@ import { Label, SingleDataSet } from 'ng2-charts';
   styleUrls: ['./statistic.component.css']
 })
 export class StatisticComponent implements OnInit {
-  // PolarArea
-  public polarAreaChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail Sales', 'Telesales', 'Corporate Sales'];
-  public polarAreaChartData: SingleDataSet = [300, 500, 100, 40, 120];
-  public polarAreaLegend = true;
+  @Input() chartData: any;
+  polarAreaChartLabels: Label[];
+  polarAreaChartData: SingleDataSet;
+  polarAreaLegend = true;
+  isLoaded = false;
 
-  public polarAreaChartType: ChartType = 'polarArea';
-    // ---------------------------
-    public scatterChartOptions: ChartOptions = {
-      responsive: true,
-    };
-    public scatterChartLabels: Label[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+  polarAreaChartType: ChartType = 'polarArea';
 
-    public scatterChartData: ChartDataSets[] = [
-      {
-        data: [
-          { x: 1, y: 1 },
-          { x: 2, y: 3 },
-          { x: 3, y: -2 },
-          { x: 4, y: 4 },
-          { x: 5, y: -3, r: 20 },
-        ],
-        label: 'Series A',
-        pointRadius: 10,
-      },
-    ];
-    public scatterChartType: ChartType = 'scatter';
+  chartOptions = {
+    scale: {
+      ticks: {
+        min: 0,
+        max: 30
+      }
+    }
+  };
 
-  constructor() { }
+  constructor() {
+
+  }
 
   ngOnInit() {
+    console.log(this.chartData);
+    if (this.chartData != null) {
+      this.isLoaded = true;
+      this.polarAreaChartData = this.chartData.counts;
+      this.polarAreaChartLabels = this.chartData.names;
+    }
   }
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-
-
 }

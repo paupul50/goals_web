@@ -1,31 +1,10 @@
-<div class="container">
-  <mat-card>
-    <button mat-raised-button [routerLink]="['/dashboard/statistics/id']" color="primary">details</button>
-    This is some goal name
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button [routerLink]="['/dashboard/statistics/id']" color="primary">details</button>
-    This is some goal name
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button [routerLink]="['/dashboard/statistics/id']" color="primary">details</button>
-    This is some goal name
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button [routerLink]="['/dashboard/statistics/id']" color="primary">details</button>
-    This is some goal name
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button [routerLink]="['/dashboard/statistics/id']" color="primary">details</button>
-    This is some goal name
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button [routerLink]="['/dashboard/statistics/id']" color="primary">details</button>
-    This is some goal name
-  </mat-card>
-  <mat-card>
-    <button mat-raised-button [routerLink]="['/dashboard/statistics/id']" color="primary">details</button>
-    This is some goal name
-  </mat-card>
-
+<div *ngIf="isLoaded" class="container">
+    <mat-tab-group [@.disabled]="true">
+        <mat-tab label="Mano tikslai">
+            <app-statistic [chartData]="userGoals"></app-statistic>
+        </mat-tab>
+        <mat-tab label="Grupės tikslai">
+            <app-statistic [chartData]="groupGoals"></app-statistic>
+        </mat-tab>
+    </mat-tab-group>
 </div>

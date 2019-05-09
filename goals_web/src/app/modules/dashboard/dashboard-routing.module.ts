@@ -18,8 +18,7 @@ const childRoutes: Routes = [
 const routes: Routes = [
   { path: '', redirectTo: 'profile', pathMatch: 'full', canActivate: [LoggedInGuard] },
   { path: 'profile', component: ProfileOutletComponent, children: childRoutes, canActivate: [LoggedInGuard] },
-  { path: 'statistics', component: StatisticsComponent, canActivate: [LoggedInGuard] },
-  { path: 'statistics/id', component: StatisticComponent, canActivate: [LoggedInGuard] }
+  { path: 'statistics', component: StatisticsComponent, canActivate: [LoggedInGuard] }
 ];
 
 

@@ -19,7 +19,7 @@ export class GoalsComponent implements OnInit {
   constructor(private _goalService: GoalsService, private _snackbarService: SnackbarService) {
     const currentDate = new Date();
     this._goalService.GetUserGoalsWithProgress(currentDate, 10).subscribe((goals: GoalWithProgressModel[]) => {
-
+      console.log(goals);
       if (goals.length > 0) {
         this.mapGoalsToTableDataSource(goals);
         this.isLoaded = true;
