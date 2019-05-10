@@ -24,7 +24,18 @@ export class UserProfileService {
     const body = JSON.stringify({
       Username: id,
     });
-    return this._http.post(this._userService.BACKURL + 'api/userDescription', body,
+    return this._http.post(this._userService.BACKURL + 'api/userDescription/other', body,
       { headers: this._userService.getHeaders() });
+  }
+  editCurrentUserDescription(editObject: any, selectedFile: File): Observable<any> {
+    const uploadData = new FormData();
+    uploadData.append('File', selectedFile, selectedFile.name);
+    uploadData.append('Firstname', editObject.Firstname);
+    uploadData.append('Lastname', editObject.Lastname);
+    uploadData.append('Description', editObject.Description);
+
+    // uploadData.append('editObject', editObject);
+    return this._http.post(this._userService.BACKURL + 'api/userDescription/edit', uploadData,
+      { headers: this._userService.getAuthHeader() });
   }
 }

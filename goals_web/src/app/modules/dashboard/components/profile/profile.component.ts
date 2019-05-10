@@ -1,3 +1,4 @@
+import { UserService } from './../../../../shared/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { UserProfileService } from '../../Services/user-profile/user-profile.service';
 import { ActivatedRoute, Params } from '@angular/router';
@@ -12,7 +13,8 @@ export class ProfileComponent implements OnInit {
   userData: any;
   commentTarget = 'profile';
   constructor(private _userProfileService: UserProfileService,
-    private _activatedRoute: ActivatedRoute) {
+    private _activatedRoute: ActivatedRoute,
+    private _userService: UserService) {
     this._activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
       if (!this.id) {
@@ -32,6 +34,15 @@ export class ProfileComponent implements OnInit {
 
   pushCommentToComments(comment: any) {
     this.userData.userComments.push(comment);
+  }
+
+  getImageUrl() {
+    console.log(this._userService.BACKURL + this.userData.user.image);
+    return this._userService.BACKURL + this.userData.user.image;
+  }
+
+  doesUserHaveImage(): boolean {
+    return this.userData.image !== '';
   }
 
   ngOnInit() {

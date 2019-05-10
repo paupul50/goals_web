@@ -94,4 +94,10 @@ export class UserService {
       'Authorization': this.getToken()
     });
   }
+
+  getAuthHeader(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': this.getToken()
+    });
+  }
 }

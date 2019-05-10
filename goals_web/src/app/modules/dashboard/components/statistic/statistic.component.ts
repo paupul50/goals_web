@@ -29,11 +29,10 @@ export class StatisticComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.chartData);
-    if (this.chartData != null) {
-      this.isLoaded = true;
+    if (this.chartData.names != null) {
       this.polarAreaChartData = this.chartData.counts;
       this.polarAreaChartLabels = this.chartData.names;
+      this.isLoaded = true;
     }
   }
 }
