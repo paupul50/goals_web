@@ -1,7 +1,6 @@
-import { WorkoutSessionService } from './../../services/workout-session/workout-session.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
-import { WorkoutService } from '../../services/workout/workout.service';
+import { WorkoutService } from '../../services/workout-create/workout.service';
+import { WorkoutHttpService } from '../../services/workout/workout-http.service';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
 @Component({
@@ -9,61 +8,55 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
   templateUrl: './start-workout.component.html',
   styleUrls: ['./start-workout.component.css']
 })
-export class StartWorkoutComponent implements OnInit, OnDestroy {
+export class StartWorkoutComponent implements OnDestroy {
   id: string;
   isWorkoutLoaded = false;
 
-
-
-  constructor(public workoutCreateService: WorkoutCreateService,
-    private _workoutService: WorkoutService,
+  constructor(public workoutService: WorkoutService,
+    private _workoutHttpService: WorkoutHttpService,
     private _activatedRoute: ActivatedRoute,
     private _router: Router
   ) {
-    if (!this.workoutCreateService.isCheckedIfLastWorkoutIsDone) {
+    if (!this.workoutService.isCheckedIfLastWorkoutIsDone) {
       this._router.navigate(['workout']);
     } else {
-      this._activatedRoute.params.subscribe((params: Params) => {
-        this.id = params['id'];
-        this._workoutService.getUserWorkout(this.id).subscribe((workout: any) => {
-          console.log('workout', workout);
-          this.isWorkoutLoaded = true;
-          this.workoutCreateService.routePoints = workout.workoutWithRoutePoints;
-          this.workoutCreateService.isWorkoutSession = true;
-          this.workoutCreateService.workoutId = this.id;
-          console.log('sessionPoint', this.workoutCreateService.currentSessionPoint);
-          if (this.workoutCreateService.currentSessionPoint > 1) {
-            this.workoutCreateService.isSessionStarted = true;
-            this.workoutCreateService.loadWorkoutProgress();
-          }
-        });
+      this.initializeUserWorkout();
+    }
+  }
+
+  private initializeUserWorkout(): void {
+    this._activatedRoute.params.subscribe((params: Params) => {
+      this.id = params['id'];
+      this._workoutHttpService.getUserWorkout(this.id).subscribe((workout: any) => {
+        this.isWorkoutLoaded = true;
+        this.workoutService.routePoints = workout.workoutWithRoutePoints;
+        this.workoutService.isWorkoutSession = true;
+        this.workoutService.workoutId = this.id;
+
+        if (this.workoutService.currentSessionPoint > 1) {
+          this.workoutService.isSessionStarted = true;
+          this.workoutService.loadWorkoutProgress();
+        }
       });
+    });
+  }
+
+  setInfoWindow(routePoint: any): void {
+    this.workoutService.infoWindow = routePoint;
+  }
+
+  startWorkoutSession(): void {
+    this.workoutService.startWorkoutSession();
+  }
+
+  endWorkoutSession(): void {
+    if (this.workoutService.isSessionStarted) {
+      this.workoutService.currentSessionPoint = -1;
+      this.workoutService.updateWorkoutSession();
     }
-  }
-
-  setInfoWindow(routePoint: any) {
-    this.workoutCreateService.infoWindow = routePoint;
-  }
-
-  startWorkoutSession() {
-    this.workoutCreateService.startWorkoutSession();
-  }
-
-  endWorkoutSession() {
-    if (this.workoutCreateService.isSessionStarted) {
-      this.workoutCreateService.currentSessionPoint = -1;
-      this.workoutCreateService.updateWorkoutSession();
-    }
-
-  }
-
-  ngOnInit() {
-
   }
 
   ngOnDestroy() {
-    this.workoutCreateService.destroyInterval();
+    this.workoutService.destroyInterval();
   }
-
-
 }

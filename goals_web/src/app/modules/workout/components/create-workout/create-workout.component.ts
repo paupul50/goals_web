@@ -1,5 +1,5 @@
-import { WorkoutService } from '../../services/workout/workout.service';
-import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
+import { WorkoutHttpService } from '../../services/workout/workout-http.service';
+import { WorkoutService } from '../../services/workout-create/workout.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,10 +11,11 @@ import { Router } from '@angular/router';
 export class CreateWorkoutComponent implements OnInit {
   newWorkoutForm: FormGroup;
   constructor(private _formBuilder: FormBuilder,
-    private _workoutService: WorkoutService,
-    public workoutCreateService: WorkoutCreateService,
-    private _router: Router) {
-    if (!this.workoutCreateService.isCheckedIfLastWorkoutIsDone) {
+    private _workoutHttpService: WorkoutHttpService,
+    public workoutService: WorkoutService,
+    private _router: Router
+    ) {
+    if (!this.workoutService.isCheckedIfLastWorkoutIsDone) {
       this._router.navigate(['workout']);
     }
   }
@@ -25,28 +26,28 @@ export class CreateWorkoutComponent implements OnInit {
     });
   }
 
-  saveWorkout() {
+  saveWorkout(): void {
     if (this.newWorkoutForm.valid) {
-      this._workoutService.createWorkout(this.newWorkoutForm.value.workoutNameControl,
-        this.workoutCreateService.routePoints)
-        .subscribe((anything) => {
-          this.workoutCreateService.clearRoutePoints();
+      this._workoutHttpService.createWorkout(this.newWorkoutForm.value.workoutNameControl,
+        this.workoutService.routePoints)
+        .subscribe(() => {
+          this.workoutService.clearRoutePoints();
           this._router.navigate(['workout']);
         });
     }
   }
 
-  addRoutePoint() {
-    this.workoutCreateService.addNewRoutePoint();
+  addRoutePoint(): void {
+    this.workoutService.addNewRoutePoint();
   }
-  removeRoutePoint() {
-    this.workoutCreateService.removeRoutePoint();
+  removeRoutePoint(): void {
+    this.workoutService.removeRoutePoint();
   }
-  saveRoutePoint() {
-    this.workoutCreateService.saveRoutePoint();
+  saveRoutePoint(): void {
+    this.workoutService.saveRoutePoint();
   }
 
-  setInfoWindow(routePoint: any) {
-    this.workoutCreateService.infoWindow = routePoint;
+  setInfoWindow(routePoint: any): void {
+    this.workoutService.infoWindow = routePoint;
   }
 }

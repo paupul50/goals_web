@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Observable } from 'rxjs';
 import { GoalProgress } from '../../../models/goal-progress.model';
@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class GoalProgressService {
+export class GoalProgressHttpService {
 
   constructor(private _http: HttpClient, private _userService: UserService) { }
 

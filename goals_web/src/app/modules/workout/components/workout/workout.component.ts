@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
+import { WorkoutService } from '../../services/workout-create/workout.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,15 +9,14 @@ import { Router } from '@angular/router';
 })
 export class WorkoutComponent implements OnInit {
 
-  constructor(private _workoutCreateService: WorkoutCreateService, private _router: Router) { }
+  constructor(private _workoutService: WorkoutService, private _router: Router) { }
 
   ngOnInit() {
-    if (this._workoutCreateService.isCreate) {
+    if (this._workoutService.isCreate) {
       this._router.navigate(['workout/create']);
     }
-    if (this._workoutCreateService.isWorkoutSession) {
-      this._router.navigate(['workout/session/' + this._workoutCreateService.workoutId]);
+    if (this._workoutService.isWorkoutSession) {
+      this._router.navigate(['workout/session/' + this._workoutService.workoutId]);
     }
   }
-
 }

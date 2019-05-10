@@ -1,46 +1,45 @@
-import { GroupGoalProgressService } from './../../services/group/group-goal-progress/group-goal-progress.service';
-import { GoalProgressService } from '../../services/goals/goal-progress/goal-progress.service';
-import { GoalsService } from './../../services/goals/goals.service';
-import { Component, OnInit } from '@angular/core';
+import { GroupGoalProgressHttpService } from '../../services/group/group-goal-progress/group-goal-progress-http.service';
+import { GoalsHttpService } from '../../services/goals/goals-http.service';
+import { Component } from '@angular/core';
 import { GoalWithProgressModel } from '../../models/goal-with-progress.model';
 import { OAuthService, JwksValidationHandler, AuthConfig } from 'angular-oauth2-oidc';
 import { UserService } from 'src/app/shared/services/user.service';
 import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
-import { Router } from '@angular/router';
 @Component({
   selector: 'app-today-goals',
   templateUrl: './today-goals.component.html',
   styleUrls: ['./today-goals.component.css']
 })
-export class TodayGoalsComponent implements OnInit {
+export class TodayGoalsComponent {
   isGroupGoalsLoaded = false;
   isGoalsLoaded = false;
 
   goalsObject: GoalWithProgressModel[] = [];
   groupGoalsObject: any[];
-  constructor(private _goalsService: GoalsService,
-    private _goalProgressService: GoalProgressService,
-    private _groupGoalProgressService: GroupGoalProgressService,
+
+  constructor(
+    private _goalsHttpService: GoalsHttpService,
+    private _groupGoalProgressHttpService: GroupGoalProgressHttpService,
     private oauthService: OAuthService,
     public userService: UserService,
     private _snackbarService: SnackbarService) {
+    this.setupGoogleAuth();
+  }
+
+  private setupGoogleAuth(): void {
     const authConfig: AuthConfig = {
       issuer: 'https://accounts.google.com',
-      redirectUri: 'http://localhost:4200/goals/today/success',
-
+      redirectUri: this.userService.BACKURL + 'goals/today/success',
       clientId: '688983539905-2gcgd6oodn76un7l6gp0okkfr7qip9pa.apps.googleusercontent.com',
       scope: 'https://www.googleapis.com/auth/fitness.activity.read',
       strictDiscoveryDocumentValidation: false,
       responseType: 'code token',
-      // send_nonce: false
     };
     this.oauthService.configure(authConfig);
     this.oauthService.setStorage(localStorage);
     this.oauthService.oidc = true;
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
-    console.log(this.encode(this.userService.getCurrentUsername()));
-
     this.setGoalsProgressData();
   }
 
@@ -50,36 +49,29 @@ export class TodayGoalsComponent implements OnInit {
   }
 
   private setGoalsProgress(): void {
-    this._goalsService.getUserTodayGoalWithProgress().subscribe((goalWithProgress: any[]) => {
+    this._goalsHttpService.getUserTodayGoalWithProgress().subscribe((goalWithProgress: any[]) => {
       this.goalsObject = goalWithProgress;
-      console.log('mygoal progress', this.goalsObject);
       this.isGoalsLoaded = true;
     });
   }
 
   private setGroupGoalsProgress(): void {
-    this._groupGoalProgressService.getTodayUserGroupGoalsProgress().subscribe((goalWithProgress: any) => {
+    this._groupGoalProgressHttpService.getTodayUserGroupGoalsProgress().subscribe((goalWithProgress: any) => {
       this.groupGoalsObject = goalWithProgress;
-      console.log('groupgoal progress', this.groupGoalsObject);
       this.isGroupGoalsLoaded = true;
     });
   }
 
-  ngOnInit() {
-  }
-
   loginWithGoogle(): void {
     try {
-      // this.oauthService.initImplicitFlow(this.encode(this.userService.getCurrentUsername()));
       this.oauthService.initImplicitFlow();
     } catch (error) {
-      console.log(error);
+      this._snackbarService.openSnackBar('Klaida.');
     }
   }
 
   synchroniseGoogleData(): void {
-    this._goalsService.synchroniseGoogleData().subscribe((response: any) => {
-      console.log(response);
+    this._goalsHttpService.synchroniseGoogleData().subscribe((response: any) => {
       if (response.error) {
         this._snackbarService.openSnackBar('Klaida:' + response.error);
         this.userService.removeIsGoogleLogged();
@@ -88,11 +80,5 @@ export class TodayGoalsComponent implements OnInit {
         location.reload();
       }
     });
-  }
-
-  private encode(valueToEncode: string): string {
-    let encodedValue = btoa(valueToEncode);
-    encodedValue = encodedValue.replace('/', '_').replace('+', '-');
-    return encodedValue;
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
@@ -10,29 +10,31 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   form: FormGroup;
-  constructor(private fb: FormBuilder, private userService: UserService, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
     this.addControls();
   }
 
-  addControls() {
+  addControls(): void {
     this.form = this.fb.group({
       'username': ['kazkas', Validators.compose([Validators.required])],
       'password': ['kazkas', Validators.required]
     });
   }
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.valid) {
       this.userService.login(
         {
           Username: this.form.value.username,
           Password: this.form.value.password
         }).subscribe((result: any) => {
-        if (result === true) {
-          this.router.navigate(['/home']);
-        }
-      });
+          if (result === true) {
+            this.router.navigate(['/home']);
+          }
+        });
     }
   }
-
-
 }

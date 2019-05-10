@@ -6,9 +6,7 @@ import { UserService } from '../services/user.service';
 @Injectable()
 export class LoggedInGuard implements CanActivate {
 
-  constructor(private userService: UserService, private router: Router) {
-
-  }
+  constructor(private userService: UserService, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.userService.isLoggedIn()) {

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
-import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
 
 @Component({
   selector: 'app-create',
@@ -12,15 +11,15 @@ import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackb
 export class CreateComponent {
 
   form: FormGroup;
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private userService: UserService,
-    private router: Router,
-    private _snackbarService: SnackbarService
+    private router: Router
   ) {
     this.addControls();
   }
 
-  addControls() {
+  addControls(): void {
     this.form = this.fb.group({
       'firstname': ['kazkas', Validators.required],
       'surname': ['kazkas', Validators.required],
@@ -29,8 +28,7 @@ export class CreateComponent {
       'password': ['kazkas', Validators.required]
     });
   }
-  onSubmit() {
-    // jeigu error nera
+  onSubmit(): void {
     if (this.form.valid) {
       this.userService.createUser({
         Email: this.form.value.email,
@@ -38,7 +36,7 @@ export class CreateComponent {
         Password: this.form.value.password,
         Firstname: this.form.value.firstname,
         Lastname: this.form.value.surname
-      }).subscribe((response: any) => {
+      }).subscribe(() => {
         this.router.navigate(['/login']);
       });
     }

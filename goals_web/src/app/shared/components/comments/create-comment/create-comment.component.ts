@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { CommentService } from '../Services/comment/comment.service';
+import { CommentHttpService } from '../Services/comment/comment-http.service';
 
 @Component({
   selector: 'app-create-comment',
@@ -8,37 +8,34 @@ import { CommentService } from '../Services/comment/comment.service';
   styleUrls: ['./create-comment.component.css']
 })
 export class CreateCommentComponent {
-
   @Input() commentedUser: string;
   @Input() commentTarget: string;
   @Output() commentCreated: EventEmitter<any>;
-  form: FormGroup;
 
+  form: FormGroup;
   formSubmited: boolean;
   changeReceived: boolean;
   submitLoading: boolean;
-  constructor(private fb: FormBuilder, private _commentService: CommentService) {
+
+  constructor(private fb: FormBuilder, private _commentHttpService: CommentHttpService) {
     this.addControls();
     this.commentCreated = new EventEmitter();
-
   }
 
-  addControls() {
+  addControls(): void {
     this.form = this.fb.group({
       'body': ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.formSubmited = true;
-
     if (this.form.valid) {
-      this._commentService.addComment(this.form.value.body,
-         this.commentTarget, this.commentedUser).subscribe((comment: any) => {
-        this.commentCreated.emit(comment);
-        this.form.reset();
-      });
+      this._commentHttpService.addComment(this.form.value.body,
+        this.commentTarget, this.commentedUser).subscribe((comment: any) => {
+          this.commentCreated.emit(comment);
+          this.form.reset();
+        });
     }
-
   }
 }

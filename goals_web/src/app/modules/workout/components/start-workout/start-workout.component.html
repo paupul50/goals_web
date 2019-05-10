@@ -1,26 +1,22 @@
 <ng-container *ngIf="isWorkoutLoaded">
-  <button mat-raised-button (click)="this.workoutCreateService.clearRoutePoints()" [routerLink]="['/workout/list']"
-    color="primary">back to list</button>
-  <button mat-fab color="primary" (click)="startWorkoutSession()">start</button>
-  <button mat-fab color="primary" (click)="endWorkoutSession()">end</button>
+    <button mat-raised-button (click)="this.workoutService.clearRoutePoints()" [routerLink]="['/workout/list']" color="primary">back to list</button>
+    <button mat-fab color="primary" (click)="startWorkoutSession()">start</button>
+    <button mat-fab color="primary" (click)="endWorkoutSession()">end</button>
 
-  <br>
-  {{workoutCreateService.message}}
-  <br>
-  <ng-container *ngIf="workoutCreateService.currentSessionPoint>0">
-    {{workoutCreateService.currentSessionPoint}}
-  </ng-container>
-  <br>
+    <br> {{workoutService.message}}
+    <br>
+    <ng-container *ngIf="workoutService.currentSessionPoint>0">
+        {{workoutService.currentSessionPoint}}
+    </ng-container>
+    <br>
 
-  <ng-container *ngIf="workoutCreateService.userLocation">
-    koordinaės <br>
-    lat: {{workoutCreateService.userLocation.lat}} <br>
-    lng {{workoutCreateService.userLocation.lng}} <br>
-  </ng-container>
+    <ng-container *ngIf="workoutService.userLocation">
+        koordinaės <br> lat: {{workoutService.userLocation.lat}} <br> lng {{workoutService.userLocation.lng}} <br>
+    </ng-container>
 
-  <mat-list role="list">
-    <mat-list-item *ngFor="let routePoint of workoutCreateService.routePoints; let routeIndex = index" role="listitem">
-      <button mat-raised-button (click)="setInfoWindow(routePoint)">{{routeIndex+1}}. Koordinatė</button>
-    </mat-list-item>
-  </mat-list>
+    <mat-list role="list">
+        <mat-list-item *ngFor="let routePoint of workoutService.routePoints; let routeIndex = index" role="listitem">
+            <button mat-raised-button (click)="setInfoWindow(routePoint)">{{routeIndex+1}}. Koordinatė</button>
+        </mat-list-item>
+    </mat-list>
 </ng-container>

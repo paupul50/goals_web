@@ -7,12 +7,9 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UserService {
-
   public BACKURL = 'http://localhost:52503/';
-  //  public BACKURL = '/';
-  constructor(private _http: HttpClient, private _router: Router) {
-
-  }
+  //  public BACKURL = '/';  // - for hosting in azure
+  constructor(private _http: HttpClient, private _router: Router) {}
 
   createUser(userCreateObject: any): Observable<any> {
     const body = JSON.stringify(userCreateObject);
@@ -26,7 +23,7 @@ export class UserService {
     return this._http.post(this.BACKURL + 'api/googleFit', body, { headers: this.getHeaders() });
   }
 
-  login(loginObject): Subject<boolean> {
+  login(loginObject: any): Subject<boolean> {
     const body = JSON.stringify(loginObject);
     const result: Subject<boolean> = new Subject<boolean>();
     this._http.post(this.BACKURL + 'api/users/authenticate', body, { headers: this.getLoginHeader() }).subscribe((response: any) => {
@@ -74,7 +71,7 @@ export class UserService {
   isLoggedIn(): boolean {
     return this.getToken() !== null;
   }
-  logout() {
+  logout(): void {
     this._http.delete(this.BACKURL + 'api/users/logout', { headers: this.getHeaders() }).subscribe((response: any) => {
       localStorage.removeItem('access_token');
       localStorage.removeItem('current_user');

@@ -16,8 +16,6 @@ const routes: Routes = [
   { path: '', component: WorkoutComponent, children: childRoutes, canActivate: [LoggedInGuard]}
 ];
 
-
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]

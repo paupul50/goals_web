@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class StatisticsService {
+export class StatisticsHttpService {
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
   getCurrentUserDescription(): Observable<any> {

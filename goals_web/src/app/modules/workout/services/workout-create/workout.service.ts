@@ -1,28 +1,27 @@
+import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
 import { Injectable } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
 import { Router } from '@angular/router';
-import { WorkoutSessionService } from '../workout-session/workout-session.service';
+import { WorkoutSessionHttpService } from '../workout-session/workout-session-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
+export class WorkoutService {
 
   isWorkoutSession = false;
   isSessionStarted = false;
+  isCheckedIfLastWorkoutIsDone = false;
+  isCreate = false;
   currentSessionPoint = 0;
   message = 'koordinates (getCoordsStatus)';
+
   interval: any;
-
-  isCheckedIfLastWorkoutIsDone = false;
-
-  isCreate = false;
   workoutId: string;
   userLocation: any;
-
   routePoints: any[] = [];
   newRoutePoint = null;
-  // [latitude]="54.904053" [longitude]="23.949231" ąžuolynas
+
   centerCoordinates: LatLngLiteral = {
     lat: 54.904053,
     lng: 23.949231
@@ -31,7 +30,8 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
   infoWindow: any;
   constructor(
     private _router: Router,
-    private _workoutSessionService: WorkoutSessionService) { }
+    private _workoutSessionHttpService: WorkoutSessionHttpService,
+    private _snackbarService: SnackbarService) { }
 
 
   // make circles green when loaded
@@ -56,7 +56,7 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
   }
 
   // clear info box when closed
-  clearInfoWindow() {
+  private clearInfoWindow() {
     this.infoWindow = null;
   }
 
@@ -64,9 +64,8 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
   changeUserLocation(location: any) {
     this.userLocation = location;
     this.routePoints.forEach(routePoint => {
-      if (this.arePointsNear(this.userLocation, routePoint, routePoint.radius / 1000) && this.currentSessionPoint === routePoint.index) {
-
-        // siust requesta su tasko id
+      if (this.arePointsNear(this.userLocation, routePoint, routePoint.radius / 1000)
+        && this.currentSessionPoint === routePoint.index) {
         this.updateWorkoutSession(routePoint);
       }
     });
@@ -75,29 +74,27 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
 
   // to update workout progress
   updateWorkoutSession(routePoint: any = {}) {
-    console.log(routePoint);
-    this._workoutSessionService.updateWorkoutSession(this.currentSessionPoint, routePoint.id, this.workoutId).subscribe((result: any) => {
-      if (result.status === 0 || result.status === 2) {
-        this.destroyInterval();
-        this.clearRoutePoints();
-        this._router.navigate(['workout']);
-        console.log('sesija pabaigta');
-      } else {
-        routePoint.fillColour = 'green';
-        this.currentSessionPoint++;
-        console.log('taskas iveiktas');
-      }
-    });
+    this._workoutSessionHttpService.updateWorkoutSession(this.currentSessionPoint, routePoint.id, this.workoutId)
+      .subscribe((result: any) => {
+        if (result.status === 0 || result.status === 2) {
+          this.destroyInterval();
+          this.clearRoutePoints();
+          this._router.navigate(['workout']);
+          this._snackbarService.openSnackBar('sesija pabaigta');
+        } else {
+          routePoint.fillColour = 'green';
+          this.currentSessionPoint++;
+          this._snackbarService.openSnackBar('taskas iveiktas');
+        }
+      });
   }
 
   // to start workout session
   startWorkoutSession() {
     this.startCheckingCurrentCoords();
-    // siust request ir sukurimo metu sukurt workout
-    this._workoutSessionService.createWorkoutSession(this.workoutId).subscribe((result: any) => {
+    this._workoutSessionHttpService.createWorkoutSession(this.workoutId).subscribe((result: any) => {
       this.currentSessionPoint = 1;
       this.isSessionStarted = true;
-      console.log('create session', result);
     });
   }
 
@@ -142,7 +139,6 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
   }
 
   // ----------------------------------------- route creation ---------------------------------------------------
-
   // create new route point
   addNewRoutePoint() {
     this.newRoutePoint = {
@@ -164,13 +160,7 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
   }
 
   removeRoutePoint() {
-    // cia pakeiciau nepatikrines ar veikia, bet turetu veikt
-    // this.routePoints[this.routePoints.length - 1].editable = true;
-    // this.routePoints[this.routePoints.length - 1].circleDraggable = true;
-    // this.routePoints[this.routePoints.length - 1].fillColour = 'blue';
-    // this.newRoutePoint = this.routePoints[this.routePoints.length - 1];
     this.routePoints.pop();
-
   }
 
   updateLastCoordinates(coords: any) {
@@ -185,8 +175,6 @@ export class WorkoutCreateService { // susikeist pavadinimais su workoutservice
     const kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
     const dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
     const dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
-    // console.log('dydis', Math.sqrt(dx * dx + dy * dy));
-    // console.log('km', km);
     return Math.sqrt(dx * dx + dy * dy) <= km;
   }
 

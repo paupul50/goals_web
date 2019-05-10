@@ -1,5 +1,5 @@
-import { WorkoutCreateService } from '../../services/workout-create/workout-create.service';
-import { Component, OnInit } from '@angular/core';
+import { WorkoutService } from '../../services/workout-create/workout.service';
+import { Component } from '@angular/core';
 import { LatLngLiteral } from '@agm/core';
 
 @Component({
@@ -7,29 +7,24 @@ import { LatLngLiteral } from '@agm/core';
   templateUrl: './workout-map.component.html',
   styleUrls: ['./workout-map.component.css']
 })
-export class WorkoutMapComponent implements OnInit {
-  constructor(public workoutCreateService: WorkoutCreateService) {
+export class WorkoutMapComponent {
+  constructor(public workoutService: WorkoutService) { }
 
-  }
-
-  onRadiusChange(radius: number) {
-    this.workoutCreateService.newRoutePoint.radius = radius;
+  onRadiusChange(radius: number): void {
+    this.workoutService.newRoutePoint.radius = radius;
   }
 
   updatePointCoordinates(newCoordinates: any): void {
-    this.workoutCreateService.updateLastCoordinates(newCoordinates);
+    this.workoutService.updateLastCoordinates(newCoordinates);
   }
 
-  setCenterCoordinates(coordiantes: LatLngLiteral) {
-    this.workoutCreateService.centerCoordinates = coordiantes;
+  setCenterCoordinates(coordiantes: LatLngLiteral): void {
+    this.workoutService.centerCoordinates = coordiantes;
   }
 
-  ngOnInit() {
-  }
-
-  imitateLocation(event: any) {
-    if (this.workoutCreateService.isWorkoutSession && this.workoutCreateService.currentSessionPoint > 0) {
-      this.workoutCreateService.changeUserLocation(event.coords);
+  imitateLocation(event: any): void {
+    if (this.workoutService.isWorkoutSession && this.workoutService.currentSessionPoint > 0) {
+      this.workoutService.changeUserLocation(event.coords);
     }
   }
 

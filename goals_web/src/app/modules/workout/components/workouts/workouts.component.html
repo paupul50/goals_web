@@ -1,32 +1,32 @@
 <ng-container *ngIf="isWorkoutsLoaded">
-  <button mat-raised-button [routerLink]="['/workout/create']" color="primary">Kurti treniruotę</button>
-  <br>
-  <br>
-  <h5>Mano treniruotės</h5>
-  <br>
-  <ng-container *ngFor="let workoutObject of workouts; let i=index">
-    <mat-card>
-      Treniruotė {{i+1}} - {{workoutObject.name}}
-      <br>
-      <button mat-raised-button [routerLink]="['/workout/session', workoutObject.id]" color="primary">Pradėti
+    <button mat-raised-button [routerLink]="['/workout/create']" color="primary">Kurti treniruotę</button>
+    <br>
+    <br>
+    <h5>Mano treniruotės</h5>
+    <br>
+    <ng-container *ngFor="let workoutObject of workouts; let i=index">
+        <mat-card>
+            Treniruotė {{i+1}} - {{workoutObject.name}}
+            <br>
+            <button mat-raised-button [routerLink]="['/workout/session', workoutObject.id]" color="primary">Pradėti
         treniruotę</button>
-      <button mat-raised-button color="warn" (click)="removeWorkout(workoutObject.id)">Pašalinti</button>
-    </mat-card>
-  </ng-container>
-
-  <br>
-
-  <ng-container *ngIf="groupWorkouts">
-    <h5>Grupės treniruotės</h5>
-    <hr>
-    <ng-container *ngFor="let workoutObject of groupWorkouts; let i=index">
-      <mat-card>
-        Treniruotė {{i+1}} - {{workoutObject.name}}
-        <br>
-        <button mat-raised-button [routerLink]="['/workout/session', workoutObject.id]" color="primary">Pradėti
-          treniruotę</button>
-      </mat-card>
+            <button mat-raised-button color="warn" (click)="removeWorkout(workoutObject.id)">Pašalinti</button>
+        </mat-card>
     </ng-container>
-  </ng-container>
+
+    <br>
+
+    <ng-container *ngIf="groupWorkouts">
+        <h5>Grupės treniruotės</h5>
+        <hr>
+        <ng-container *ngFor="let workoutObject of groupWorkouts; let i=index">
+            <mat-card>
+                Treniruotė {{i+1}} - {{workoutObject.name}}
+                <br>
+                <button mat-raised-button [routerLink]="['/workout/session', workoutObject.id]" color="primary">Pradėti
+          treniruotę</button>
+            </mat-card>
+        </ng-container>
+    </ng-container>
 
 </ng-container>

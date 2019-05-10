@@ -1,30 +1,30 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GroupService {
+export class GroupMembersHttpService {
 
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
-  getUserGroup(): Observable<any> {
-    return this._http.get(this._userService.BACKURL + 'api/group',
+  getGroupMembers(): Observable<any> {
+    return this._http.get(this._userService.BACKURL + 'api/groupMembers',
       { headers: this._userService.getHeaders() });
   }
 
-  createGroup(name: string): Observable<Object> {
+  removeGroupMember(username: string): Observable<any> {
     const body = JSON.stringify({
-      GroupName: name,
+      MemberUsername: username,
     });
-    return this._http.post(this._userService.BACKURL + 'api/group', body,
+    return this._http.post(this._userService.BACKURL + 'api/groupMembers/specific', body,
       { headers: this._userService.getHeaders() });
   }
 
-  deleteGroup(): Observable<Object> {
-    return this._http.delete(this._userService.BACKURL + 'api/group',
+  leaveGroup(): Observable<any> {
+    return this._http.delete(this._userService.BACKURL + 'api/groupMembers',
       { headers: this._userService.getHeaders() });
   }
 

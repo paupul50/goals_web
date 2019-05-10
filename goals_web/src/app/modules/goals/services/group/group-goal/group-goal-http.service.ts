@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class GroupGoalService {
+export class GroupGoalHttpService {
 
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
