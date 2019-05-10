@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GoalsService } from '../../services/goals/goals.service';
+import { GoalsHttpService } from '../../services/goals/goals-http.service';
 import { GoalWithProgressModel } from '../../models/goal-with-progress.model';
 import { Goal } from '../../models/goal.model';
 import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
@@ -9,24 +9,15 @@ import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackb
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.css']
 })
-export class GoalsComponent implements OnInit {
+export class GoalsComponent {
   displayedColumns: string[] = [];
   goals: GoalWithProgressModel[];
   dataSource: any[] = [];
   isLoaded = false;
   limit = 10;
 
-  constructor(private _goalService: GoalsService, private _snackbarService: SnackbarService) {
-    const currentDate = new Date();
-    this._goalService.GetUserGoalsWithProgress(currentDate, 10).subscribe((goals: GoalWithProgressModel[]) => {
-      console.log(goals);
-      if (goals.length > 0) {
-        this.mapGoalsToTableDataSource(goals);
-        this.isLoaded = true;
-      } else {
-        this._snackbarService.openSnackBar('Nėra siekių.');
-      }
-    });
+  constructor(private _goalHttpService: GoalsHttpService, private _snackbarService: SnackbarService) {
+    this.initializeGoalProgresses();
   }
 
   isNumberGoal(goalType: number): boolean {
@@ -36,6 +27,7 @@ export class GoalsComponent implements OnInit {
       return false;
     }
   }
+
   isRandomGoal(goalType: number): boolean {
     if (goalType === 201) {
       return true;
@@ -44,6 +36,19 @@ export class GoalsComponent implements OnInit {
     }
   }
 
+  private initializeGoalProgresses(): void {
+    const currentDate = new Date();
+    this._goalHttpService.GetUserGoalsWithProgress(currentDate, 10).subscribe((goals: GoalWithProgressModel[]) => {
+      if (goals.length > 0) {
+        this.mapGoalsToTableDataSource(goals);
+        this.isLoaded = true;
+      } else {
+        this._snackbarService.openSnackBar('Nėra siekių.');
+      }
+    });
+  }
+
+  // dynamic table
   private mapGoalsToTableDataSource(goals: GoalWithProgressModel[]): void {
     this.goals = goals;
     this.displayedColumns.push('Data');
@@ -76,9 +81,6 @@ export class GoalsComponent implements OnInit {
         name: 'Data'
       })
     }));
-  }
-
-  ngOnInit() {
   }
 
 }

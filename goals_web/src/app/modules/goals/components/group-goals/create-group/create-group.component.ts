@@ -1,4 +1,4 @@
-import { GroupService } from '../../../services/group/group.service';
+import { GroupHttpService } from '../../../services/group/group-http.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -11,7 +11,10 @@ import { Router } from '@angular/router';
 export class CreateGroupComponent implements OnInit {
   groupNameForm: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder, private _groupService: GroupService, private _router: Router) { }
+  constructor(private _formBuilder: FormBuilder,
+    private _groupHttpService: GroupHttpService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
     this.groupNameForm = this._formBuilder.group({
@@ -20,8 +23,7 @@ export class CreateGroupComponent implements OnInit {
   }
 
   submit(): void {
-    this._groupService.createGroup(this.groupNameForm.value.groupNameControl)
-      .subscribe(anything => this._router.navigate(['/goals/group']));
+    this._groupHttpService.createGroup(this.groupNameForm.value.groupNameControl)
+      .subscribe(() => this._router.navigate(['/goals/group']));
   }
-
 }

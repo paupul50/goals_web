@@ -1,27 +1,28 @@
-import { GroupMembersService } from './../../services/group/group-members/group-members.service';
-import { GroupService } from '../../services/group/group.service';
-import { Component, OnInit } from '@angular/core';
-import { GroupGoalProgressService } from '../../services/group/group-goal-progress/group-goal-progress.service';
+import { GroupMembersHttpService } from '../../services/group/group-members/group-members-http.service';
+import { GroupHttpService } from '../../services/group/group-http.service';
+import { Component } from '@angular/core';
+import { GroupGoalProgressHttpService } from '../../services/group/group-goal-progress/group-goal-progress-http.service';
 
 @Component({
   selector: 'app-group-goals',
   templateUrl: './group-goals.component.html',
   styleUrls: ['./group-goals.component.css']
 })
-export class GroupGoalsComponent implements OnInit {
+export class GroupGoalsComponent {
   isGroupLoaded = false;
   groupObject: any;
   groupProgressObject: any[];
-
   displayedColumns: string[] = ['goalDetails', 'goal', 'userGoalProgresses'];
-  constructor(private _groupService: GroupService,
-    private _groupMembersService: GroupMembersService,
-    private _groupGoalProgressService: GroupGoalProgressService) {
+
+  constructor(private _groupHttpService: GroupHttpService,
+    private _groupMembersHttpService: GroupMembersHttpService,
+    private _groupGoalProgressHttpService: GroupGoalProgressHttpService
+  ) {
     this.setGroupData();
   }
 
   private setGroupData(): void {
-    this._groupService.getUserGroup().subscribe((groupObject: any) => {
+    this._groupHttpService.getUserGroup().subscribe((groupObject: any) => {
       this.groupObject = groupObject;
       this.isGroupLoaded = true;
       if (this.groupObject.group) {
@@ -32,23 +33,20 @@ export class GroupGoalsComponent implements OnInit {
 
   private setGroupProgress(): void {
     const currentDate = new Date();
-    this._groupGoalProgressService.getSpecificGroupGoalsDayProgress(currentDate).subscribe((progress: any) => {
-      this.groupProgressObject = progress;
-      console.log('progress', this.groupProgressObject);
-    });
+    this._groupGoalProgressHttpService.getSpecificGroupGoalsDayProgress(currentDate)
+      .subscribe((progress: any) => {
+        this.groupProgressObject = progress;
+      });
   }
 
-  ngOnInit() {
-  }
-
-  deleteGroup() {
-    this._groupService.deleteGroup().subscribe((response: any) => {
+  deleteGroup(): void {
+    this._groupHttpService.deleteGroup().subscribe(() => {
       location.reload();
     });
   }
 
-  leaveGroup() {
-    this._groupMembersService.leaveGroup().subscribe((response: any) => {
+  leaveGroup(): void {
+    this._groupMembersHttpService.leaveGroup().subscribe(() => {
       location.reload();
     });
   }

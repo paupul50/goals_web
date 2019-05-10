@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
+import { ChartType } from 'chart.js';
 import { Label, SingleDataSet } from 'ng2-charts';
 @Component({
   selector: 'app-statistic',
@@ -8,11 +8,11 @@ import { Label, SingleDataSet } from 'ng2-charts';
 })
 export class StatisticComponent implements OnInit {
   @Input() chartData: any;
+
   polarAreaChartLabels: Label[];
   polarAreaChartData: SingleDataSet;
   polarAreaLegend = true;
   isLoaded = false;
-
   polarAreaChartType: ChartType = 'polarArea';
 
   chartOptions = {
@@ -24,9 +24,7 @@ export class StatisticComponent implements OnInit {
     }
   };
 
-  constructor() {
-
-  }
+  constructor() { }
 
   ngOnInit() {
     if (this.chartData.names != null) {
