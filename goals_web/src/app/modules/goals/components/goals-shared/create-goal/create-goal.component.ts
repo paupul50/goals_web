@@ -1,7 +1,8 @@
-import { GoalsHttpService } from '../../../services/goals/goals-http.service';
+import { GoalsService } from '../../../services/goals/goals.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WorkoutService } from 'src/app/modules/workout/services/workout/workout.service';
 
 @Component({
   selector: 'app-create-goal',
@@ -11,15 +12,17 @@ import { Router } from '@angular/router';
 export class CreateGoalComponent implements OnInit {
   @Input() isGroupGoal: boolean;
   @Input() workouts: any[];
-
   goalCategory = '0';
-  goalType = '0';
   workoutId: any;
+  // goalTypeForm: FormGroup;
+
+  goalType = '0';
+
   goalNameForm: FormGroup;
   numberForm: FormGroup;
-  typeNotValid = true;
 
-  constructor(private _formBuilder: FormBuilder, private _goalsHttpService: GoalsHttpService,
+  typeNotValid = true;
+  constructor(private _formBuilder: FormBuilder, private _goalsService: GoalsService,
     private _router: Router) {
   }
 
@@ -31,12 +34,20 @@ export class CreateGoalComponent implements OnInit {
     this.numberForm = this._formBuilder.group({
       numberControl: ['', [Validators.required]]
     });
+
+    // this.goalTypeForm = this._formBuilder.group({
+    //   goalTypeControl: [this.goalType, Validators.required]
+    // });
   }
+
+  // temp(stuff) {
+  //   console.log('stuff', stuff);
+  // }
   setRandomGoalType(): void {
     this.goalType = '201';
   }
-
   onCategoryChange(): void {
+    console.log('pasikeite');
     if (this.goalCategory !== '3') {
       this.goalType = '0';
     }
@@ -47,7 +58,7 @@ export class CreateGoalComponent implements OnInit {
     this.workoutId = null;
   }
 
-  isCreateStepDisabled(): boolean {
+  isCreateStepDisabled() {
     if (this.goalCategory !== '0' && this.goalType !== '0') {
       // jeigu treniruote
       if (this.goalType === '1' && this.workoutId) {
@@ -69,7 +80,7 @@ export class CreateGoalComponent implements OnInit {
 
   submit(): void {
     if (!this.isCreateStepDisabled()) {
-      this._goalsHttpService.createUserGoal(this.goalType, this.goalNameForm.value.goalNameControl, {
+      this._goalsService.createUserGoal(this.goalType, this.goalNameForm.value.goalNameControl, {
         WorkoutId: Number(this.workoutId),
         GoalNumberValue: Number(this.numberForm.value.numberControl),
         GoalStringValue: '',

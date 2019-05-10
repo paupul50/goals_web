@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GoalProgressHttpService } from '../../../services/goals/goal-progress/goal-progress-http.service';
+import { GoalProgressService } from '../../../services/goals/goal-progress/goal-progress.service';
+import { GroupGoalProgressService } from '../../../services/group/group-goal-progress/group-goal-progress.service';
+import { GoalWithProgressModel } from '../../../models/goal-with-progress.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -10,12 +12,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class TodayGoalTableComponent implements OnInit {
   @Input() goalsObject: any[] = [];
   @Input() isGroup: boolean;
-
   displayedColumns: string[] = ['goal', 'isDone', 'goalProgress'];
-  numberForm: FormGroup;
 
+  numberForm: FormGroup;
   constructor(
-    private _goalProgressHttpService: GoalProgressHttpService,
+    private _goalProgressService: GoalProgressService,
+    private _groupGoalProgressService: GroupGoalProgressService,
     private _formBuilder: FormBuilder
   ) { }
 
@@ -38,10 +40,21 @@ export class TodayGoalTableComponent implements OnInit {
     return goalType === 2 || goalType === 3 ? true : false;
   }
 
+
   changeGoalProgressState(element: any): void {
+    console.log(element);
     element.goalProgress.goalNumberValue = Number(this.numberForm.value.numberControl);
-    this._goalProgressHttpService.updateProgressState(element.goalProgress, this.isGroup).subscribe((isDone: boolean) => {
+    this._goalProgressService.updateProgressState(element.goalProgress, this.isGroup).subscribe((isDone: boolean) => {
       element.goalProgress.isDone = isDone;
     });
   }
+
+  // changeGroupProgressState(element: any): void {
+  //   if (element.goal.goalType === 1) {
+  //     this._groupGoalProgressService.updateGroupGoalProgressState(element.GroupGoalProgress)
+  //       .subscribe((progress: any) => {
+  //         element.GroupGoalProgress.isDone = progress.isDone;
+  //       });
+  //   }
+  // }
 }

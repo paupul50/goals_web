@@ -1,7 +1,6 @@
-import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
-import { UserProfileHttpService } from '../../Services/user-profile/user-profile-http.service';
+import { Component, OnInit } from '@angular/core';
+import { UserProfileService } from '../../Services/user-profile/user-profile.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
 
@@ -10,7 +9,7 @@ import { Router } from '@angular/router';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent {
+export class EditProfileComponent implements OnInit {
   userData: any;
   selectedFile: File;
   imgURL: any;
@@ -18,18 +17,14 @@ export class EditProfileComponent {
   isLoaded = false;
 
   constructor(
-    private _userProfileHttpService: UserProfileHttpService,
+    private _userProfileService: UserProfileService,
     private _formBuilder: FormBuilder,
     private _userService: UserService,
-    private _router: Router,
-    private _snackbarService: SnackbarService
+    private _router: Router
   ) {
-    this.initializeUserDescription();
-  }
-
-  private initializeUserDescription(): void {
-    this._userProfileHttpService.getCurrentUserDescription().subscribe((userData: any) => {
+    this._userProfileService.getCurrentUserDescription().subscribe((userData: any) => {
       this.userData = userData;
+      console.log(userData);
       this.setFormControls();
     });
   }
@@ -49,26 +44,32 @@ export class EditProfileComponent {
 
   onFileChanged(event: any): void {
     this.selectedFile = event.target.files[0];
+    console.log(event);
     const reader = new FileReader();
-    reader.readAsDataURL(this.selectedFile);
-    reader.onload = (_event) => {
-      this.imgURL = reader.result;
-    };
+    // reader.readAsDataURL(this.selectedFile);
+    // reader.onload = (_event) => {
+    //   this.imgURL = reader.result;
+    // };
+    console.log(this.selectedFile);
   }
 
-  onSubmit(): void {
+  onSubmit() {
     if (this.userForm.valid) {
-      this._userProfileHttpService.editCurrentUserDescription({
+      console.log(this.selectedFile);
+      this._userProfileService.editCurrentUserDescription({
         Firstname: this.userForm.value.firstname,
         Lastname: this.userForm.value.lastname,
         Description: this.userForm.value.description,
 
-      }, this.selectedFile).subscribe(() => {
-        this._router.navigate(['/dashboard/profile']);
+      }, this.selectedFile).subscribe((result: any) => {
+        this._router.navigate(['/profile']);
       });
-    } else {
-      this._snackbarService.openSnackBar('Neteisingi duomenys.');
     }
+  }
+
+  ngOnInit() {
+
+
   }
 
 }

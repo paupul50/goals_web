@@ -1,6 +1,5 @@
-import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
-import { GroupInvitationHttpService } from '../../../../services/group/group-invitation/group-invitation-http.service';
-import { GroupMembersHttpService } from '../../../../services/group/group-members/group-members-http.service';
+import { GroupInvitationService } from './../../../../services/group/group-invitation/group-invitation.service';
+import { GroupMembersService } from './../../../../services/group/group-members/group-members.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
@@ -11,21 +10,16 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 })
 export class GroupUsersComponent implements OnInit {
   membersObject: any[];
-  newMemberForm: FormGroup;
   isMembersLoaded = false;
 
+  newMemberForm: FormGroup;
   constructor(private _formBuilder: FormBuilder,
-    private _groupMembersHttpService: GroupMembersHttpService,
-    private _groupInvitationHttpService: GroupInvitationHttpService,
-    private _snackbarService: SnackbarService
-  ) {
-    this.initializeGroupMembers();
-  }
-
-  private initializeGroupMembers(): void {
-    this._groupMembersHttpService.getGroupMembers().subscribe((members: any) => {
+    private _groupMembersService: GroupMembersService,
+    private _groupInvitationService: GroupInvitationService) {
+    this._groupMembersService.getGroupMembers().subscribe((members: any) => {
       this.membersObject = members;
       this.isMembersLoaded = true;
+      console.log('members:', this.membersObject);
     });
   }
 
@@ -35,8 +29,8 @@ export class GroupUsersComponent implements OnInit {
     });
   }
 
-  removeGroupMember(member: any): void {
-    this._groupMembersHttpService.removeGroupMember(member.username).subscribe(() => {
+  removeGroupMember(member: any) {
+    this._groupMembersService.removeGroupMember(member.username).subscribe((response) => {
       const newList = [];
       this.membersObject.forEach(currentMember => {
         if (currentMember.username !== member.username) {
@@ -47,8 +41,11 @@ export class GroupUsersComponent implements OnInit {
     });
   }
 
-  submit(): void {
-    this._groupInvitationHttpService.sentGroupInvitation(this.newMemberForm.value.memberUsernameControl)
-      .subscribe(() => this._snackbarService.openSnackBar('Išsiųsta'));
+  submit() {
+    this._groupInvitationService.sentGroupInvitation(this.newMemberForm.value.memberUsernameControl)
+      .subscribe(anything => console.log('išsiųsta'));
   }
+
+
+
 }

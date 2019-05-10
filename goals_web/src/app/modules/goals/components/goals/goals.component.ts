@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GoalsHttpService } from '../../services/goals/goals-http.service';
+import { GoalsService } from '../../services/goals/goals.service';
 import { GoalWithProgressModel } from '../../models/goal-with-progress.model';
 import { Goal } from '../../models/goal.model';
 import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
@@ -9,36 +9,17 @@ import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackb
   templateUrl: './goals.component.html',
   styleUrls: ['./goals.component.css']
 })
-export class GoalsComponent {
+export class GoalsComponent implements OnInit {
   displayedColumns: string[] = [];
   goals: GoalWithProgressModel[];
   dataSource: any[] = [];
   isLoaded = false;
   limit = 10;
 
-  constructor(private _goalHttpService: GoalsHttpService, private _snackbarService: SnackbarService) {
-    this.initializeGoalProgresses();
-  }
-
-  isNumberGoal(goalType: number): boolean {
-    if (goalType === 2 || goalType === 3 || goalType === 102) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  isRandomGoal(goalType: number): boolean {
-    if (goalType === 201) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  private initializeGoalProgresses(): void {
+  constructor(private _goalService: GoalsService, private _snackbarService: SnackbarService) {
     const currentDate = new Date();
-    this._goalHttpService.GetUserGoalsWithProgress(currentDate, 10).subscribe((goals: GoalWithProgressModel[]) => {
+    this._goalService.GetUserGoalsWithProgress(currentDate, 10).subscribe((goals: GoalWithProgressModel[]) => {
+      console.log(goals);
       if (goals.length > 0) {
         this.mapGoalsToTableDataSource(goals);
         this.isLoaded = true;
@@ -48,7 +29,21 @@ export class GoalsComponent {
     });
   }
 
-  // dynamic table
+  isNumberGoal(goalType: number): boolean {
+    if (goalType === 2 || goalType === 3 || goalType === 102) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  isRandomGoal(goalType: number): boolean {
+    if (goalType === 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   private mapGoalsToTableDataSource(goals: GoalWithProgressModel[]): void {
     this.goals = goals;
     this.displayedColumns.push('Data');
@@ -81,6 +76,9 @@ export class GoalsComponent {
         name: 'Data'
       })
     }));
+  }
+
+  ngOnInit() {
   }
 
 }

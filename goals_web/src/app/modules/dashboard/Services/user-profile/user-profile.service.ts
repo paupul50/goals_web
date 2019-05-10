@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class UserProfileHttpService {
+export class UserProfileService {
 
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
@@ -29,15 +29,12 @@ export class UserProfileHttpService {
   }
   editCurrentUserDescription(editObject: any, selectedFile: File): Observable<any> {
     const uploadData = new FormData();
-    if (selectedFile) {
-      uploadData.append('File', selectedFile, selectedFile.name);
-    } else {
-      uploadData.append('File', null, '');
-    }
+    uploadData.append('File', selectedFile, selectedFile.name);
     uploadData.append('Firstname', editObject.Firstname);
     uploadData.append('Lastname', editObject.Lastname);
     uploadData.append('Description', editObject.Description);
 
+    // uploadData.append('editObject', editObject);
     return this._http.post(this._userService.BACKURL + 'api/userDescription/edit', uploadData,
       { headers: this._userService.getAuthHeader() });
   }

@@ -1,30 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupInvitationHttpService } from '../../../../services/group/group-invitation/group-invitation-http.service';
+import { GroupInvitationService } from '../../../../services/group/group-invitation/group-invitation.service';
 
 @Component({
   selector: 'app-group-invitation',
   templateUrl: './group-invitation.component.html',
   styleUrls: ['./group-invitation.component.css']
 })
-export class GroupInvitationComponent {
+export class GroupInvitationComponent implements OnInit {
   isInvitationsLoaded = false;
   invitationsObject: any;
 
-  constructor(private _groupInvitationHttpService: GroupInvitationHttpService) {
-    this._groupInvitationHttpService.getUserGroupInvitations().subscribe((invitations: any) => {
+  constructor(private _groupInvitationService: GroupInvitationService) {
+    this._groupInvitationService.getUserGroupInvitations().subscribe((invitations: any) => {
       this.invitationsObject = invitations;
       this.isInvitationsLoaded = true;
+      console.log(this.invitationsObject);
     });
   }
 
-  acceptInvitation(leaderUsername: string): void {
-    this._groupInvitationHttpService.acceptInvitation(leaderUsername).subscribe((response: any) => {
+  ngOnInit() {
+  }
+
+  acceptInvitation(leaderUsername: string) {
+    this._groupInvitationService.acceptInvitation(leaderUsername).subscribe((response: any) => {
       location.reload();
     });
   }
 
-  cancelInvitation(invitation: any): void {
-    this._groupInvitationHttpService.cancelInvitation(invitation.id).subscribe((response: any) => {
+  cancelInvitation(invitation: any) {
+    console.log('cancel invitation', invitation);
+    this._groupInvitationService.cancelInvitation(invitation.id).subscribe((response: any) => {
       const newList = [];
       this.invitationsObject.forEach(currentInvitation => {
         if (currentInvitation.id !== invitation.id) {
@@ -34,4 +39,5 @@ export class GroupInvitationComponent {
       this.invitationsObject = newList;
     });
   }
+
 }

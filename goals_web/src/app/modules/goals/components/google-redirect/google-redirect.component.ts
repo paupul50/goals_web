@@ -1,25 +1,21 @@
 import { UserService } from './../../../../shared/services/user.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-google-redirect',
   templateUrl: './google-redirect.component.html',
   styleUrls: ['./google-redirect.component.css']
 })
-export class GoogleRedirectComponent {
+export class GoogleRedirectComponent implements OnInit {
 
   constructor(private _activatedRoute: ActivatedRoute, private _router: Router, private _userService: UserService) {
-    this.saveTokenAndRedirect();
-
-  }
-
-  private saveTokenAndRedirect(): void {
     this._activatedRoute.fragment.subscribe((params: string) => {
       const newParams = params.split('&');
       let token;
       newParams.forEach(element => {
         const valueAndKey = element.split('=');
+        // console.log(valueAndKey);
         if (valueAndKey[0] === 'access_token') {
           token = valueAndKey[1];
         }
@@ -30,4 +26,8 @@ export class GoogleRedirectComponent {
       });
     });
   }
+
+  ngOnInit() {
+  }
+
 }

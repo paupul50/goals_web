@@ -1,5 +1,8 @@
-import { WorkoutHttpService } from './../../../../workout/services/workout/workout-http.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { GroupGoalService } from '../../../services/group/group-goal/group-goal.service';
+import { WorkoutService } from 'src/app/modules/workout/services/workout/workout.service';
 
 @Component({
   selector: 'app-create-group-goal',
@@ -9,13 +12,9 @@ import { Component } from '@angular/core';
 export class CreateGroupGoalComponent {
   isWorkoutsLoaded = false;
   workouts: any[];
+  constructor(private _workoutService: WorkoutService) {
 
-  constructor(private _workoutHttpService: WorkoutHttpService) {
-    this.initializeGroupUnusedWorkouts();
-  }
-
-  private initializeGroupUnusedWorkouts(): void {
-    this._workoutHttpService.getGroupUnusedWorkouts().subscribe((workouts: any[]) => {
+    this._workoutService.getGroupUnusedWorkouts().subscribe((workouts: any[]) => {
       this.workouts = workouts;
       this.isWorkoutsLoaded = true;
     });

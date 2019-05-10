@@ -1,4 +1,4 @@
-import { GoalProgress } from '../../models/goal-progress.model';
+import { GoalProgress } from './../../models/goal-progress.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { Goal } from '../../models/goal.model';
 @Injectable({
   providedIn: 'root'
 })
-export class GoalsHttpService {
+export class GoalsService {
 
   constructor(private _http: HttpClient, private _userService: UserService) { }
 
@@ -46,6 +46,10 @@ export class GoalsHttpService {
   getUserTodayGoalWithProgress(): Observable<GoalWithProgressModel[]> {
     return this._http.get<GoalWithProgressModel[]>(this._userService.BACKURL + 'api/goals/todayProgress',
       { headers: this._userService.getHeaders() });
+    // .pipe(
+    //   map((goalWithProgress: any) => {
+    //     return this.mapGoalsWithProgress(goalWithProgress);
+    //   }));
   }
 
   GetUserGoalsWithProgress(date: Date, limit: number = 20): Observable<GoalWithProgressModel[]> {
