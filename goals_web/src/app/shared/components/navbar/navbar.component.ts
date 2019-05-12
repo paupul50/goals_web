@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
     private _loadingBarService: LoadingBarService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this._loadingBarService.getIsLoadingObservable().subscribe(isLoading => this.isLoading = isLoading);
   }
 

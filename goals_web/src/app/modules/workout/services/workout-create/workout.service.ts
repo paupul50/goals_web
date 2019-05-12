@@ -35,7 +35,7 @@ export class WorkoutService {
 
 
   // make circles green when loaded
-  loadWorkoutProgress() {
+  loadWorkoutProgress(): void {
     this.routePoints.forEach(routePoint => {
       if (routePoint.index < this.currentSessionPoint) {
         routePoint.fillColour = 'green';
@@ -44,7 +44,7 @@ export class WorkoutService {
   }
 
   // clear routes when closing workout
-  clearRoutePoints() {
+  clearRoutePoints(): void {
     this.routePoints = [];
     this.clearInfoWindow();
     this.isWorkoutSession = false;
@@ -56,12 +56,12 @@ export class WorkoutService {
   }
 
   // clear info box when closed
-  private clearInfoWindow() {
+  private clearInfoWindow(): void {
     this.infoWindow = null;
   }
 
   // to change currentLocation coordinates and if it's in the circle, change color of it
-  changeUserLocation(location: any) {
+  changeUserLocation(location: any): void {
     this.userLocation = location;
     this.routePoints.forEach(routePoint => {
       if (this.arePointsNear(this.userLocation, routePoint, routePoint.radius / 1000)
@@ -73,7 +73,7 @@ export class WorkoutService {
   }
 
   // to update workout progress
-  updateWorkoutSession(routePoint: any = {}) {
+  updateWorkoutSession(routePoint: any = {}): void {
     this._workoutSessionHttpService.updateWorkoutSession(this.currentSessionPoint, routePoint.id, this.workoutId)
       .subscribe((result: any) => {
         if (result.status === 0 || result.status === 2) {
@@ -90,7 +90,7 @@ export class WorkoutService {
   }
 
   // to start workout session
-  startWorkoutSession() {
+  startWorkoutSession(): void {
     this.startCheckingCurrentCoords();
     this._workoutSessionHttpService.createWorkoutSession(this.workoutId).subscribe((result: any) => {
       this.currentSessionPoint = 1;
@@ -98,7 +98,7 @@ export class WorkoutService {
     });
   }
 
-  startCheckingCurrentCoords() {
+  startCheckingCurrentCoords(): void {
     this.interval = setInterval(() => {
       this.checkGeoLocation();
     }, 3000);
@@ -132,7 +132,7 @@ export class WorkoutService {
     }
   }
 
-  destroyInterval() {
+  destroyInterval(): void {
     if (this.interval) {
       clearInterval(this.interval);
     }
@@ -140,7 +140,7 @@ export class WorkoutService {
 
   // ----------------------------------------- route creation ---------------------------------------------------
   // create new route point
-  addNewRoutePoint() {
+  addNewRoutePoint(): void {
     this.newRoutePoint = {
       lat: this.centerCoordinates.lat,
       lng: this.centerCoordinates.lng,
@@ -153,17 +153,17 @@ export class WorkoutService {
     this.isCreate = true;
   }
 
-  saveRoutePoint() {
+  saveRoutePoint(): void {
     this.routePoints.push(Object.assign({}, this.newRoutePoint));
     this.lockLastRoutePoint();
     this.newRoutePoint = null;
   }
 
-  removeRoutePoint() {
+  removeRoutePoint(): void {
     this.routePoints.pop();
   }
 
-  updateLastCoordinates(coords: any) {
+  updateLastCoordinates(coords: any): void {
     this.newRoutePoint.lat = coords.lat;
     this.newRoutePoint.lng = coords.lng;
     this.lockLastRoutePoint();
@@ -179,7 +179,7 @@ export class WorkoutService {
   }
 
   // when creating
-  private lockLastRoutePoint() {
+  private lockLastRoutePoint(): void {
     if (this.routePoints.length > 0) {
       this.routePoints[this.routePoints.length - 1].editable = false;
       this.routePoints[this.routePoints.length - 1].circleDraggable = false;

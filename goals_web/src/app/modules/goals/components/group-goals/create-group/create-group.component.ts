@@ -16,7 +16,7 @@ export class CreateGroupComponent implements OnInit {
     private _router: Router
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.groupNameForm = this._formBuilder.group({
       groupNameControl: ['', Validators.required]
     });

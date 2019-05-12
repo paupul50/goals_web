@@ -11,6 +11,10 @@ export class GroupInvitationComponent {
   invitationsObject: any;
 
   constructor(private _groupInvitationHttpService: GroupInvitationHttpService) {
+    this.initGroupInvitations();
+  }
+
+  private initGroupInvitations(): void {
     this._groupInvitationHttpService.getUserGroupInvitations().subscribe((invitations: any) => {
       this.invitationsObject = invitations;
       this.isInvitationsLoaded = true;

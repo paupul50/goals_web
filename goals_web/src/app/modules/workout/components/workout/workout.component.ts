@@ -11,7 +11,7 @@ export class WorkoutComponent implements OnInit {
 
   constructor(private _workoutService: WorkoutService, private _router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this._workoutService.isCreate) {
       this._router.navigate(['workout/create']);
     }

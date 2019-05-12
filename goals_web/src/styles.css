@@ -1,9 +1,5 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
-a {
-    color: #673ab7;
-}
-
 body {
     background: #fefeff;
     height: 100%;
@@ -31,7 +27,6 @@ button {
 /* LAYOUT */
 
 body {
-    color: rgba(0, 0, 0, .9);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -55,6 +50,7 @@ html {
 }
 
 #myContainer {
+    background-color: whitesmoke;
     min-height: 100%;
     position: relative;
 }
@@ -121,6 +117,5 @@ html {
 }
 
 .coney-bg {
-    background-color: #6f42c1;
     color: white;
 }

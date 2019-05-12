@@ -19,22 +19,22 @@ export class TodayGoalTableComponent implements OnInit {
     private _formBuilder: FormBuilder
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.numberForm = this._formBuilder.group({
       numberControl: ['', [Validators.required]]
     });
   }
 
-  isWorkoutEdit(goalType: number) {
+  isWorkoutEdit(goalType: number): boolean {
     return goalType === 1 ? true : false;
   }
-  isNumberEdit(goalType: number) {
+  isNumberEdit(goalType: number): boolean {
     return goalType === 102 ? true : false;
   }
-  isStandartEdit(goalType: number) {
+  isStandartEdit(goalType: number): boolean {
     return goalType === 101 || goalType === 201 ? true : false;
   }
-  isNumberUneditable(goalType: number) {
+  isNumberUneditable(goalType: number): boolean {
     return goalType === 2 || goalType === 3 ? true : false;
   }
 

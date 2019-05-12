@@ -23,7 +23,7 @@ export class TodayGoalsComponent {
     private oauthService: OAuthService,
     public userService: UserService,
     private _snackbarService: SnackbarService) {
-    this.setupGoogleAuth();
+      this.setGoalsProgressData();
   }
 
   private setupGoogleAuth(): void {
@@ -40,12 +40,12 @@ export class TodayGoalsComponent {
     this.oauthService.oidc = true;
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
-    this.setGoalsProgressData();
   }
 
   private setGoalsProgressData(): void {
     this.setGroupGoalsProgress();
     this.setGoalsProgress();
+    this.setupGoogleAuth();
   }
 
   private setGoalsProgress(): void {

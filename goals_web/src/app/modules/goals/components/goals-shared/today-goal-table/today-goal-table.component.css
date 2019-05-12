@@ -10,3 +10,14 @@ button {
 .number-input-size {
     max-width: 80px;
 }
+
+td {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    text-align: center;
+}
+
+th {
+    text-align: center;
+}

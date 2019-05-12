@@ -47,7 +47,7 @@ export class WorkoutsComponent {
       }
     });
   }
-  removeWorkout(id: string) {
+  removeWorkout(id: string): void {
     this._workoutHttpService.deleteWorkout(id).subscribe(() => {
       const newList = [];
       this.workouts.forEach(workout => {

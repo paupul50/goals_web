@@ -56,7 +56,7 @@ export class StartWorkoutComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.workoutService.destroyInterval();
   }
 }

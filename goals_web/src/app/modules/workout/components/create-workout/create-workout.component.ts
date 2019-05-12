@@ -20,7 +20,7 @@ export class CreateWorkoutComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.newWorkoutForm = this._formBuilder.group({
       workoutNameControl: ['', Validators.required]
     });

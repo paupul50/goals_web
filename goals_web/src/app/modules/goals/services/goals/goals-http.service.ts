@@ -1,7 +1,7 @@
 import { GoalProgress } from '../../models/goal-progress.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GoalWithProgressModel } from '../../models/goal-with-progress.model';

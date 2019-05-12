@@ -23,7 +23,7 @@ export class CreateGoalComponent implements OnInit {
     private _router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.goalNameForm = this._formBuilder.group({
       goalNameControl: ['', Validators.required]
     });
