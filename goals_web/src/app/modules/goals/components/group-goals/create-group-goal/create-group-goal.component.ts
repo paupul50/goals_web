@@ -16,6 +16,7 @@ export class CreateGroupGoalComponent {
 
   private initializeGroupUnusedWorkouts(): void {
     this._workoutHttpService.getGroupUnusedWorkouts().subscribe((workouts: any[]) => {
+      console.log(workouts);
       this.workouts = workouts;
       this.isWorkoutsLoaded = true;
     });

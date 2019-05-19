@@ -1,12 +1,5 @@
 <ng-container *ngIf="isLoaded">
-    <div class="example-small-box mat-elevation-z4">
-        <div>
-            <div>
-                <div style="display: block">
-                    <canvas baseChart [options]="chartOptions" [data]="polarAreaChartData" [labels]="polarAreaChartLabels" [legend]="polarAreaLegend" [chartType]="polarAreaChartType">
-                  </canvas>
-                </div>
-            </div>
-        </div>
+    <div class="chart">
+        <canvas baseChart height="125" [options]="chartOptions" [data]="polarAreaChartData" [labels]="polarAreaChartLabels" [legend]="polarAreaLegend" [chartType]="polarAreaChartType"></canvas>
     </div>
 </ng-container>

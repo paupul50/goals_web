@@ -5,10 +5,10 @@
   </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav navbar mr-auto">
-            <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/goals']">Siekiai</a>
-            <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/goals/today']">Šiandienos siekiai</a>
+            <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/goals']">Tikslai</a>
+            <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/goals/today']">Šiandienos tikslai</a>
             <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/goals/group']">
-        Grupės siekiai</a>
+        Grupės tikslai</a>
             <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/workout']">Treniruotės</a>
             <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/dashboard/statistics']">Statistikos</a>
         </div>

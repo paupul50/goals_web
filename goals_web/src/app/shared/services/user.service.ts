@@ -8,7 +8,8 @@ import { Router } from '@angular/router';
 })
 export class UserService {
   public BACKURL = 'http://localhost:52503/';
-  //  public BACKURL = '/';  // - for hosting in azure
+  public GOOGLEREDIRECTURL = 'http://localhost:4200/';
+
   constructor(private _http: HttpClient, private _router: Router) {}
 
   createUser(userCreateObject: any): Observable<any> {

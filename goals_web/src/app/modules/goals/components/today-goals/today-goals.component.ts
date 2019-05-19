@@ -29,7 +29,7 @@ export class TodayGoalsComponent {
   private setupGoogleAuth(): void {
     const authConfig: AuthConfig = {
       issuer: 'https://accounts.google.com',
-      redirectUri: this.userService.BACKURL + 'goals/today/success',
+      redirectUri: this.userService.GOOGLEREDIRECTURL + 'goals/today/success',
       clientId: '688983539905-2gcgd6oodn76un7l6gp0okkfr7qip9pa.apps.googleusercontent.com',
       scope: 'https://www.googleapis.com/auth/fitness.activity.read',
       strictDiscoveryDocumentValidation: false,
