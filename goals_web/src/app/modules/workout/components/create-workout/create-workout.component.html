@@ -1,13 +1,17 @@
 <br>
-<button mat-raised-button [routerLink]="['/workout/list']" (click)="workoutService.clearRoutePoints()" color="primary">Atšaukti</button>
 <form [formGroup]="newWorkoutForm">
-    <ng-template>Naudotojo paštas</ng-template>
-    <mat-form-field>
-        <input matInput formControlName="workoutNameControl" required>
-    </mat-form-field>
-    <div>
-        <button mat-raised-button [disabled]="workoutService.routePoints.length<2" (click)="saveWorkout()" color="primary">Išsaugoti</button>
+    <div class="row">
+        <div class="col-md-8">
+            <mat-form-field>
+                <input matInput placeholder="treniruotės pavadinimas" formControlName="workoutNameControl" required>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+            <button mat-raised-button [disabled]="workoutService.routePoints.length<2" (click)="saveWorkout()" color="primary">Išsaugoti</button>
+            <button mat-raised-button [routerLink]="['/workout/list']" (click)="workoutService.clearRoutePoints()" color="primary">Atšaukti</button>
+        </div>
     </div>
+
 </form>
 <br>
 <br>

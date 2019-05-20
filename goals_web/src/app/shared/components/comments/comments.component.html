@@ -7,7 +7,7 @@
                 <p class="card-text">{{comment.body}}</p>
                 <div class="d-flex justify-content-between align-items-center">
 
-                    <a class="text-muted" [routerLink]="['/dashboard/profile/others', comment.authorUsername.username]">Autorius: {{comment.authorUsername.username}}</a>
+                    <a class="text-muted" [routerLink]="['/dashboard/profile/others', comment.commentedUser.username]">Autorius: {{comment.commentedUser.username}}</a>
                     <small class="text-muted">Data: {{comment.createdAt | date:'yyyy-MM-dd HH:mm'}}</small>
                 </div>
             </div>

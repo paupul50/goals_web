@@ -1,0 +1,20 @@
+button {
+    margin: 5px;
+}
+
+mat-radio-group {
+    margin: 5px;
+}
+
+mat-radio-button {
+    margin: 5px;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle,
+.mat-radio-outer-circle {
+    border-color: blue !important;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: blue !important;
+}

@@ -1,11 +1,18 @@
 <ng-container *ngIf="leaderboard">
     <div class="container">
         <div class="row">
-            <button mat-raised-button [routerLink]="['/goals/group']" color="primary">group goals</button>
+            <button mat-raised-button [routerLink]="['/goals/group']" color="primary">Grupės tikslai</button>
         </div>
 
         <div *ngFor="let member of leaderboard">
-            <mat-card>{{member.username}} | {{member.points}}</mat-card>
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <mat-card> {{member.points}} - {{member.username}}</mat-card>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+
         </div>
     </div>
 </ng-container>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,13 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
-  imageSources = ['http://media4.s-nbcnews.com/i/MSNBC/Components/Video/201708/b_bw_RossenBeachOTT_170815.jpg',
-    // tslint:disable-next-line:max-line-length
-    'https://www.oneandonlyresorts.com/-/media/oneandonly/reethi-rah/cuisine/beach-club/detail/1440x600/oorr-cuisine-club-one-1440x600.jpg?v1'];
+  imageSources = [this._userService.BACKURL + 'Resources/public_content/home_slideshow/image1.jpg',
+    this._userService.BACKURL + 'Resources/public_content/home_slideshow/image2.jpg'];
+    imageOne = '';
+    imageTwo = '';
+    imageThree = '';
 
-  constructor() {
+  constructor(private _userService: UserService) {
   }
 
 }

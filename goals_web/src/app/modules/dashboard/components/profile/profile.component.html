@@ -1,23 +1,38 @@
 <div class="container" *ngIf="userData">
+
     <mat-card>
-        <mat-card-header>
-            <mat-card-title> Profilis
-            </mat-card-title>
-            <img *ngIf="doesUserHaveImage()" [src]="getImageUrl()" height="200"> {{userData.user.username}}
-            <br> {{userData.user.firstname}} {{userData.user.lastname}}
-        </mat-card-header>
-        <mat-card-content>
-            <p *ngIf="userData.description">
-                {{userData.user.description}}
-            </p>
-            <p *ngIf="!userData.description">
-                Aprašymo nėra
-            </p>
-        </mat-card-content>
-        <mat-card-actions>
-            <button *ngIf="id==undefined || id==userData.id" mat-raised-button color="primary" [routerLink]="[ '/dashboard/profile/edit'] ">Redaguoti</button>
-        </mat-card-actions>
+        <div class="row">
+            <div class="col-md-3">
+                <mat-card-header>
+                    <mat-card-title> Profilis
+                    </mat-card-title>
+
+                </mat-card-header>
+                <img *ngIf="doesUserHaveImage()" [src]="getImageUrl()" height="200">
+
+            </div>
+            <div class="col-md-9">
+                <mat-card-content>
+                    <br><br> {{userData.user.username}}
+                    <br> {{userData.user.firstname}} {{userData.user.lastname}}
+                    <br>
+                    <p *ngIf="userData.user.description">
+                        {{userData.user.description}}
+                    </p>
+                    <p *ngIf="!userData.user.description">
+                        Aprašymo nėra
+                    </p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button *ngIf="id==undefined || id==userData.id" mat-raised-button color="primary" [routerLink]="[ '/dashboard/profile/edit'] ">Redaguoti</button>
+                </mat-card-actions>
+
+
+            </div>
+        </div>
     </mat-card>
+
+
     <app-comments [comments]="userData.userComments"></app-comments>
     <app-create-comment (commentCreated)="pushCommentToComments($event)" [commentedUser]="userData.user.username" [commentTarget]="commentTarget"></app-create-comment>
 </div>

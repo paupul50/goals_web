@@ -6,7 +6,7 @@
     <br>
     <ng-container *ngFor="let workoutObject of workouts; let i=index">
         <mat-card>
-            Treniruotė {{i+1}} - {{workoutObject.name}}
+            Nr. {{i+1}} - {{workoutObject.name}}
             <br>
             <button mat-raised-button [routerLink]="['/workout/session', workoutObject.id]" color="primary">Pradėti
         treniruotę</button>

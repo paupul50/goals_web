@@ -1,3 +1,11 @@
 table {
-  width: 100%;
+    width: 100%;
+}
+
+button {
+    margin: 3px;
+}
+
+.users-margin {
+    margin: 2px;
 }

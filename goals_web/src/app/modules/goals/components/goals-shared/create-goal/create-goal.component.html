@@ -3,6 +3,7 @@
     <button mat-raised-button color="primary" [routerLink]="['/goals']">Siekiai</button>
     <button mat-raised-button color="primary" [routerLink]="['/goals/group']">Grupės siekiai</button>
     <br>
+    <br>
     <mat-vertical-stepper [linear]="true" #stepper>
         <mat-step [stepControl]="goalNameForm">
             <form [formGroup]="goalNameForm">

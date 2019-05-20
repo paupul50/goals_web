@@ -1,24 +1,28 @@
-<div class="isMembersLoaded">
-  <button mat-raised-button [routerLink]="['/goals/group']" color="primary">grupės siekiai</button><br><br>
+<div class="container" *ngIf="isMembersLoaded">
+    <button mat-raised-button [routerLink]="['/goals/group']" color="primary">grupės siekiai</button><br><br>
 
+    <div class="row">
+        <div class="col-md-2">
 
-  <form [formGroup]="newMemberForm">
-    <ng-template>Naudotojo paštas</ng-template>
-    <mat-form-field>
-      <input matInput formControlName="memberUsernameControl" required>
-    </mat-form-field>
-    <div>
-      <button mat-raised-button color="primary" (click)="submit()">Siųsti pakveitimą</button>
+        </div>
+        <div class="col-md-4">
+            <form [formGroup]="newMemberForm">
+                <div>Naudotojo pakvietimas į grupę:</div>
+                <mat-form-field>
+                    <input matInput placeholder="naudotojo slapyvardis" formControlName="memberUsernameControl" required>
+                </mat-form-field>
+                <div>
+                    <button mat-raised-button color="primary" (click)="submit()">Siųsti pakveitimą</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <mat-list role="list">
+                <mat-list-item *ngFor="let member of membersObject" role="listitem">
+                    {{member.username}}. {{member.firstname}} - {{member.lastname}}
+                    <button mat-button (click)="removeGroupMember(member)">Pašalinti</button>
+                </mat-list-item>
+            </mat-list>
+        </div>
     </div>
-  </form>
-
-  <mat-list role="list">
-    <mat-list-item *ngFor="let member of membersObject" role="listitem">
-      {{member.firstName}} - {{member.lastName}}
-      <button mat-button (click)="removeGroupMember(member)">Pašalinti</button>
-    </mat-list-item>
-  </mat-list>
-
-  TODO: GAL PADARYT, KAD RODYTU KAM ISSIUSTA
-
 </div>
