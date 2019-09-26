@@ -1,4 +1,13 @@
 <div *ngIf="isInvitationsLoaded">
+    <br>
+    <div style="font-style: italic;">
+        Lange „Grupės tikslai“ naudotojas gali matyti su grupės tikslais susijusią pagrindinę informaciją. Jeigu naudotojas nėra grupėje jis turi du pasirinkimus: sukurti grupę arba prisijungti prie egzistuojančios.
+    </div>
+    <br>
+    <hr>
+    <h5>Pakvietimai</h5>
+    <br>
+    <div *ngIf="!invitationsObject[0]">Pakvietimų nėra</div>
     <mat-list role="list">
         <mat-list-item *ngFor="let invitation of invitationsObject" role="listitem">
             {{invitation.group.leaderUsername}} kviečia į grupę.

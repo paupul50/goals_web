@@ -2,6 +2,13 @@
     <div class="row">
         <div class="col-sm-10">
             <h5>Šiandienos siekiai</h5>
+            <div *ngIf="!userService.getIsGoogleLogged()" style="font-style: italic;">
+                Paspaudus "Prisijungti" mygtuką jūs būsite peradresuojamas į saugaus prisijungimo aplinką. Šioje aplinkoje reikia prisijungti prie savo Google paskyros.
+            </div>
+
+            <div *ngIf="userService.getIsGoogleLogged()" style="font-style: italic;">
+                Paspaudus "Sinchronizuoti" jūsų duomenys bus atnaujinami.
+            </div>
         </div>
         <div *ngIf="!userService.getIsGoogleLogged()" class="col-sm-2">
             <button mat-raised-button color="primary" (click)="loginWithGoogle()">Prisijungti</button>
@@ -16,7 +23,7 @@
     <h5>Mano siekiai</h5>
     <app-today-goal-table [goalsObject]="goalsObject" [isGroup]="false"></app-today-goal-table>
 </div>
-<div class="container" *ngIf="isGroupGoalsLoaded">
+<div class="container" *ngIf="isGroupGoalsLoaded && groupGoalsObject">
     <h5>Grupės siekiai</h5>
     <app-today-goal-table [goalsObject]="groupGoalsObject" [isGroup]="true"></app-today-goal-table>
 </div>

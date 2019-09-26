@@ -2,7 +2,7 @@
 
     <mat-card>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <mat-card-header>
                     <mat-card-title> Profilis
                     </mat-card-title>
@@ -11,11 +11,12 @@
                 <img *ngIf="doesUserHaveImage()" [src]="getImageUrl()" height="200">
 
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <mat-card-content>
                     <br><br> {{userData.user.username}}
                     <br> {{userData.user.firstname}} {{userData.user.lastname}}
                     <br>
+                    <br><br>
                     <p *ngIf="userData.user.description">
                         {{userData.user.description}}
                     </p>
@@ -31,6 +32,7 @@
             </div>
         </div>
     </mat-card>
+    <br>
 
 
     <app-comments [comments]="userData.userComments"></app-comments>

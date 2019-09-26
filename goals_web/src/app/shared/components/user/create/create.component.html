@@ -1,32 +1,44 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+<div class="container">
     <div class="row">
-        <mat-form-field>
-            <input matInput type="text" placeholder="Vardas" [formControl]="form.controls['firstname']" required>
-        </mat-form-field>
+        <div class="col-md-6">
+            <h5>Registracija</h5>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="container">
+                <div class="row">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Vardas" [formControl]="form.controls['firstname']" required>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Pavardė" [formControl]="form.controls['surname']" required>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field>
+                        <input matInput type="email" placeholder="El. paštas" [formControl]="form.controls['email']" required>
+                        <mat-error *ngIf="!form.controls['email'].valid">Laukas nėra l. prašto formato.</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Slapyvardis" [formControl]="form.controls['username']" required>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Slaptažodis" [formControl]="form.controls['password']" required>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <button mat-raised-button color="primary" type="submit">Saugoti</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <b>Kodėl verta naudotis sistema?</b><br> <br><br>Tikslų sekimo internetinė svetainė bei jos išmaniojo telefono programėlė naudotojui suteikia galimybę sekti jo sukurtus tikslus. Šioje sistemoje naudotojas gali kurti nuo paprasčiausių tikslų,
+            kuriems įvykdyti tereikia paspausti žymimąjį langelį iki tikslų, kurių progresas sekamas pačios sistemos. Progreso sekimui naudotojas gali kurti ir vykdyti treniruotes. Prisijungus prie savo Google paskyros galima sukurti tikslus, kurių progreso
+            duomenys bus imami iš jų išmaniųjų įrenginių. O kad tikslus sekti būtų įdomiau, naudotojas gali prisijungti prie naudotojų grupės, kuriai tikslus kurs ir jų progresą stebės grupės kūrėjas.
+        </div>
     </div>
-    <div class="row">
-        <mat-form-field>
-            <input matInput type="text" placeholder="Pavardė" [formControl]="form.controls['surname']" required>
-        </mat-form-field>
-    </div>
-    <div class="row">
-        <mat-form-field>
-            <input matInput type="email" placeholder="El. paštas" [formControl]="form.controls['email']" required>
-            <mat-error *ngIf="!form.controls['email'].valid">Laukas nėra l. prašto formato.</mat-error>
-        </mat-form-field>
-    </div>
-    <div class="row">
-        <mat-form-field>
-            <input matInput type="text" placeholder="Slapyvardis" [formControl]="form.controls['username']" required>
-        </mat-form-field>
-    </div>
-    <div class="row">
-        <mat-form-field>
-            <input matInput type="password" placeholder="Slaptažodis" [formControl]="form.controls['password']" required>
-        </mat-form-field>
-    </div>
-    <div class="row">
-        <button mat-raised-button color="primary" type="submit">Saugoti</button>
-    </div>
-</form>
+</div>
 <br>

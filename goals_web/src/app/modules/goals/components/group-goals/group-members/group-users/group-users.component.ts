@@ -31,7 +31,7 @@ export class GroupUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.newMemberForm = this._formBuilder.group({
-      memberUsernameControl: ['', Validators.email]
+      memberUsernameControl: ['', Validators.required]
     });
   }
 

@@ -16,7 +16,7 @@ export class ProfileComponent {
   constructor(private _userProfileHttpService: UserProfileHttpService,
     private _activatedRoute: ActivatedRoute,
     private _userService: UserService) {
-      this.initializeProfile();
+    this.initializeProfile();
   }
 
   private initializeProfile(): void {
@@ -39,7 +39,11 @@ export class ProfileComponent {
   }
 
   getImageUrl(): any {
-    return this._userService.BACKURL + this.userData.user.image;
+    if (this.userData.user.image) {
+      return this._userService.BACKURL + this.userData.user.image;
+    } else {
+      return this._userService.BACKURL + 'Resources/public_content/profile/no_image.jpg';
+    }
   }
 
   doesUserHaveImage(): boolean {

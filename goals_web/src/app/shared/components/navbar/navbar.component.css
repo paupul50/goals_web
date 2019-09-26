@@ -16,6 +16,10 @@ mat-progress-bar {
     position: absolute;
 }
 
+.navbar-username {
+    color: white !important;
+}
+
 
 /*
 navbar {

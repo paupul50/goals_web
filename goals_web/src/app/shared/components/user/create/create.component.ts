@@ -21,11 +21,11 @@ export class CreateComponent {
 
   addControls(): void {
     this.form = this.fb.group({
-      'firstname': ['', Validators.required],
-      'surname': ['', Validators.required],
-      'email': ['', Validators.compose([Validators.required, Validators.email])],
+      'firstname': ['Paulius', Validators.required],
+      'surname': ['Puleikis', Validators.required],
+      'email': ['paupul@ktu.lt', Validators.compose([Validators.required, Validators.email])],
       'username': ['', Validators.required],
-      'password': ['', Validators.required]
+      'password': ['kazkas', Validators.required]
     });
   }
   onSubmit(): void {

@@ -1,12 +1,22 @@
 <ng-container *ngIf="isWorkoutLoaded">
-    <button mat-raised-button (click)="this.workoutService.clearRoutePoints()" [routerLink]="['/workout/list']" color="primary">back to list</button>
-    <button mat-fab color="primary" (click)="startWorkoutSession()">start</button>
-    <button mat-fab color="primary" (click)="endWorkoutSession()">end</button>
-
-    <br> {{workoutService.message}}
     <br>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <h5>Treniruotė</h5>
+            <ng-container *ngIf="workoutService.currentSessionPoint==0">
+                <button mat-raised-button (click)="this.workoutService.clearRoutePoints()" [routerLink]="['/workout/list']" color="primary">Atgal</button>
+                <button mat-fab color="primary" (click)="startWorkoutSession()">Pradėti</button>
+            </ng-container>
+            <ng-container *ngIf="workoutService.currentSessionPoint>0">
+                <button mat-fab color="primary" (click)="endWorkoutSession()">Baigti</button>
+            </ng-container>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+
     <ng-container *ngIf="workoutService.currentSessionPoint>0">
-        {{workoutService.currentSessionPoint}}
+        Pasiekti tašką - {{workoutService.currentSessionPoint}}
     </ng-container>
     <br>
 

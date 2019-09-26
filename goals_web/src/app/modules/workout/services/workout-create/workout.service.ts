@@ -27,18 +27,34 @@ export class WorkoutService {
     lng: 23.949231
   };
 
+  centerCoordinatesWorkout: LatLngLiteral = {
+    lat: 54.904053,
+    lng: 23.949231
+  };
+
   infoWindow: any;
   constructor(
     private _router: Router,
     private _workoutSessionHttpService: WorkoutSessionHttpService,
     private _snackbarService: SnackbarService) { }
 
+  focusRoute(): void {
+    if (this.routePoints[0]) {
+      this.centerCoordinatesWorkout.lat = this.routePoints[0].lat;
+      this.centerCoordinatesWorkout.lng = this.routePoints[0].lng;
+    }
 
+  }
   // make circles green when loaded
   loadWorkoutProgress(): void {
     this.routePoints.forEach(routePoint => {
+
       if (routePoint.index < this.currentSessionPoint) {
         routePoint.fillColour = 'green';
+      }
+
+      if (routePoint.index === this.currentSessionPoint) {
+        routePoint.fillColour = 'blue';
       }
     });
   }
@@ -64,6 +80,9 @@ export class WorkoutService {
   changeUserLocation(location: any): void {
     this.userLocation = location;
     this.routePoints.forEach(routePoint => {
+      if (routePoint.index === this.currentSessionPoint) {
+        routePoint.fillColour = 'blue';
+      }
       if (this.arePointsNear(this.userLocation, routePoint, routePoint.radius / 1000)
         && this.currentSessionPoint === routePoint.index) {
         this.updateWorkoutSession(routePoint);
@@ -80,11 +99,14 @@ export class WorkoutService {
           this.destroyInterval();
           this.clearRoutePoints();
           this._router.navigate(['workout']);
-          this._snackbarService.openSnackBar('sesija pabaigta');
+          this._snackbarService.openSnackBar('Sesija pabaigta.');
         } else {
           routePoint.fillColour = 'green';
           this.currentSessionPoint++;
-          this._snackbarService.openSnackBar('taskas iveiktas');
+          if (routePoint.index === this.currentSessionPoint) {
+            routePoint.fillColour = 'blue';
+          }
+          this._snackbarService.openSnackBar('Taškas įveiktas.');
         }
       });
   }

@@ -13,7 +13,7 @@
             <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/dashboard/statistics']">Statistikos</a>
         </div>
         <div class="navbar-nav navbar ml-auto">
-            <ng-container>{{userService.getCurrentUsername()}}</ng-container>
+            <div class="navbar-username">{{userService.getCurrentUsername()}}</div>
             <a *ngIf="userService.getToken()" class="nav-item nav-link" [routerLink]="['/dashboard']">Profilis</a>
             <a *ngIf="!userService.getToken()" class="nav-item nav-link" [routerLink]="['/login']">Prisijungti</a>
             <a *ngIf="!userService.getToken()" class="nav-item nav-link" [routerLink]="['/register']">Registruotis</a>

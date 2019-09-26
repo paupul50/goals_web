@@ -10,9 +10,9 @@ export class HomeComponent {
 
   imageSources = [this._userService.BACKURL + 'Resources/public_content/home_slideshow/image1.jpg',
     this._userService.BACKURL + 'Resources/public_content/home_slideshow/image2.jpg'];
-    imageOne = '';
+    imageOne = this._userService.BACKURL + 'Resources/public_content/home_slideshow/image2.jpg';
     imageTwo = '';
-    imageThree = '';
+    imageThree = this._userService.BACKURL + 'Resources/public_content/home_slideshow/image2.jpg';
 
   constructor(private _userService: UserService) {
   }

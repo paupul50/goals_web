@@ -1,4 +1,4 @@
-<agm-map (mapClick)='imitateLocation($event)' (centerChange)="setCenterCoordinates($event)" [latitude]="54.904053" [longitude]="23.949231" [zoom]="16">
+<agm-map (mapClick)='imitateLocation($event)' (centerChange)="setCenterCoordinates($event)" [latitude]="workoutService.centerCoordinatesWorkout.lat" [longitude]="workoutService.centerCoordinatesWorkout.lng" [zoom]="16">
     <!-- new point -->
     <agm-circle *ngIf="workoutService.newRoutePoint" (radiusChange)="onRadiusChange($event)" (centerChange)="updatePointCoordinates($event)" [latitude]="workoutService.newRoutePoint.lat" [longitude]="workoutService.newRoutePoint.lng" [radius]="workoutService.newRoutePoint.radius"
         [fillColor]="workoutService.newRoutePoint.fillColour" [circleDraggable]="workoutService.newRoutePoint.circleDraggable" [editable]="workoutService.newRoutePoint.editable" [zIndex]="workoutService.newRoutePoint.index">
@@ -11,7 +11,7 @@
     </ng-container>
 
     <!-- lines through points -->
-    <agm-polyline>
+    <agm-polyline [strokeOpacity]="0.5">
         <ng-container *ngFor="let routePoint of workoutService.routePoints; let routeIndex = index">
             <agm-polyline-point [latitude]="routePoint.lat" [longitude]="routePoint.lng">
             </agm-polyline-point>

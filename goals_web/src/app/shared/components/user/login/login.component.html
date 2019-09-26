@@ -1,17 +1,35 @@
 <div class="container">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <div class="row">
-            <mat-form-field>
-                <input matInput type="text" placeholder="Slapyvardis" [formControl]="form.controls['username']" required>
-            </mat-form-field>
+    <div class="row">
+        <div class="col-md-4">
+
         </div>
-        <div class="row">
-            <mat-form-field>
-                <input matInput type="password" placeholder="Slaptažodis" [formControl]="form.controls['password']" required>
-            </mat-form-field>
+        <div class="col-md-4">
+            <h5>Prisijungimas</h5>
+            Jeigu neturite paskyros spauskite <a *ngIf="!userService.getToken()" [routerLink]="['/register']">čia</a><br><br>
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <mat-form-field>
+                        <input matInput type="text" placeholder="Slapyvardis" [formControl]="form.controls['username']" required>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Slaptažodis" [formControl]="form.controls['password']" required>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+
+                    </div>
+                    <div class="col-md-4">
+                        <button mat-raised-button color="primary" type="submit">Prisijungti</button>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <button mat-raised-button color="primary" type="submit">Prisijungti</button>
+        <div class="col-md-4">
+
         </div>
-    </form>
+    </div>
+
 </div>

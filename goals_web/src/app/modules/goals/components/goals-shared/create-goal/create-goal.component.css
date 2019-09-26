@@ -10,11 +10,21 @@ mat-radio-button {
     margin: 5px;
 }
 
-.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle,
-.mat-radio-outer-circle {
+.mat-radio-button.mat-accent.mat-radio-checked /deep/ .mat-radio-outer-circle /deep/,
+.mat-radio-outer-circle /deep/ {
     border-color: blue !important;
 }
 
-.mat-radio-button.mat-accent .mat-radio-inner-circle {
+.mat-radio-button.mat-accent /deep/ .mat-radio-inner-circle /deep/ {
     background-color: blue !important;
+}
+
+.goal-box {
+    max-height: 200px;
+    min-height: 200px;
+}
+
+.workout-box {
+    max-height: 200px;
+    min-height: 200px;
 }

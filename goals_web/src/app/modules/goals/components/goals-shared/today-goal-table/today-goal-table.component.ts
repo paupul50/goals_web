@@ -23,6 +23,7 @@ export class TodayGoalTableComponent implements OnInit {
     this.numberForm = this._formBuilder.group({
       numberControl: ['', [Validators.required]]
     });
+    console.log(this.goalsObject);
   }
 
   isWorkoutEdit(goalType: number): boolean {

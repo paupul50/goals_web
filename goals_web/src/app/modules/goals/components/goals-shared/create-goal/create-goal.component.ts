@@ -2,6 +2,7 @@ import { GoalsHttpService } from '../../../services/goals/goals-http.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SnackbarService } from 'src/app/shared/services/message-snackbar/snackbar.service';
 
 @Component({
   selector: 'app-create-goal',
@@ -20,18 +21,26 @@ export class CreateGoalComponent implements OnInit {
   typeNotValid = true;
 
   constructor(private _formBuilder: FormBuilder, private _goalsHttpService: GoalsHttpService,
-    private _router: Router) {
+    private _router: Router, private _snackbarService: SnackbarService) {
   }
 
   ngOnInit(): void {
     this.goalNameForm = this._formBuilder.group({
-      goalNameControl: ['', Validators.required]
+      goalNameControl: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]]
     });
 
     this.numberForm = this._formBuilder.group({
       numberControl: ['', [Validators.required]]
     });
   }
+
+  isNameValid(): Boolean {
+    if (this.goalNameForm.valid) {
+      return true;
+    }
+    return false;
+  }
+
   setRandomGoalType(): void {
     this.goalType = '201';
   }
@@ -54,7 +63,8 @@ export class CreateGoalComponent implements OnInit {
         return false;
       }
       // jeigu tikslas su skaiciumi
-      if ((this.goalType === '2' || this.goalType === '3' || this.goalType === '102') && this.numberForm.valid === true) {
+      if ((this.goalType === '2' || this.goalType === '3' || this.goalType === '102') && this.numberForm.valid === true
+        && Number(this.numberForm.value.numberControl) > 0) {
         return false;
       }
       // jeigu nieko nereikia tikslui kurti

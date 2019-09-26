@@ -28,20 +28,53 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         if (event instanceof HttpResponse) {
           this._loadingBarService.changeLoadingState(false);
           if (event.status !== 200) {
-            const message = 'Statuso kodas: ' + event.status;
-            this._snackboxService.openSnackBar(message);
+            switch (event.status) {
+              case 201: {
+                this._snackboxService.openSnackBar('Sėkmingai sukurta.');
+                break;
+              }
+              case 204: {
+                // this._snackboxService.openSnackBar('Nėra turinio.');
+                break;
+              }
+              case 400: {
+                this._snackboxService.openSnackBar('Neteisingi duomenys.');
+                break;
+              }
+              case 500: {
+                this._snackboxService.openSnackBar('Bandykite dar kartą.');
+                break;
+              }
+              case 6000: {
+                this._snackboxService.openSnackBar('Treniruotė susieta su tikslu.');
+                break;
+              }
+              default: {
+                const message = 'Statuso kodas: ' + event.status;
+                this._snackboxService.openSnackBar(message);
+                break;
+              }
+            }
           }
         }
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
         this._loadingBarService.changeLoadingState(false);
-        if (error.status === 401) {
-          this._userService.logout();
+        if (error.status) {
+          if (error.status === 401) {
+            this._userService.logout();
+          } else if (400) {
+            this._snackboxService.openSnackBar('Neteisingi duomenys.');
+          } else {
+            const message = 'Klaidos kodas: ' + error.status;
+            this._snackboxService.openSnackBar(message);
+          }
         } else {
-          const message = 'Klaidos kodas: ' + error.status;
+          const message = 'Nepasiekiami duomenys. Pabandykite dar kartą';
           this._snackboxService.openSnackBar(message);
         }
+
         return throwError(error);
       }));
   }

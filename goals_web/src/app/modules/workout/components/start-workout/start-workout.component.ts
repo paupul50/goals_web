@@ -32,7 +32,7 @@ export class StartWorkoutComponent implements OnDestroy {
         this.workoutService.routePoints = workout.workoutWithRoutePoints;
         this.workoutService.isWorkoutSession = true;
         this.workoutService.workoutId = this.id;
-
+        this.workoutService.focusRoute();
         if (this.workoutService.currentSessionPoint > 1) {
           this.workoutService.isSessionStarted = true;
           this.workoutService.loadWorkoutProgress();

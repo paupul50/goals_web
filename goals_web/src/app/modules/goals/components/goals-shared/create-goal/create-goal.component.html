@@ -12,14 +12,14 @@
                     <input matInput placeholder="Siekio pavadinimas" formControlName="goalNameControl" required>
                 </mat-form-field>
                 <div>
-                    <button mat-raised-button color="primary" matStepperNext>sekantis žingsnis</button>
+                    <button mat-raised-button color="primary" [disabled]="!isNameValid()" matStepperNext>sekantis žingsnis</button>
                 </div>
             </form>
         </mat-step>
 
 
         <mat-step>
-            <div class="row">
+            <div class="row goal-box">
                 <div class="col-md-6">
                     <ng-template matStepLabel>Siekio tipas</ng-template>
                     <mat-radio-group (change)="onCategoryChange()" aria-label="Pasirinkite tipą" [(ngModel)]="goalCategory">
@@ -38,12 +38,12 @@
                                 <mat-option value="3">Žingsniai</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <div *ngIf="goalType==='1'">
+                        <div *ngIf="goalType==='1'" class="workout-box">
                             <mat-radio-group aria-label="Pasirinkite treniruotę" [(ngModel)]="workoutId">
                                 <ng-container *ngFor="let workoutObject of workouts; let i=index">
                                     <mat-card>
-                                        Treniruotė {{i+1}} -
-                                        <mat-radio-button value="{{workoutObject.id}}">{{workoutObject.name}} - {{workoutObject.id}}
+                                        {{i+1}}.
+                                        <mat-radio-button value="{{workoutObject.id}}">{{workoutObject.name}}({{workoutObject.id}})
                                         </mat-radio-button>
                                     </mat-card>
                                 </ng-container>
@@ -88,7 +88,6 @@
             <ng-template matStepLabel>Siekio sukūrimas</ng-template>
 
             <div>
-                <button mat-raised-button color="primary" matStepperPrevious>Praeitas žingsnis</button>
                 <button mat-raised-button color="primary" (click)="submit()">Kurti</button>
             </div>
         </mat-step>

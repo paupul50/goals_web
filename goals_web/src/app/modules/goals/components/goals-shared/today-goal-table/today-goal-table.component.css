@@ -21,3 +21,11 @@ td {
 th {
     text-align: center;
 }
+
+.mat-slide-toggle.mat-checked /deep/ .mat-slide-toggle-bar /deep/ {
+    background-color: rgb(78, 78, 216) !important;
+}
+
+.mat-slide-toggle.mat-checked /deep/ .mat-slide-toggle-thumb /deep/ {
+    background-color: rgb(49, 49, 155) !important;
+}

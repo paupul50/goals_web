@@ -21,7 +21,7 @@ export class LoginComponent {
   addControls(): void {
     this.form = this.fb.group({
       'username': ['', Validators.compose([Validators.required])],
-      'password': ['', Validators.required]
+      'password': ['kazkas', Validators.required]
     });
   }
   onSubmit(): void {
